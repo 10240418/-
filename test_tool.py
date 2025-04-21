@@ -12,7 +12,7 @@ from matplotlib.font_manager import FontProperties
 plt.rcParams['font.family'] = 'Microsoft YaHei'  # 设置支持中文的字体
 
 # 1. 读取数据，没有表头
-data = pd.read_excel("C:\\Users\\19176\\Desktop\\酒精预测2.xlsx", header=None)
+data = pd.read_excel("C:\\Users\\Stitch\\Desktop\\酒精预测2.xlsx", header=None)
 
 # 2. 提取特征和目标变量
 X = data.values  # 所有数据作为特征（没有表头，因此直接使用 .values）

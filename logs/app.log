@@ -131,3 +131,202 @@
 2025-04-22 01:18:30,915 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
 2025-04-22 01:18:30,932 - baijiu_app - INFO - 已加载 3 条用户记录
 2025-04-22 01:18:30,933 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:35:14,238 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:35:14,239 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:35:14,239 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:35:14,239 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:35:14,239 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:35:14,351 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:35:14,351 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:35:15,584 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:35:15,584 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:35:15,699 - db_manager - INFO - 获取用户信息成功: 用户ID: 1
+2025-04-22 01:35:15,922 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:35:15,958 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:35:15,958 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:35:18,492 - baijiu_app - INFO - 已选择用户ID: 1
+2025-04-22 01:35:21,522 - baijiu_app - INFO - 已选择用户ID: 1
+2025-04-22 01:35:21,679 - baijiu_app - INFO - 已选择用户ID: 1
+2025-04-22 01:35:21,807 - baijiu_app - INFO - 已选择用户ID: 1
+2025-04-22 01:35:21,973 - baijiu_app - INFO - 已选择用户ID: 1
+2025-04-22 01:35:25,080 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:35:25,111 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:35:26,165 - baijiu_app - INFO - 已选择用户ID: 2
+2025-04-22 01:35:27,387 - baijiu_app - INFO - 已选择用户ID: 3
+2025-04-22 01:35:27,619 - baijiu_app - INFO - 已选择用户ID: 3
+2025-04-22 01:35:27,769 - baijiu_app - INFO - 已选择用户ID: 3
+2025-04-22 01:35:27,920 - baijiu_app - INFO - 已选择用户ID: 3
+2025-04-22 01:44:09,982 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:44:09,983 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:44:09,983 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:44:09,983 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:44:09,983 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:44:10,089 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:44:10,089 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:44:12,117 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:44:12,117 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:44:12,341 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:44:12,359 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:44:12,359 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:50:05,506 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:50:05,507 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:50:05,507 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:50:05,507 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:50:05,507 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:50:05,614 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:50:05,614 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:50:07,124 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:50:07,124 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:50:07,362 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:50:07,379 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:50:07,379 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:50:08,666 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:50:08,666 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 01:50:13,503 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:50:13,504 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:50:13,504 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:50:13,504 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:50:13,504 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:50:13,614 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:50:13,614 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:50:31,165 - db_manager - INFO - 添加用户成功: testadd, ID: 4
+2025-04-22 01:50:31,165 - baijiu_app - INFO - 用户 testadd 注册成功
+2025-04-22 01:50:43,642 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:50:43,643 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:50:43,643 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:50:43,643 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:50:43,643 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:50:43,750 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:50:43,750 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:50:45,267 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:50:45,267 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:50:45,489 - db_manager - INFO - 成功获取全部用户信息，共 4 条记录
+2025-04-22 01:50:45,512 - baijiu_app - INFO - 已加载 4 条用户记录
+2025-04-22 01:50:45,512 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:51:01,768 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:51:01,768 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 02:01:06,647 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:01:06,648 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:01:06,648 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:01:06,648 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:01:06,649 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:01:06,805 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:01:06,805 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:01:26,598 - db_manager - INFO - 添加用户成功: 123, ID: 5
+2025-04-22 02:01:26,598 - baijiu_app - INFO - 用户 123 注册成功
+2025-04-22 02:01:26,754 - db_manager - INFO - 用户验证成功: 123
+2025-04-22 02:01:26,754 - baijiu_app - INFO - 新注册用户 123 自动登录成功
+2025-04-22 02:01:27,008 - baijiu_app - INFO - 主应用程序窗口已为用户 123 创建
+2025-04-22 02:01:53,056 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:01:53,056 - baijiu_app - INFO - 用户 123 已关闭应用，数据库连接已关闭
+2025-04-22 02:02:03,758 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:02:03,759 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:02:03,759 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:02:03,760 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:02:03,760 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:02:03,905 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:02:03,905 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:02:04,962 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:02:04,962 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:02:05,260 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:02:05,297 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:02:05,297 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:02:07,164 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:02:07,164 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 02:05:16,700 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:05:16,701 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:05:16,702 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:05:16,702 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:05:16,702 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:05:16,845 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:05:16,845 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:05:18,039 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:05:18,039 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:05:18,348 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:05:18,384 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:05:18,384 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:05:21,358 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 02:05:32,517 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:05:32,517 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:05:32,776 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:05:32,814 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:05:32,814 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:09:12,034 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 02:09:13,784 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 02:09:13,804 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 02:20:26,554 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:20:26,555 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:20:26,555 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:20:26,555 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:20:26,555 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:20:26,709 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:20:26,709 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:20:28,756 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:20:28,756 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:20:29,062 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:20:29,097 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:20:29,097 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:21:28,503 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 02:21:38,777 - baijiu_app - ERROR - 分析过程中出错: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+2025-04-22 02:21:49,514 - baijiu_app - ERROR - 分析过程中出错: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+2025-04-22 02:21:58,710 - baijiu_app - ERROR - 分析过程中出错: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+2025-04-22 02:26:41,985 - baijiu_app - ERROR - 分析过程中出错: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+2025-04-22 02:27:16,698 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:27:16,699 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:27:16,699 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:27:16,700 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:27:16,700 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:27:16,897 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:27:16,897 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:27:18,624 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:27:18,624 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:27:19,940 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:27:19,974 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:27:19,974 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:27:29,641 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 02:27:30,352 - baijiu_app - ERROR - 分析过程中出错: Missing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+2025-04-22 02:31:32,548 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 02:31:38,657 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:31:38,658 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:31:38,658 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:31:38,659 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:31:38,659 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:31:38,817 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:31:38,818 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:31:40,158 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:31:40,158 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:31:40,455 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:31:40,494 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:31:40,494 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:31:50,331 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 02:31:51,261 - baijiu_app - ERROR - 分析过程中出错: 读取文件失败: No module named 'openpyxl'
+2025-04-22 02:31:56,022 - baijiu_app - ERROR - 分析过程中出错: 读取文件失败: No module named 'openpyxl'
+2025-04-22 02:34:35,898 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:34:35,899 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:34:35,899 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:34:35,899 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:34:35,899 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:34:36,089 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:34:36,089 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:34:37,186 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:34:37,186 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:34:37,499 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:34:37,549 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:34:37,549 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:34:48,532 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 02:34:50,335 - baijiu_app - ERROR - 分析过程中出错: No module named 'sklearn'
+2025-04-22 02:37:42,566 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:37:42,567 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:37:42,567 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:37:42,567 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:37:42,567 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:37:42,722 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:37:42,722 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:37:44,180 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:37:44,180 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:37:44,478 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:37:44,513 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:37:44,513 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:37:53,830 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 02:37:56,853 - baijiu_app - ERROR - 分析过程中出错: Cannot use mean strategy with non-numeric data:
+could not convert string to float: 'C1'
