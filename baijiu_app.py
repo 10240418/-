@@ -39,7 +39,7 @@ class LoginWindow(ctk.CTk):
         
         # 配置窗口
         self.title("白酒品质检测系统 - 登录")
-        self.geometry("400x500")
+        self.geometry("400x550")  # 稍微增加窗口高度以容纳注册按钮
         self.resizable(False, False)
         
         # 初始化数据库管理器
@@ -81,6 +81,7 @@ class LoginWindow(ctk.CTk):
         self.username_label.pack(pady=(10, 0), padx=10, anchor="w")
         
         self.username_entry = ctk.CTkEntry(self.login_frame, width=220, placeholder_text="请输入用户名")
+        self.username_entry.insert(0, "admin")  # 默认设置用户名为admin
         self.username_entry.pack(pady=(5, 10), padx=10)
         
         # 密码输入
@@ -88,6 +89,7 @@ class LoginWindow(ctk.CTk):
         self.password_label.pack(pady=(10, 0), padx=10, anchor="w")
         
         self.password_entry = ctk.CTkEntry(self.login_frame, width=220, placeholder_text="请输入密码", show="*")
+        self.password_entry.insert(0, "admin123")  # 默认设置密码为admin123
         self.password_entry.pack(pady=(5, 15), padx=10)
         
         # 登录按钮
@@ -99,6 +101,20 @@ class LoginWindow(ctk.CTk):
             command=self.login
         )
         self.login_button.pack(pady=(10, 10), padx=10)
+        
+        # 注册按钮
+        self.register_button = ctk.CTkButton(
+            self.login_frame, 
+            text="注册新用户", 
+            width=220, 
+            height=32,
+            fg_color="transparent",  # 透明背景
+            text_color=("gray10", "#DCE4EE"),  # 适应深色/浅色模式
+            border_width=2,  # 添加边框
+            hover_color=("gray70", "gray30"),  # 悬停颜色
+            command=self.open_register_window
+        )
+        self.register_button.pack(pady=(5, 10), padx=10)
         
         # 版权信息
         self.copyright_label = ctk.CTkLabel(
@@ -133,6 +149,11 @@ class LoginWindow(ctk.CTk):
         except Exception as e:
             logger.error(f"登录过程中出错: {str(e)}")
             self.show_error("登录错误", f"登录过程中出错: {str(e)}")
+    
+    def open_register_window(self):
+        """打开注册窗口"""
+        register_window = RegisterWindow(self, self.db_manager)
+        register_window.grab_set()  # 设置为模态窗口
     
     def show_error(self, title, message):
         """显示错误对话框"""
@@ -266,6 +287,17 @@ class MainApplication(ctk.CTk):
         )
         self.history_button.pack(pady=10, padx=10)
         
+        # 只有管理员可以看到用户管理按钮
+        if self.role == "admin":
+            # 导航按钮 - 用户管理
+            self.user_mgmt_button = ctk.CTkButton(
+                self.navigation_frame, 
+                text="用户管理", 
+                width=180,
+                command=lambda: self.show_frame("user_management")
+            )
+            self.user_mgmt_button.pack(pady=10, padx=10)
+        
         # 导航按钮 - 设置
         self.settings_button = ctk.CTkButton(
             self.navigation_frame, 
@@ -307,6 +339,10 @@ class MainApplication(ctk.CTk):
         
         # 设置页面
         self.frames["settings"] = SettingsFrame(self.main_frame, self.user_id, self.db_manager, self.apply_settings)
+        
+        # 用户管理页面（仅管理员可见）
+        if self.role == "admin":
+            self.frames["user_management"] = UserManagementFrame(self.main_frame, self.user_id, self.db_manager)
         
         # 默认显示个人信息页面
         self.show_frame("user_info")
@@ -1820,6 +1856,386 @@ class SettingsFrame(ctk.CTkFrame):
             text="确定", 
             width=100,
             command=info_window.destroy
+        )
+        ok_button.pack(pady=(10, 20))
+
+
+class UserManagementFrame(ctk.CTkFrame):
+    """用户管理界面"""
+    
+    def __init__(self, parent, user_id, db_manager):
+        super().__init__(parent, corner_radius=0)
+        
+        self.user_id = user_id
+        self.db_manager = db_manager
+        self.user_list = []
+        
+        # 创建UI组件
+        self.create_widgets()
+        
+        # 初始加载用户数据
+        self.refresh_users()
+    
+    def create_widgets(self):
+        """创建用户管理界面组件"""
+        
+        # 页面标题
+        self.title_label = ctk.CTkLabel(
+            self, 
+            text="用户管理", 
+            font=ctk.CTkFont(size=24, weight="bold")
+        )
+        self.title_label.pack(pady=(30, 20), padx=30, anchor="w")
+        
+        # 按钮容器
+        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame.pack(fill="x", padx=30, pady=(0, 10))
+        
+        # 刷新按钮
+        self.refresh_button = ctk.CTkButton(
+            self.button_frame, 
+            text="刷新用户列表", 
+            width=150,
+            command=self.refresh_users
+        )
+        self.refresh_button.pack(side="left", padx=10, pady=10)
+        
+        # 注意提示
+        self.note_label = ctk.CTkLabel(
+            self.button_frame, 
+            text="注意：此页面仅供调试使用，显示用户敏感信息",
+            text_color="red"
+        )
+        self.note_label.pack(side="right", padx=10, pady=10)
+        
+        # 创建表格容器
+        self.table_frame = ctk.CTkFrame(self)
+        self.table_frame.pack(fill="both", expand=True, padx=30, pady=(0, 30))
+        
+        # 创建表头
+        self.create_table_header()
+        
+        # 创建表格内容滚动区域
+        self.table_scroll = ctk.CTkScrollableFrame(self.table_frame)
+        self.table_scroll.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+        
+        # 用于存放表格内容的框架
+        self.table_content_frame = ctk.CTkFrame(self.table_scroll, fg_color="transparent")
+        self.table_content_frame.pack(fill="both", expand=True)
+    
+    def create_table_header(self):
+        """创建表格表头"""
+        # 表头容器
+        header_frame = ctk.CTkFrame(self.table_frame, height=40)
+        header_frame.pack(fill="x", padx=10, pady=(10, 0))
+        
+        # 保证表头高度固定
+        header_frame.pack_propagate(False)
+        
+        # 列标题
+        columns = ["ID", "用户名", "密码", "邮箱", "角色", "创建时间", "最后登录"]
+        column_widths = [50, 120, 120, 150, 80, 180, 180]
+        
+        for i, (col, width) in enumerate(zip(columns, column_widths)):
+            header_label = ctk.CTkLabel(
+                header_frame, 
+                text=col,
+                font=ctk.CTkFont(weight="bold"),
+                width=width
+            )
+            header_label.grid(row=0, column=i, padx=5, pady=5, sticky="w")
+        
+        # 配置网格
+        for i in range(len(columns)):
+            header_frame.grid_columnconfigure(i, weight=1)
+    
+    def refresh_users(self):
+        """刷新用户列表"""
+        try:
+            # 清除旧记录
+            for widget in self.table_content_frame.winfo_children():
+                widget.destroy()
+            
+            # 获取用户列表
+            self.user_list = self.db_manager.get_all_users()
+            
+            if not self.user_list:
+                # 显示无记录提示
+                no_data_label = ctk.CTkLabel(
+                    self.table_content_frame, 
+                    text="暂无用户记录",
+                    font=ctk.CTkFont(size=14)
+                )
+                no_data_label.pack(pady=50)
+                return
+            
+            # 显示用户记录
+            for i, user in enumerate(self.user_list):
+                # 创建记录行
+                row_frame = ctk.CTkFrame(self.table_content_frame)
+                row_frame.pack(fill="x", pady=2)
+                
+                # 设置行背景颜色（奇偶行不同颜色）
+                if i % 2 == 0:
+                    row_frame.configure(fg_color=("gray90", "gray20"))
+                
+                # 字段列表
+                fields = ["id", "username", "password", "email", "role", "created_at", "last_login"]
+                widths = [50, 120, 120, 150, 80, 180, 180]
+                
+                # 显示各个字段
+                for j, (field, width) in enumerate(zip(fields, widths)):
+                    value = user.get(field, "")
+                    if value is None:
+                        value = ""
+                    
+                    # 为密码字段添加特殊样式
+                    text_color = "red" if field == "password" else None
+                    
+                    field_label = ctk.CTkLabel(
+                        row_frame, 
+                        text=str(value),
+                        width=width,
+                        text_color=text_color
+                    )
+                    field_label.grid(row=0, column=j, padx=5, pady=5, sticky="w")
+                
+                # 配置网格
+                for j in range(len(fields)):
+                    row_frame.grid_columnconfigure(j, weight=1)
+            
+            logger.info(f"已加载 {len(self.user_list)} 条用户记录")
+            
+        except Exception as e:
+            logger.error(f"加载用户记录时出错: {str(e)}")
+            self.show_error("加载错误", f"无法加载用户记录: {str(e)}")
+    
+    def show_error(self, title, message):
+        """显示错误对话框"""
+        error_window = ctk.CTkToplevel(self)
+        error_window.title(title)
+        error_window.geometry("300x200")
+        error_window.resizable(False, False)
+        error_window.transient(self)
+        error_window.grab_set()
+        
+        # 错误图标和消息
+        error_label = ctk.CTkLabel(
+            error_window, 
+            text="错误", 
+            font=ctk.CTkFont(size=18, weight="bold"),
+            text_color="red"
+        )
+        error_label.pack(pady=(20, 10))
+        
+        message_label = ctk.CTkLabel(
+            error_window, 
+            text=message,
+            wraplength=250
+        )
+        message_label.pack(pady=10, padx=20)
+        
+        # 确定按钮
+        ok_button = ctk.CTkButton(
+            error_window, 
+            text="确定", 
+            width=100,
+            command=error_window.destroy
+        )
+        ok_button.pack(pady=(10, 20))
+
+
+class RegisterWindow(ctk.CTkToplevel):
+    """注册窗口类"""
+    
+    def __init__(self, parent, db_manager):
+        super().__init__(parent)
+        
+        self.parent = parent
+        self.db_manager = db_manager
+        
+        # 配置窗口
+        self.title("白酒品质检测系统 - 用户注册")
+        self.geometry("400x500")
+        self.resizable(False, False)
+        
+        # 创建UI组件
+        self.create_widgets()
+    
+    def create_widgets(self):
+        """创建注册窗口UI组件"""
+        
+        # 标题标签
+        self.title_label = ctk.CTkLabel(
+            self, 
+            text="用户注册", 
+            font=ctk.CTkFont(size=24, weight="bold")
+        )
+        self.title_label.pack(pady=(30, 20))
+        
+        # 创建注册框架
+        self.register_frame = ctk.CTkFrame(self, width=300, height=300)
+        self.register_frame.pack(pady=20, padx=40, fill="both", expand=True)
+        
+        # 用户名输入
+        self.username_label = ctk.CTkLabel(self.register_frame, text="用户名:")
+        self.username_label.pack(pady=(20, 0), padx=10, anchor="w")
+        
+        self.username_entry = ctk.CTkEntry(self.register_frame, width=220, placeholder_text="请输入用户名")
+        self.username_entry.pack(pady=(5, 10), padx=10)
+        
+        # 密码输入
+        self.password_label = ctk.CTkLabel(self.register_frame, text="密码:")
+        self.password_label.pack(pady=(10, 0), padx=10, anchor="w")
+        
+        self.password_entry = ctk.CTkEntry(self.register_frame, width=220, placeholder_text="请输入密码", show="*")
+        self.password_entry.pack(pady=(5, 10), padx=10)
+        
+        # 确认密码输入
+        self.confirm_password_label = ctk.CTkLabel(self.register_frame, text="确认密码:")
+        self.confirm_password_label.pack(pady=(10, 0), padx=10, anchor="w")
+        
+        self.confirm_password_entry = ctk.CTkEntry(self.register_frame, width=220, placeholder_text="请再次输入密码", show="*")
+        self.confirm_password_entry.pack(pady=(5, 10), padx=10)
+        
+        # 电子邮件输入
+        self.email_label = ctk.CTkLabel(self.register_frame, text="电子邮件 (可选):")
+        self.email_label.pack(pady=(10, 0), padx=10, anchor="w")
+        
+        self.email_entry = ctk.CTkEntry(self.register_frame, width=220, placeholder_text="请输入电子邮件")
+        self.email_entry.pack(pady=(5, 20), padx=10)
+        
+        # 注册按钮
+        self.register_button = ctk.CTkButton(
+            self.register_frame, 
+            text="注册", 
+            width=220, 
+            height=32,
+            command=self.register
+        )
+        self.register_button.pack(pady=(10, 10), padx=10)
+        
+        # 取消按钮
+        self.cancel_button = ctk.CTkButton(
+            self.register_frame, 
+            text="取消", 
+            width=220, 
+            height=32,
+            fg_color="#D35B58",
+            hover_color="#C77C78",
+            command=self.destroy
+        )
+        self.cancel_button.pack(pady=(5, 10), padx=10)
+    
+    def register(self):
+        """处理注册逻辑"""
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        confirm_password = self.confirm_password_entry.get()
+        email = self.email_entry.get()
+        
+        # 验证输入
+        if not username or not password or not confirm_password:
+            self.show_error("注册失败", "用户名和密码不能为空")
+            return
+        
+        if password != confirm_password:
+            self.show_error("注册失败", "两次输入的密码不一致")
+            return
+        
+        if len(password) < 6:
+            self.show_error("注册失败", "密码长度不能少于6个字符")
+            return
+        
+        try:
+            # 检查用户名是否已存在
+            if self.db_manager.check_username_exists(username):
+                self.show_error("注册失败", "该用户名已被使用")
+                return
+            
+            # 添加新用户
+            user_id = self.db_manager.add_user(username, password, email)
+            
+            if user_id:
+                logger.info(f"用户 {username} 注册成功")
+                self.show_success("注册成功", "您已成功注册，现在可以登录系统")
+                self.destroy()
+            else:
+                logger.warning(f"用户 {username} 注册失败")
+                self.show_error("注册失败", "无法创建新用户")
+        except Exception as e:
+            logger.error(f"注册过程中出错: {str(e)}")
+            self.show_error("注册错误", f"注册过程中出错: {str(e)}")
+    
+    def show_error(self, title, message):
+        """显示错误对话框"""
+        error_window = ctk.CTkToplevel(self)
+        error_window.title(title)
+        error_window.geometry("300x200")
+        error_window.resizable(False, False)
+        
+        # 设置为模态窗口
+        error_window.transient(self)
+        error_window.grab_set()
+        
+        # 错误图标和消息
+        error_label = ctk.CTkLabel(
+            error_window, 
+            text="错误", 
+            font=ctk.CTkFont(size=18, weight="bold"),
+            text_color="red"
+        )
+        error_label.pack(pady=(20, 10))
+        
+        message_label = ctk.CTkLabel(
+            error_window, 
+            text=message,
+            wraplength=250
+        )
+        message_label.pack(pady=10, padx=20)
+        
+        # 确定按钮
+        ok_button = ctk.CTkButton(
+            error_window, 
+            text="确定", 
+            width=100,
+            command=error_window.destroy
+        )
+        ok_button.pack(pady=(10, 20))
+    
+    def show_success(self, title, message):
+        """显示成功对话框"""
+        success_window = ctk.CTkToplevel(self)
+        success_window.title(title)
+        success_window.geometry("300x200")
+        success_window.resizable(False, False)
+        
+        # 设置为模态窗口
+        success_window.transient(self)
+        success_window.grab_set()
+        
+        # 成功图标和消息
+        success_label = ctk.CTkLabel(
+            success_window, 
+            text="成功", 
+            font=ctk.CTkFont(size=18, weight="bold"),
+            text_color="green"
+        )
+        success_label.pack(pady=(20, 10))
+        
+        message_label = ctk.CTkLabel(
+            success_window, 
+            text=message,
+            wraplength=250
+        )
+        message_label.pack(pady=10, padx=20)
+        
+        # 确定按钮
+        ok_button = ctk.CTkButton(
+            success_window, 
+            text="确定", 
+            width=100,
+            command=success_window.destroy
         )
         ok_button.pack(pady=(10, 20))
 

@@ -8,3 +8,126 @@
 2025-04-22 00:02:11,113 - db_manager - INFO - 用户验证成功: admin
 2025-04-22 00:02:11,114 - baijiu_app - INFO - 用户 admin 登录成功
 2025-04-22 00:02:12,316 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 00:38:48,300 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 00:38:48,300 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 00:39:20,028 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:39:20,028 - db_manager - INFO - 数据库表创建成功
+2025-04-22 00:39:20,028 - init_db - INFO - 数据库表创建成功
+2025-04-22 00:39:20,029 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 00:39:20,029 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 00:39:20,148 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:39:20,148 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 00:39:31,612 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 00:39:31,612 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 00:39:31,817 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 00:39:41,425 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 00:39:41,425 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 00:51:54,427 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:51:54,428 - db_manager - INFO - 数据库表创建成功
+2025-04-22 00:51:54,428 - init_db - INFO - 数据库表创建成功
+2025-04-22 00:51:54,428 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 00:51:54,428 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 00:51:54,526 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:51:54,526 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 00:52:13,917 - db_manager - INFO - 添加用户成功: test , ID: 3
+2025-04-22 00:52:13,917 - baijiu_app - INFO - 用户 test  注册成功
+2025-04-22 00:52:53,184 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:52:53,185 - db_manager - INFO - 数据库表创建成功
+2025-04-22 00:52:53,185 - init_db - INFO - 数据库表创建成功
+2025-04-22 00:52:53,185 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 00:52:53,185 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 00:52:53,288 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:52:53,288 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 00:53:15,653 - db_manager - WARNING - 用户验证失败: test
+2025-04-22 00:53:15,653 - baijiu_app - WARNING - 用户 test 登录失败：用户名或密码错误
+2025-04-22 00:53:26,010 - db_manager - WARNING - 用户验证失败: test
+2025-04-22 00:53:26,010 - baijiu_app - WARNING - 用户 test 登录失败：用户名或密码错误
+2025-04-22 00:59:51,622 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:59:51,623 - db_manager - INFO - 数据库表创建成功
+2025-04-22 00:59:51,623 - init_db - INFO - 数据库表创建成功
+2025-04-22 00:59:51,623 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 00:59:51,623 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 00:59:51,725 - db_manager - INFO - 数据库连接成功
+2025-04-22 00:59:51,725 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:00:00,518 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:00:00,518 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:00:00,615 - db_manager - INFO - 获取用户信息成功: 用户ID: 1
+2025-04-22 01:00:00,794 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:00:21,888 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 01:00:21,888 - baijiu_app - INFO - 用户 1 更新了设置: theme=light, color_theme=green
+2025-04-22 01:00:33,122 - baijiu_app - ERROR - 应用设置时出错: [Errno 2] No such file or directory: 'D:\\Program Files\\Python\\Lib\\site-packages\\customtkinter\\assets\\themes\\sweetkind.json'
+2025-04-22 01:00:36,595 - baijiu_app - ERROR - 应用设置时出错: [Errno 2] No such file or directory: 'D:\\Program Files\\Python\\Lib\\site-packages\\customtkinter\\assets\\themes\\sweetkind.json'
+2025-04-22 01:00:39,880 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 01:00:39,881 - baijiu_app - INFO - 用户 1 更新了设置: theme=light, color_theme=green
+2025-04-22 01:00:44,020 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 01:00:44,020 - baijiu_app - INFO - 用户 1 更新了设置: theme=light, color_theme=dark-blue
+2025-04-22 01:00:47,204 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 01:00:47,204 - baijiu_app - INFO - 用户 1 更新了设置: theme=dark, color_theme=dark-blue
+2025-04-22 01:00:51,654 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 01:00:51,654 - baijiu_app - INFO - 用户 1 更新了设置: theme=system, color_theme=dark-blue
+2025-04-22 01:00:54,763 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 01:00:54,764 - baijiu_app - INFO - 用户 1 更新了设置: theme=light, color_theme=dark-blue
+2025-04-22 01:01:03,941 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:01:03,941 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 01:06:38,436 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:06:38,437 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:06:38,437 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:06:38,438 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:06:38,438 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:06:38,552 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:06:38,552 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:07:10,478 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:07:10,478 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:07:10,628 - db_manager - INFO - 获取用户信息成功: 用户ID: 1
+2025-04-22 01:07:10,918 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:07:10,941 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:07:10,941 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:07:40,291 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:07:40,291 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 01:08:19,943 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:08:19,944 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:08:19,944 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:08:19,944 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:08:19,944 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:08:20,055 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:08:20,055 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:08:29,183 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:08:29,183 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:08:29,383 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:08:35,103 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:08:35,103 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 01:11:40,108 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:11:40,109 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:11:40,109 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:11:40,109 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:11:40,109 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:11:40,236 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:11:40,236 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:11:48,590 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:11:48,590 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:11:48,807 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:11:48,824 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:11:48,824 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 01:11:53,766 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:11:53,785 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:13:09,451 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:13:09,451 - baijiu_app - INFO - 用户 admin 已关闭应用，数据库连接已关闭
+2025-04-22 01:14:16,731 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:14:16,731 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:14:16,731 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:14:16,732 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:14:16,732 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:14:16,835 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:14:16,835 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:18:29,332 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:18:29,333 - db_manager - INFO - 数据库表创建成功
+2025-04-22 01:18:29,333 - init_db - INFO - 数据库表创建成功
+2025-04-22 01:18:29,333 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 01:18:29,333 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 01:18:29,438 - db_manager - INFO - 数据库连接成功
+2025-04-22 01:18:29,438 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 01:18:30,695 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 01:18:30,695 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 01:18:30,915 - db_manager - INFO - 成功获取全部用户信息，共 3 条记录
+2025-04-22 01:18:30,932 - baijiu_app - INFO - 已加载 3 条用户记录
+2025-04-22 01:18:30,933 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建

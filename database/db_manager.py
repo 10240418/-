@@ -138,6 +138,25 @@ class DatabaseManager:
             logger.error(f"添加用户失败: {str(e)}")
             raise
     
+    def check_username_exists(self, username):
+        """检查用户名是否已存在
+        
+        Args:
+            username: 要检查的用户名
+            
+        Returns:
+            如果用户名存在返回True，否则返回False
+        """
+        try:
+            result = self.execute_query(
+                "SELECT COUNT(*) FROM users WHERE username = ?",
+                (username,)
+            )
+            return result[0][0] > 0
+        except Exception as e:
+            logger.error(f"检查用户名时出错: {str(e)}")
+            return False
+    
     def verify_user(self, username, password):
         """验证用户登录
         
@@ -272,4 +291,101 @@ class DatabaseManager:
             return True
         except Exception as e:
             logger.error(f"更新用户设置失败: {str(e)}")
-            return False 
+            return False
+    
+    def get_user_by_id(self, user_id):
+        """根据用户ID获取用户完整信息
+        
+        Args:
+            user_id: 用户ID
+            
+        Returns:
+            用户信息字典，如果用户不存在则返回None
+        """
+        try:
+            result = self.execute_query(
+                "SELECT id, username, email, role, created_at, last_login FROM users WHERE id = ?",
+                (user_id,)
+            )
+            
+            if result:
+                user_data = {
+                    "id": result[0][0],
+                    "username": result[0][1],
+                    "email": result[0][2],
+                    "role": result[0][3],
+                    "created_at": result[0][4],
+                    "last_login": result[0][5]
+                }
+                logger.info(f"获取用户信息成功: 用户ID: {user_id}")
+                return user_data
+            else:
+                logger.warning(f"未找到用户: 用户ID: {user_id}")
+                return None
+        except Exception as e:
+            logger.error(f"获取用户信息失败: {str(e)}")
+            return None
+    
+    def update_user(self, user_id, email=None):
+        """更新用户信息
+        
+        Args:
+            user_id: 用户ID
+            email: 用户电子邮件(可选)
+            
+        Returns:
+            更新是否成功
+        """
+        try:
+            fields_to_update = []
+            params = []
+            
+            if email is not None:
+                fields_to_update.append("email = ?")
+                params.append(email)
+            
+            if not fields_to_update:
+                return True  # 没有需要更新的字段
+            
+            # 添加用户ID作为WHERE条件的参数
+            params.append(user_id)
+            
+            # 构建UPDATE语句
+            update_query = f"UPDATE users SET {', '.join(fields_to_update)} WHERE id = ?"
+            
+            self.execute_query(update_query, params)
+            logger.info(f"更新用户信息成功: 用户ID: {user_id}")
+            return True
+        except Exception as e:
+            logger.error(f"更新用户信息失败: {str(e)}")
+            return False
+    
+    def get_all_users(self):
+        """获取所有用户信息
+        
+        Returns:
+            所有用户信息的列表，每个用户为一个字典
+        """
+        try:
+            result = self.execute_query(
+                "SELECT id, username, password, email, role, created_at, last_login FROM users ORDER BY id"
+            )
+            
+            users = []
+            for row in result:
+                user_data = {
+                    "id": row[0],
+                    "username": row[1],
+                    "password": row[2],
+                    "email": row[3],
+                    "role": row[4],
+                    "created_at": row[5],
+                    "last_login": row[6]
+                }
+                users.append(user_data)
+                
+            logger.info(f"成功获取全部用户信息，共 {len(users)} 条记录")
+            return users
+        except Exception as e:
+            logger.error(f"获取全部用户信息失败: {str(e)}")
+            return [] 
