@@ -2135,3 +2135,29 @@ RuntimeError: a Tensor with 3 elements cannot be converted to Scalar
 RuntimeError: a Tensor with 3 elements cannot be converted to Scalar
 
 2025-04-23 01:20:30,064 - baijiu_app - ERROR - 分析过程中出错: a Tensor with 3 elements cannot be converted to Scalar
+2025-04-23 01:58:39,837 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-23 01:58:39,846 - db_manager - INFO - 数据库连接成功
+2025-04-23 01:58:39,847 - db_manager - INFO - 数据库连接已关闭
+2025-04-23 01:58:39,995 - db_manager - INFO - 数据库连接成功
+2025-04-23 01:58:39,995 - baijiu_app - INFO - 数据库连接成功
+2025-04-23 01:58:41,586 - db_manager - INFO - 用户验证成功: admin
+2025-04-23 01:58:41,586 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-23 01:58:42,187 - baijiu_app - INFO - 已加载 62 条历史记录
+2025-04-23 01:58:43,267 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-23 01:58:43,298 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-23 01:58:43,298 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-23 01:58:50,766 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-23 01:58:51,905 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-23 01:58:52,248 - baijiu_app - INFO - 预处理数据...
+2025-04-23 01:58:52,251 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-23 01:58:52,251 - baijiu_app - INFO - 加载分类模型...
+2025-04-23 01:58:52,251 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-23 01:58:52,252 - baijiu_app - INFO - 执行分类预测...
+2025-04-23 01:58:52,260 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.35)
+2025-04-23 01:58:52,261 - db_manager - INFO - 数据库连接成功
+2025-04-23 01:58:52,279 - db_manager - INFO - 添加分析记录成功: ID: 63, 用户ID: 1
+2025-04-23 01:58:52,279 - db_manager - INFO - 数据库连接已关闭
+2025-04-23 01:58:52,368 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-23 01:58:57,078 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-23 01:58:58,765 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-23 01:58:58,765 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed

@@ -1,21 +1,11 @@
 @echo off
-echo 正在安装白酒品质检测系统所需的库...
+echo 正在启动白酒品质检测系统依赖安装程序...
 
-REM 创建虚拟环境(可选)
-REM python -m venv venv
-REM call venv\Scripts\activate
+REM 调用Python安装脚本，该脚本提供更完善的检查和错误处理
+python install_dependencies.py
 
-REM 安装所需的库
-echo 安装pandas、numpy和scikit-learn...
-pip install pandas numpy scikit-learn
+echo.
+echo 如果所有依赖安装成功，现在可以运行 start_baijiu_app.bat 启动应用程序。
+echo 如果安装失败，请查看上面的错误信息并解决问题。
 
-echo 安装Excel处理库...
-pip install openpyxl xlrd
-
-echo 安装图形界面和数据库库...
-pip install customtkinter matplotlib joblib
-
-echo 所有库已安装完成!
-echo 现在可以运行 start_baijiu_app.bat 启动应用程序。
-
-pause 
+pause  
