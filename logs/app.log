@@ -330,3 +330,528 @@
 2025-04-22 02:37:53,830 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
 2025-04-22 02:37:56,853 - baijiu_app - ERROR - 分析过程中出错: Cannot use mean strategy with non-numeric data:
 could not convert string to float: 'C1'
+2025-04-22 02:40:43,061 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 02:40:44,232 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 02:40:44,233 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 02:40:49,126 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:40:49,128 - db_manager - INFO - 数据库表创建成功
+2025-04-22 02:40:49,128 - init_db - INFO - 数据库表创建成功
+2025-04-22 02:40:49,128 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 02:40:49,129 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 02:40:49,302 - db_manager - INFO - 数据库连接成功
+2025-04-22 02:40:49,302 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 02:40:50,691 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 02:40:50,692 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 02:40:50,980 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 02:40:51,017 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 02:40:51,017 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 02:41:01,891 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 02:41:04,405 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 02:41:04,424 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 02:41:04,425 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 02:41:04,660 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 02:41:04,726 - baijiu_app - WARNING - 未找到预训练模型，将使用预设值进行演示
+2025-04-22 02:41:04,728 - db_manager - ERROR - 添加分析记录失败: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 29744 and this is thread id 14000.
+2025-04-22 02:41:04,728 - baijiu_app - ERROR - 模型加载或预测过程中出错: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 29744 and this is thread id 14000.
+2025-04-22 02:41:30,118 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 02:41:31,696 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 02:41:31,696 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 03:12:00,588 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:12:00,591 - db_manager - INFO - 数据库表创建成功
+2025-04-22 03:12:00,591 - init_db - INFO - 数据库表创建成功
+2025-04-22 03:12:00,592 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 03:12:00,592 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 03:12:00,772 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:12:00,772 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 03:12:01,838 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 03:12:01,838 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 03:12:02,161 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 03:12:02,201 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 03:12:02,201 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 03:12:12,110 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 03:12:14,790 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 03:12:14,790 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 03:12:14,790 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 03:12:14,992 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 03:12:15,000 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 03:12:15,000 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 03:12:15,000 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 03:12:15,398 - db_manager - ERROR - 添加分析记录失败: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 16860.
+2025-04-22 03:12:15,398 - baijiu_app - ERROR - 模型处理过程中出错: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 16860.
+2025-04-22 03:12:15,486 - db_manager - ERROR - 添加分析记录失败: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 16860.
+2025-04-22 03:12:15,486 - baijiu_app - ERROR - 分析过程中出错: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 16860.
+2025-04-22 03:12:36,413 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 03:12:36,414 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 03:12:36,414 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 03:12:36,618 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 03:12:36,625 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 03:12:36,625 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 03:12:36,626 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 03:12:36,964 - db_manager - ERROR - 添加分析记录失败: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 30012.
+2025-04-22 03:12:36,964 - baijiu_app - ERROR - 模型处理过程中出错: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 30012.
+2025-04-22 03:12:37,050 - db_manager - ERROR - 添加分析记录失败: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 30012.
+2025-04-22 03:12:37,050 - baijiu_app - ERROR - 分析过程中出错: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 30808 and this is thread id 30012.
+2025-04-22 03:14:34,803 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 03:14:34,803 - baijiu_app - INFO - 用户 1 更新了设置: theme=light, color_theme=blue
+2025-04-22 03:14:38,778 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 03:14:38,778 - baijiu_app - INFO - 用户 1 更新了设置: theme=light, color_theme=green
+2025-04-22 03:14:44,982 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 03:14:44,983 - baijiu_app - INFO - 用户 1 更新了设置: theme=dark, color_theme=green
+2025-04-22 03:14:51,726 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 03:14:51,726 - baijiu_app - INFO - 用户 1 更新了设置: theme=light, color_theme=green
+2025-04-22 03:16:31,768 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:16:31,769 - db_manager - INFO - 数据库表创建成功
+2025-04-22 03:16:31,769 - init_db - INFO - 数据库表创建成功
+2025-04-22 03:16:31,769 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 03:16:31,769 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 03:16:31,946 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:16:31,947 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 03:16:33,229 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 03:16:33,230 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 03:16:33,543 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 03:16:33,589 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 03:16:33,589 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 03:16:47,128 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 03:16:49,209 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 03:16:49,209 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 03:16:49,210 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 03:16:49,418 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 03:16:49,425 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 03:16:49,425 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 03:16:49,425 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 03:16:49,790 - baijiu_app - INFO - 掺伪度分析完成
+2025-04-22 03:16:49,810 - db_manager - INFO - 添加分析记录成功: ID: 1, 用户ID: 1
+2025-04-22 03:16:49,810 - baijiu_app - INFO - 成功在主线程中记录分析结果到数据库
+2025-04-22 03:16:50,279 - baijiu_app - ERROR - 更新UI时出错: 'CTkFrame' object has no attribute 'chart_frame'
+2025-04-22 03:17:41,836 - baijiu_app - INFO - 已加载 1 条历史记录
+2025-04-22 03:23:00,435 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:23:00,437 - db_manager - INFO - 数据库表创建成功
+2025-04-22 03:23:00,437 - init_db - INFO - 数据库表创建成功
+2025-04-22 03:23:00,437 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 03:23:00,437 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 03:23:00,599 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:23:00,599 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 03:23:01,770 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 03:23:01,770 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 03:23:02,030 - baijiu_app - INFO - 已加载 1 条历史记录
+2025-04-22 03:23:02,131 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 03:23:02,179 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 03:23:02,179 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 03:23:12,251 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 03:23:14,878 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 03:23:14,879 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 03:23:14,879 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 03:23:15,087 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 03:23:15,093 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 03:23:15,093 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 03:23:15,094 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 03:23:15,452 - baijiu_app - INFO - 掺伪度分析完成
+2025-04-22 03:23:15,471 - db_manager - INFO - 添加分析记录成功: ID: 2, 用户ID: 1
+2025-04-22 03:23:15,471 - baijiu_app - INFO - 成功在主线程中记录分析结果到数据库
+2025-04-22 03:23:15,532 - baijiu_app - ERROR - 绘制图表时出错: 'CTkFrame' object has no attribute 'chart_frame'
+2025-04-22 03:23:15,532 - baijiu_app - ERROR - 更新UI时出错: 'CTkFrame' object has no attribute 'chart_frame'
+2025-04-22 03:30:32,990 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:30:32,991 - db_manager - INFO - 数据库表创建成功
+2025-04-22 03:30:32,992 - init_db - INFO - 数据库表创建成功
+2025-04-22 03:30:32,992 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 03:30:32,992 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 03:30:33,289 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:30:33,290 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 03:30:34,722 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 03:30:34,722 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 03:30:35,364 - baijiu_app - INFO - 已加载 2 条历史记录
+2025-04-22 03:30:35,550 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 03:30:35,621 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 03:30:35,621 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 03:30:48,178 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 03:30:52,496 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 03:30:52,497 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 03:30:52,498 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 03:30:52,965 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 03:30:52,979 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 03:30:52,980 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 03:30:52,980 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 03:30:53,448 - baijiu_app - INFO - 成功创建分析图表
+2025-04-22 03:30:53,795 - baijiu_app - INFO - 图表已保存到 history\analysis_plot_20250422_033053.png
+2025-04-22 03:30:53,796 - baijiu_app - INFO - 掺伪度分析完成
+2025-04-22 03:30:53,816 - db_manager - INFO - 添加分析记录成功: ID: 3, 用户ID: 1
+2025-04-22 03:30:53,816 - baijiu_app - INFO - 成功在主线程中记录分析结果到数据库
+2025-04-22 03:30:55,059 - baijiu_app - ERROR - 绘制图表时出错: main thread is not in main loop
+2025-04-22 03:30:55,073 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 03:35:26,276 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 03:35:37,150 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:35:37,152 - db_manager - INFO - 数据库表创建成功
+2025-04-22 03:35:37,152 - init_db - INFO - 数据库表创建成功
+2025-04-22 03:35:37,153 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 03:35:37,153 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 03:35:37,442 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:35:37,442 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 03:35:39,808 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 03:35:39,808 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 03:35:40,442 - baijiu_app - INFO - 已加载 3 条历史记录
+2025-04-22 03:35:40,678 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 03:35:40,754 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 03:35:40,754 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 03:35:52,535 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 03:35:56,775 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 03:35:56,775 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 03:35:56,776 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 03:35:57,240 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 03:35:57,254 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 03:35:57,254 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 03:35:57,255 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 03:35:57,700 - baijiu_app - INFO - 成功创建分析图表
+2025-04-22 03:35:58,035 - baijiu_app - INFO - 图表已保存到 history\analysis_plot_20250422_033557.png
+2025-04-22 03:35:58,035 - baijiu_app - INFO - 掺伪度分析完成
+2025-04-22 03:35:58,057 - db_manager - INFO - 添加分析记录成功: ID: 4, 用户ID: 1
+2025-04-22 03:35:58,057 - baijiu_app - INFO - 成功在主线程中记录分析结果到数据库
+2025-04-22 03:35:58,190 - baijiu_app - INFO - 在主线程中创建和显示图表
+2025-04-22 03:35:59,274 - baijiu_app - ERROR - 在主线程创建图表时出错: main thread is not in main loop
+2025-04-22 03:35:59,277 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 03:36:18,869 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 03:42:42,312 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:42:42,314 - db_manager - INFO - 数据库表创建成功
+2025-04-22 03:42:42,314 - init_db - INFO - 数据库表创建成功
+2025-04-22 03:42:42,315 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 03:42:42,315 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 03:42:42,602 - db_manager - INFO - 数据库连接成功
+2025-04-22 03:42:42,602 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 03:42:44,110 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 03:42:44,110 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 03:42:44,785 - baijiu_app - INFO - 已加载 4 条历史记录
+2025-04-22 03:42:45,085 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 03:42:45,162 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 03:42:45,162 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 03:42:58,787 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 03:43:03,322 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 03:43:03,323 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 03:43:03,323 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 03:43:03,776 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 03:43:03,794 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 03:43:03,794 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 03:43:03,795 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 03:43:04,249 - baijiu_app - INFO - 成功创建分析图表
+2025-04-22 03:43:04,589 - baijiu_app - INFO - 图表已保存到 history\analysis_plot_20250422_034304.png
+2025-04-22 03:43:04,589 - baijiu_app - INFO - 掺伪度分析完成
+2025-04-22 03:43:04,606 - db_manager - INFO - 添加分析记录成功: ID: 5, 用户ID: 1
+2025-04-22 03:43:04,607 - baijiu_app - INFO - 成功在主线程中记录分析结果到数据库
+2025-04-22 03:43:04,744 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 03:43:07,717 - baijiu_app - ERROR - 显示图表弹窗时出错: main thread is not in main loop
+2025-04-22 11:19:48,651 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 11:19:49,923 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 11:19:49,923 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 11:32:10,363 - db_manager - INFO - 数据库连接成功
+2025-04-22 11:32:10,368 - db_manager - INFO - 数据库表创建成功
+2025-04-22 11:32:10,368 - init_db - INFO - 数据库表创建成功
+2025-04-22 11:32:10,368 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 11:32:10,369 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 11:32:10,513 - db_manager - INFO - 数据库连接成功
+2025-04-22 11:32:10,513 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 11:32:12,004 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 11:32:12,004 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 11:32:12,312 - baijiu_app - INFO - 已加载 5 条历史记录
+2025-04-22 11:32:12,503 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 11:32:12,532 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 11:32:12,532 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 11:32:20,001 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 11:32:22,770 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 11:32:22,770 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 11:32:22,770 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 11:32:22,946 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 11:32:22,953 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 11:32:22,953 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 11:32:22,953 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 11:32:23,158 - baijiu_app - INFO - 成功创建分析图表
+2025-04-22 11:32:23,287 - baijiu_app - INFO - 图表已保存到 history\analysis_plot_20250422_113223.png
+2025-04-22 11:32:23,287 - baijiu_app - INFO - 掺伪度分析完成
+2025-04-22 11:32:23,293 - db_manager - INFO - 添加分析记录成功: ID: 6, 用户ID: 1
+2025-04-22 11:32:23,293 - baijiu_app - INFO - 成功在主线程中记录分析结果到数据库
+2025-04-22 11:32:23,440 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 11:32:24,648 - baijiu_app - ERROR - 显示图表弹窗时出错: main thread is not in main loop
+2025-04-22 11:32:27,395 - baijiu_app - INFO - 分析结果已保存至: history\analysis_result_20250422_113223.txt
+2025-04-22 11:37:21,301 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 11:37:22,719 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 11:37:22,719 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 11:37:35,855 - db_manager - INFO - 数据库连接成功
+2025-04-22 11:37:35,856 - db_manager - INFO - 数据库表创建成功
+2025-04-22 11:37:35,856 - init_db - INFO - 数据库表创建成功
+2025-04-22 11:37:35,856 - init_db - INFO - 用户已存在，跳过添加默认用户
+2025-04-22 11:37:35,856 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 11:37:35,961 - db_manager - INFO - 数据库连接成功
+2025-04-22 11:37:35,961 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 11:37:37,080 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 11:37:37,080 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 11:37:37,292 - baijiu_app - INFO - 已加载 6 条历史记录
+2025-04-22 11:37:37,403 - db_manager - INFO - 成功获取全部用户信息，共 5 条记录
+2025-04-22 11:37:37,432 - baijiu_app - INFO - 已加载 5 条用户记录
+2025-04-22 11:37:37,432 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 11:37:57,797 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 11:38:00,216 - baijiu_app - INFO - 原始数据形状: (175, 502)
+2025-04-22 11:38:00,216 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 11:38:00,216 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 11:38:00,392 - baijiu_app - INFO - 预处理后数据形状: (174, 501)
+2025-04-22 11:38:00,398 - baijiu_app - INFO - 样本数量: 174
+2025-04-22 11:38:00,398 - baijiu_app - INFO - 生成25组浓度标签
+2025-04-22 11:38:00,399 - baijiu_app - INFO - 加载预训练模型
+2025-04-22 11:38:00,569 - baijiu_app - INFO - 成功创建分析图表
+2025-04-22 11:38:00,695 - baijiu_app - INFO - 图表已保存到 history\analysis_plot_20250422_113800.png
+2025-04-22 11:38:00,695 - baijiu_app - INFO - 掺伪度分析完成
+2025-04-22 11:38:00,708 - db_manager - INFO - 添加分析记录成功: ID: 7, 用户ID: 1
+2025-04-22 11:38:00,708 - baijiu_app - INFO - 成功在主线程中记录分析结果到数据库
+2025-04-22 11:38:00,750 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 11:38:01,956 - baijiu_app - ERROR - 显示图表弹窗时出错: main thread is not in main loop
+2025-04-22 11:59:07,104 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 11:59:08,979 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 11:59:08,979 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 11:59:16,987 - db_manager - INFO - 数据库连接成功
+2025-04-22 11:59:16,987 - baijiu_app - ERROR - 检查/初始化数据库时出错: 'DatabaseManager' object has no attribute 'table_exists'
+2025-04-22 12:06:13,593 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:06:13,593 - baijiu_app - ERROR - 检查/初始化数据库时出错: 'DatabaseManager' object has no attribute 'table_exists'
+2025-04-22 12:09:17,087 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:09:17,088 - baijiu_app - ERROR - 检查/初始化数据库时出错: 'DatabaseManager' object has no attribute 'table_exists'
+2025-04-22 12:11:02,554 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:11:02,555 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 12:11:02,697 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:11:02,697 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 12:11:03,836 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 12:11:03,836 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 12:11:04,063 - baijiu_app - INFO - 已加载 7 条历史记录
+2025-04-22 12:11:04,218 - baijiu_app - ERROR - 加载用户列表时出错: 'DatabaseManager' object has no attribute 'get_all_users_except'
+2025-04-22 12:11:04,240 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 12:11:09,435 - baijiu_app - INFO - 已加载 7 条历史记录
+2025-04-22 12:11:13,483 - baijiu_app - INFO - 已加载 7 条历史记录
+2025-04-22 12:11:21,410 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 12:11:23,418 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 12:11:23,418 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 12:11:29,117 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:11:29,118 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 12:11:29,226 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:11:29,226 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 12:11:30,559 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 12:11:30,559 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 12:11:30,780 - baijiu_app - INFO - 已加载 7 条历史记录
+2025-04-22 12:11:30,917 - baijiu_app - ERROR - 加载用户列表时出错: 'DatabaseManager' object has no attribute 'get_all_users_except'
+2025-04-22 12:11:30,933 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 12:11:56,774 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 12:12:30,888 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 12:12:30,888 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 12:44:27,516 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:44:27,517 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 12:44:27,628 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:44:27,629 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 12:44:28,992 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 12:44:28,992 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 12:44:29,218 - baijiu_app - INFO - 已加载 7 条历史记录
+2025-04-22 12:44:29,349 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 12:44:29,380 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 12:44:29,380 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 12:44:34,163 - baijiu_app - INFO - 已加载 7 条历史记录
+2025-04-22 12:44:47,109 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 12:44:49,765 - db_manager - INFO - 添加分析记录成功: ID: 8, 用户ID: 1
+2025-04-22 12:44:49,780 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:45:48,980 - db_manager - INFO - 添加分析记录成功: ID: 9, 用户ID: 1
+2025-04-22 12:45:48,990 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:45:57,025 - db_manager - INFO - 添加分析记录成功: ID: 10, 用户ID: 1
+2025-04-22 12:45:57,036 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:46:00,416 - db_manager - INFO - 添加分析记录成功: ID: 11, 用户ID: 1
+2025-04-22 12:46:00,433 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:46:03,787 - db_manager - INFO - 添加分析记录成功: ID: 12, 用户ID: 1
+2025-04-22 12:46:03,798 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:46:07,766 - db_manager - INFO - 添加分析记录成功: ID: 13, 用户ID: 1
+2025-04-22 12:46:07,776 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:46:11,347 - db_manager - INFO - 添加分析记录成功: ID: 14, 用户ID: 1
+2025-04-22 12:46:11,357 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:46:14,199 - db_manager - INFO - 添加分析记录成功: ID: 15, 用户ID: 1
+2025-04-22 12:46:14,209 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:46:17,840 - db_manager - INFO - 添加分析记录成功: ID: 16, 用户ID: 1
+2025-04-22 12:46:17,850 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:51:55,042 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:51:55,042 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 12:51:55,149 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:51:55,149 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 12:51:56,462 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 12:51:56,462 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 12:51:56,729 - baijiu_app - INFO - 已加载 16 条历史记录
+2025-04-22 12:51:57,031 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 12:51:57,066 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 12:51:57,066 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 12:52:03,844 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 12:52:06,797 - db_manager - INFO - 添加分析记录成功: ID: 17, 用户ID: 1
+2025-04-22 12:52:06,886 - baijiu_app - ERROR - 显示图表时出错: image "pyimage1" doesn't exist
+2025-04-22 12:52:06,891 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:52:11,963 - db_manager - INFO - 添加分析记录成功: ID: 18, 用户ID: 1
+2025-04-22 12:52:12,040 - baijiu_app - ERROR - 显示图表时出错: image "pyimage2" doesn't exist
+2025-04-22 12:52:12,041 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:52:50,781 - db_manager - INFO - 添加分析记录成功: ID: 19, 用户ID: 1
+2025-04-22 12:52:50,857 - baijiu_app - ERROR - 显示图表时出错: image "pyimage3" doesn't exist
+2025-04-22 12:52:50,858 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:52:56,609 - db_manager - INFO - 添加分析记录成功: ID: 20, 用户ID: 1
+2025-04-22 12:52:56,685 - baijiu_app - ERROR - 显示图表时出错: image "pyimage4" doesn't exist
+2025-04-22 12:52:56,686 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 12:57:52,052 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:57:52,052 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 12:57:52,160 - db_manager - INFO - 数据库连接成功
+2025-04-22 12:57:52,160 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 12:57:53,063 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 12:57:53,063 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 12:57:53,352 - baijiu_app - INFO - 已加载 20 条历史记录
+2025-04-22 12:57:53,637 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 12:57:53,668 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 12:57:53,668 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 12:58:01,063 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 12:58:03,880 - db_manager - INFO - 添加分析记录成功: ID: 21, 用户ID: 1
+2025-04-22 12:58:04,070 - baijiu_app - ERROR - 显示图表时出错: image "pyimage1" doesn't exist
+2025-04-22 12:58:04,072 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:03:11,674 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:03:11,675 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:03:11,795 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:03:11,795 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:03:12,789 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:03:12,790 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:03:13,186 - baijiu_app - INFO - 已加载 21 条历史记录
+2025-04-22 13:03:13,543 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:03:13,574 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:03:13,574 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:03:20,672 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:03:23,543 - db_manager - INFO - 添加分析记录成功: ID: 22, 用户ID: 1
+2025-04-22 13:03:23,677 - baijiu_app - ERROR - 显示图表时出错: image "pyimage1" doesn't exist
+2025-04-22 13:03:23,712 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:05:55,195 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:05:55,196 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:05:55,306 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:05:55,306 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:05:57,073 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:05:57,073 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:05:57,356 - baijiu_app - INFO - 已加载 22 条历史记录
+2025-04-22 13:05:57,717 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:05:57,747 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:05:57,747 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:06:05,765 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:06:08,494 - db_manager - INFO - 添加分析记录成功: ID: 23, 用户ID: 1
+2025-04-22 13:06:08,619 - baijiu_app - WARNING - 显示图表尝试 1/3 失败: image "pyimage1" doesn't exist
+2025-04-22 13:06:08,619 - baijiu_app - ERROR - 显示图表时出错: cannot access local variable 'time' where it is not associated with a value
+2025-04-22 13:06:08,797 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:06:11,248 - baijiu_app - INFO - 图表弹窗已显示
+2025-04-22 13:07:05,286 - baijiu_app - INFO - 图表弹窗已显示
+2025-04-22 13:08:38,050 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:08:38,051 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:08:38,154 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:08:38,154 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:08:39,276 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:08:39,276 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:08:39,580 - baijiu_app - INFO - 已加载 23 条历史记录
+2025-04-22 13:08:40,007 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:08:40,039 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:08:40,039 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:08:48,312 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:08:51,277 - db_manager - INFO - 添加分析记录成功: ID: 24, 用户ID: 1
+2025-04-22 13:08:51,365 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:08:51,585 - baijiu_app - WARNING - 加载图表尝试 1/5 失败: image "pyimage1" doesn't exist
+2025-04-22 13:08:51,589 - baijiu_app - ERROR - 延迟加载图表时出错: invalid command name ".!ctkframe3.!analysisframe.!ctkframe2.!ctkframe3.!ctkframe.!ctklabel.!label"
+2025-04-22 13:08:54,686 - baijiu_app - INFO - 图表弹窗已显示
+2025-04-22 13:09:12,870 - db_manager - INFO - 添加分析记录成功: ID: 25, 用户ID: 1
+2025-04-22 13:09:12,973 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:09:13,193 - baijiu_app - WARNING - 加载图表尝试 1/5 失败: image "pyimage3" doesn't exist
+2025-04-22 13:09:13,193 - baijiu_app - ERROR - 延迟加载图表时出错: invalid command name ".!ctkframe3.!analysisframe.!ctkframe2.!ctkframe6.!ctkframe.!ctklabel.!label"
+2025-04-22 13:12:11,080 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:12:11,080 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:12:11,185 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:12:11,185 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:12:12,176 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:12:12,176 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:12:12,493 - baijiu_app - INFO - 已加载 25 条历史记录
+2025-04-22 13:12:12,925 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:12:12,957 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:12:12,957 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:12:20,157 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:12:24,399 - db_manager - INFO - 添加分析记录成功: ID: 26, 用户ID: 1
+2025-04-22 13:12:24,479 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:12:25,103 - baijiu_app - WARNING - 加载图表尝试 1/5 失败: image "pyimage1" doesn't exist
+2025-04-22 13:12:25,107 - baijiu_app - ERROR - 延迟加载图表时出错: invalid command name ".!ctkframe3.!analysisframe.!ctkframe2.!ctkframe3.!ctkframe.!ctklabel.!label"
+2025-04-22 13:12:31,427 - baijiu_app - INFO - 大图弹窗已显示
+2025-04-22 13:16:29,324 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:16:29,325 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:16:29,431 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:16:29,431 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:16:30,348 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:16:30,349 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:16:30,783 - baijiu_app - INFO - 已加载 26 条历史记录
+2025-04-22 13:16:31,294 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:16:31,326 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:16:31,326 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:16:39,687 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:16:44,027 - db_manager - INFO - 添加分析记录成功: ID: 27, 用户ID: 1
+2025-04-22 13:16:44,104 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:16:44,728 - baijiu_app - WARNING - 加载图表尝试 1/5 失败: image "pyimage1" doesn't exist
+2025-04-22 13:16:44,731 - baijiu_app - ERROR - 延迟加载图表时出错: invalid command name ".!ctkframe3.!analysisframe.!ctkframe2.!ctkframe3.!ctkframe.!ctklabel.!label"
+2025-04-22 13:20:59,328 - baijiu_app - INFO - 已加载 27 条历史记录
+2025-04-22 13:21:19,827 - baijiu_app - INFO - 历史记录已导出至: C:/Users/Stitch/Desktop/q1.txt
+2025-04-22 13:21:49,266 - db_manager - INFO - 添加分析记录成功: ID: 28, 用户ID: 1
+2025-04-22 13:21:49,365 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:21:49,986 - baijiu_app - WARNING - 加载图表尝试 1/5 失败: image "pyimage2" doesn't exist
+2025-04-22 13:21:49,986 - baijiu_app - ERROR - 延迟加载图表时出错: invalid command name ".!ctkframe3.!analysisframe.!ctkframe2.!ctkframe6.!ctkframe.!ctklabel.!label"
+2025-04-22 13:21:50,844 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 13:21:52,408 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 13:21:52,408 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 13:24:43,049 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:24:43,050 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:24:43,161 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:24:43,161 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:24:44,288 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:24:44,288 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:24:44,610 - baijiu_app - INFO - 已加载 28 条历史记录
+2025-04-22 13:24:45,032 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:24:45,063 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:24:45,063 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:24:51,437 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:24:55,875 - db_manager - INFO - 添加分析记录成功: ID: 29, 用户ID: 1
+2025-04-22 13:24:55,963 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:24:56,648 - baijiu_app - WARNING - 加载图表尝试 1/5 失败: image "pyimage1" doesn't exist
+2025-04-22 13:24:56,651 - baijiu_app - ERROR - 延迟加载图表时出错: invalid command name ".!ctkframe3.!analysisframe.!ctkframe2.!ctkframe3.!ctkframe.!ctklabel.!label"
+2025-04-22 13:24:58,257 - baijiu_app - INFO - 大图弹窗已显示
+2025-04-22 13:31:49,506 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:31:49,507 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:31:49,613 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:31:49,613 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:31:50,671 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:31:50,671 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:31:51,051 - baijiu_app - INFO - 已加载 29 条历史记录
+2025-04-22 13:31:51,596 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:31:51,627 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:31:51,627 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:31:57,890 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:32:01,892 - db_manager - INFO - 添加分析记录成功: ID: 30, 用户ID: 1
+2025-04-22 13:32:01,964 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:32:02,570 - baijiu_app - WARNING - 加载图表尝试 1/5 失败: image "pyimage1" doesn't exist
+2025-04-22 13:32:02,573 - baijiu_app - ERROR - 延迟加载图表时出错: invalid command name ".!ctkframe3.!analysisframe.!ctkframe2.!ctkframe3.!ctkframe.!ctklabel.!label"
+2025-04-22 13:32:06,075 - baijiu_app - INFO - 大图弹窗已显示
+2025-04-22 13:32:17,907 - baijiu_app - INFO - 大图弹窗已显示
+2025-04-22 13:36:30,707 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:36:30,708 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:36:30,813 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:36:30,813 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:36:32,301 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:36:32,301 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:36:32,725 - baijiu_app - INFO - 已加载 30 条历史记录
+2025-04-22 13:36:33,253 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:36:33,283 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:36:33,283 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:36:39,594 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:36:44,364 - db_manager - INFO - 添加分析记录成功: ID: 31, 用户ID: 1
+2025-04-22 13:36:44,420 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:36:49,875 - baijiu_app - INFO - 大图弹窗已显示
+2025-04-22 13:40:09,156 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:40:09,157 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 13:40:09,267 - db_manager - INFO - 数据库连接成功
+2025-04-22 13:40:09,267 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 13:40:14,531 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 13:40:14,531 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 13:40:14,971 - baijiu_app - INFO - 已加载 31 条历史记录
+2025-04-22 13:40:15,472 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 13:40:15,503 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 13:40:15,503 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 13:40:22,062 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测2.xlsx
+2025-04-22 13:40:26,463 - db_manager - INFO - 添加分析记录成功: ID: 32, 用户ID: 1
+2025-04-22 13:40:26,538 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 13:40:30,888 - baijiu_app - INFO - 大图弹窗已显示
+2025-04-22 16:34:58,700 - db_manager - INFO - 更新用户设置成功: 用户ID: 1

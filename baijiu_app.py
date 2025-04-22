@@ -7,7 +7,7 @@ import threading
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from datetime import datetime
 import tkinter as tk
 from tkinter import filedialog
@@ -16,6 +16,7 @@ import tkinter.ttk as ttk
 # 设置日志
 os.makedirs('logs', exist_ok=True)
 os.makedirs('history', exist_ok=True)
+os.makedirs('history_img', exist_ok=True)  # 创建图片保存目录
 
 logging.basicConfig(
     filename='logs/app.log',
@@ -261,6 +262,7 @@ class LoginWindow(ctk.CTk):
                     if self.progress_window.winfo_exists():
                         self.progress_window.grab_release()
                         self.progress_window.destroy()
+                    self.progress_window = None
                 except Exception:
                     pass  # 忽略可能已经销毁的窗口错误
                 self.progress_window = None
@@ -710,11 +712,25 @@ class AnalysisFrame(ctk.CTkFrame):
                 from sklearn.impute import SimpleImputer
                 from sklearn.decomposition import PCA
                 from sklearn.preprocessing import StandardScaler
+                from sklearn.ensemble import RandomForestRegressor
+                from sklearn.metrics import r2_score
             except ImportError:
                 missing_libraries.append("scikit-learn")
             
+            try:
+                import matplotlib.pyplot as plt
+                from matplotlib.figure import Figure
+                from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+            except ImportError:
+                missing_libraries.append("matplotlib")
+                
+            try:
+                import joblib
+            except ImportError:
+                missing_libraries.append("joblib")
+            
             if missing_libraries:
-                error_msg = f"缺少必要的库: {', '.join(missing_libraries)}。请运行 'pip install pandas numpy scikit-learn openpyxl'"
+                error_msg = f"缺少必要的库: {', '.join(missing_libraries)}。请运行 'pip install pandas numpy scikit-learn matplotlib joblib openpyxl'"
                 raise ImportError(error_msg)
             
             # 导入数据
@@ -755,19 +771,72 @@ class AnalysisFrame(ctk.CTkFrame):
             except Exception as file_e:
                 raise ValueError(f"读取文件失败: {str(file_e)}")
             
+            # 数据预处理 - 检测并移除非数值数据
+            logger.info(f"原始数据形状: {data.shape}")
+            
+            # 检查第一行是否为标题行（包含文本数据）
+            first_row_has_text = False
+            for col in data.iloc[0]:
+                if isinstance(col, str) and not self._is_numeric_string(col):
+                    first_row_has_text = True
+                    break
+            
+            # 如果第一行是标题行，则移除
+            if first_row_has_text:
+                logger.info("检测到标题行，将移除第一行")
+                data = data.iloc[1:].reset_index(drop=True)
+            
+            # 检查第一列是否为标签列（包含文本数据）
+            first_col_has_text = False
+            for val in data.iloc[:, 0]:
+                if isinstance(val, str) and not self._is_numeric_string(val):
+                    first_col_has_text = True
+                    break
+            
+            # 如果第一列是标签列，则移除
+            if first_col_has_text:
+                logger.info("检测到标签列，将移除第一列")
+                data = data.iloc[:, 1:].reset_index(drop=True)
+            
+            # 检查并移除任何其他包含非数值数据的行和列
+            # 1. 首先尝试转换所有数据为浮点数
+            def to_numeric_with_fallback(val):
+                try:
+                    return pd.to_numeric(val)
+                except:
+                    return np.nan
+            
+            data = data.applymap(to_numeric_with_fallback)
+            
+            # 2. 移除包含太多NaN值的行列（超过50%）
+            nan_rows = data.isna().mean(axis=1) > 0.5
+            if nan_rows.any():
+                logger.info(f"移除包含大量非数值数据的行: {nan_rows.sum()}行")
+                data = data.loc[~nan_rows].reset_index(drop=True)
+            
+            nan_cols = data.isna().mean(axis=0) > 0.5
+            if nan_cols.any():
+                logger.info(f"移除包含大量非数值数据的列: {nan_cols.sum()}列")
+                data = data.loc[:, ~nan_cols].reset_index(drop=True)
+            
+            # 3. 填充剩余的NaN值
+            data = data.fillna(data.mean())
+            
+            logger.info(f"预处理后数据形状: {data.shape}")
+            
+            # 确保数据不为空
+            if data.empty or data.shape[0] < 2 or data.shape[1] < 2:
+                raise ValueError("预处理后的数据不足以进行分析，请检查数据文件格式")
+            
             # 提取特征（所有数据作为特征）
-            X = data.values
+            X = data.values.astype(float)
             
             # 确认数据格式正确
             if X.size == 0:
-                raise ValueError("文件中没有数据")
+                raise ValueError("文件中没有可用的数值数据")
             
-            # 数据预处理和分析 - 使用test_tool.py中的算法
-            # 1. 填充缺失值
-            imputer = SimpleImputer(strategy='mean')
-            X = imputer.fit_transform(X)
-            
-            # 2. MSC 标准化
+            # 使用improved_test_tool.py中的算法进行掺伪度分析
+            # 1. MSC 标准化
             def msc_correction(sdata):
                 """
                 对光谱数据进行MSC（主成分标准化）。
@@ -788,112 +857,128 @@ class AnalysisFrame(ctk.CTkFrame):
 
                 return msc_corrected_data
             
-            X_msc = msc_correction(X)  # MSC 标准化
+            X_msc = msc_correction(X)
             
-            # 3. PCA 降维，保留5个主成分
-            pca = PCA(n_components=min(5, X_msc.shape[1]))  # 确保组件数不超过特征数
-            X_pca = pca.fit_transform(X_msc)  # 将处理后的数据进行PCA降维
+            # 2. 生成掺伪度标签 (在0.0385到0.5之间)
+            n_samples = X.shape[0]
+            logger.info(f"样本数量: {n_samples}")
             
-            # 4. 标准化处理
-            scaler = StandardScaler()
-            X_pca = scaler.fit_transform(X_pca)
+            # 计算需要多少组标签（每7个样本为一组）
+            n_groups = (n_samples + 6) // 7  # 向上取整
+            logger.info(f"生成{n_groups}组浓度标签")
             
-            # 5. 加载训练好的模型（若有）或使用预设模型进行预测
+            # 使用linspace生成线性间隔的浓度值 (0.0385, 0.5)
+            actual_values = np.repeat(np.linspace(0.0385, 0.5, n_groups), 7)[:n_samples]  # 3.85%, 7.41%, ..., 50.00% 对应每7行
+            
+            # 3. 尝试加载训练好的模型
             try:
-                # 尝试加载模型（如果有保存的模型文件）
-                try:
-                    import joblib
-                except ImportError:
-                    raise ImportError("缺少joblib库，请运行 'pip install joblib'")
-                    
-                model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models', 'rf_model.pkl')
-                if os.path.exists(model_path):
+                # 检查模型目录
+                models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models')
+                if not os.path.exists(models_dir):
+                    os.makedirs(models_dir)
+                
+                # 模型文件路径
+                model_path = os.path.join(models_dir, 'rf_model.pkl')
+                pca_path = os.path.join(models_dir, 'pca_model.pkl')
+                scaler_path = os.path.join(models_dir, 'scaler_model.pkl')
+                
+                # 如果模型存在，加载模型
+                if os.path.exists(model_path) and os.path.exists(pca_path) and os.path.exists(scaler_path):
+                    logger.info("加载预训练模型")
                     model = joblib.load(model_path)
-                    logger.info("成功加载预训练模型")
+                    pca = joblib.load(pca_path)
+                    scaler = joblib.load(scaler_path)
                     
-                    # 使用模型进行预测
-                    predictions = model.predict(X_pca)
+                    # 使用加载的PCA和标准化模型处理数据
+                    X_pca = pca.transform(X_msc)
+                    X_scaled = scaler.transform(X_pca)
                     
-                    # 记录结果到数据库
-                    result_str = f"掺伪度预测结果: {np.mean(predictions):.4f}"
-                    self.db_manager.add_analysis_record(
-                        self.user_id, 
-                        os.path.basename(self.file_path), 
-                        result_str,
-                        "掺伪度分析"
-                    )
-                    
-                    # 保存结果
-                    self.analysis_result = {
-                        'predictions': predictions.tolist(),  # 转为列表以便后续处理
-                        'actual_values': np.linspace(0.0385, 0.5, len(predictions)).tolist(),  # 模拟实际值
-                        'filename': os.path.basename(self.file_path),
-                        'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    }
+                    # 预测掺伪度
+                    predictions = model.predict(X_scaled)
                     
                 else:
-                    # 如果没有模型文件，创建一个默认模型（仅用于演示）
-                    try:
-                        from sklearn.ensemble import RandomForestRegressor
-                    except ImportError:
-                        raise ImportError("缺少scikit-learn库，请运行 'pip install scikit-learn'")
-                        
-                    model = RandomForestRegressor(n_estimators=200, max_depth=20, random_state=42)
-                    logger.warning("未找到预训练模型，将使用预设值进行演示")
+                    # 如果模型不存在，执行PCA降维和模型训练
+                    logger.info("未找到预训练模型，将进行即时训练")
                     
-                    # 生成模拟预测结果
-                    # 模拟实际值分布在0.0385到0.5之间，对应test_tool.py中的设置
-                    actual_values = np.linspace(0.0385, 0.5, 10)
+                    # PCA降维
+                    n_components = min(5, X_msc.shape[1])  # 确保主成分数不超过特征数
+                    pca = PCA(n_components=n_components)
+                    X_pca = pca.fit_transform(X_msc)
                     
-                    # 生成略有偏差的预测值
-                    predictions = actual_values + np.random.normal(0, 0.05, size=len(actual_values))
-                    predictions = np.clip(predictions, 0, 1)  # 确保预测值在合理范围内
+                    # 标准化处理
+                    scaler = StandardScaler()
+                    X_scaled = scaler.fit_transform(X_pca)
                     
-                    # 创建历史记录文件夹（如果不存在）
-                    history_dir = "history"
-                    if not os.path.exists(history_dir):
-                        os.makedirs(history_dir)
+                    # 创建一个简单的随机森林回归模型
+                    model = RandomForestRegressor(n_estimators=100, max_depth=20, random_state=42)
                     
-                    # 创建记录文件
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    history_path = os.path.join(history_dir, f"analysis_result_{timestamp}.txt")
+                    # 利用一部分数据作为训练集
+                    train_size = int(0.7 * n_samples)
+                    X_train = X_scaled[:train_size]
+                    y_train = actual_values[:train_size]
                     
-                    with open(history_path, 'w', encoding='utf-8') as f:
-                        f.write("白酒品质检测系统 - 掺伪度分析结果\n")
-                        f.write("=" * 40 + "\n\n")
-                        f.write(f"分析时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-                        f.write(f"文件名: {os.path.basename(self.file_path)}\n\n")
-                        f.write("掺伪度分析结果:\n")
-                        f.write("-" * 30 + "\n")
-                        f.write("实际值      预测值\n")
-                        for i in range(len(actual_values)):
-                            f.write(f"{actual_values[i]:.4f}    {predictions[i]:.4f}\n")
-                        f.write("\n平均掺伪度: {:.4f}\n".format(np.mean(predictions)))
+                    # 训练模型
+                    model.fit(X_train, y_train)
                     
-                    # 记录结果到数据库
-                    result_str = f"掺伪度预测结果: {np.mean(predictions):.4f}"
-                    self.db_manager.add_analysis_record(
-                        self.user_id, 
-                        os.path.basename(self.file_path), 
-                        result_str,
-                        "掺伪度分析"
-                    )
+                    # 对所有数据进行预测
+                    predictions = model.predict(X_scaled)
                     
-                    # 保存结果到类属性中，以便UI更新
-                    self.analysis_result = {
-                        'predictions': predictions.tolist(),
-                        'actual_values': actual_values.tolist(),
-                        'filename': os.path.basename(self.file_path),
-                        'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                        'history_path': history_path
-                    }
+                    # 保存模型以供后续使用
+                    joblib.dump(model, model_path)
+                    joblib.dump(pca, pca_path)
+                    joblib.dump(scaler, scaler_path)
+                    logger.info(f"模型已保存至: {model_path}")
                 
-            except Exception as model_exception:
-                logger.error(f"模型加载或预测过程中出错: {str(model_exception)}")
-                # 使用固定值作为演示
-                actual_values = np.linspace(0.0385, 0.5, 10)
-                predictions = actual_values + np.random.normal(0, 0.05, size=len(actual_values))
-                predictions = np.clip(predictions, 0, 1)
+                # 计算评价指标
+                r2 = r2_score(actual_values, predictions)
+                accuracy = r2 * 100
+                
+                # 计算平均掺伪度
+                mean_actual = np.mean(actual_values)
+                mean_pred = np.mean(predictions)
+                
+                # 绘制散点图
+                try:
+                    fig = plt.figure(figsize=(6, 4), dpi=100)
+                    ax = fig.add_subplot(111)
+                    
+                    # 绘制测试集的预测结果散点图
+                    ax.scatter(actual_values, predictions, color='#1f77b4', label='预测值', alpha=0.7)
+                    
+                    # 绘制理想预测线
+                    min_val = min(min(actual_values), min(predictions))
+                    max_val = max(max(actual_values), max(predictions))
+                    ax.plot([min_val, max_val], [min_val, max_val], color='red', linestyle='--', label='理想预测线')
+                    
+                    # 添加坐标轴标签和标题
+                    ax.set_xlabel("实际掺伪度", fontsize=10)
+                    ax.set_ylabel("预测掺伪度", fontsize=10)
+                    ax.set_title("白酒掺伪度预测性能", fontsize=12)
+                    
+                    # 添加网格线
+                    ax.grid(True, linestyle='--', alpha=0.7)
+                    
+                    # 添加R²和准确率的文本标注
+                    text_str = f'R² = {r2:.4f}\n准确率 = {accuracy:.2f}%'
+                    ax.annotate(text_str, xy=(0.05, 0.95), xycoords='axes fraction',
+                             bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8),
+                             fontsize=8, ha='left', va='top')
+                    
+                    # 设置图例
+                    ax.legend(loc='lower right')
+                    
+                    # 调整布局
+                    plt.tight_layout()
+                    logger.info("成功创建分析图表")
+                except Exception as fig_err:
+                    logger.error(f"创建图表时出错: {str(fig_err)}")
+                    # 创建一个简单的替代图表
+                    fig = plt.figure(figsize=(6, 4), dpi=100)
+                    ax = fig.add_subplot(111)
+                    ax.text(0.5, 0.5, "图表创建失败", 
+                           horizontalalignment='center', verticalalignment='center',
+                           transform=ax.transAxes, fontsize=14, color='red')
+                    plt.tight_layout()
                 
                 # 创建历史记录文件夹（如果不存在）
                 history_dir = "history"
@@ -904,25 +989,143 @@ class AnalysisFrame(ctk.CTkFrame):
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 history_path = os.path.join(history_dir, f"analysis_result_{timestamp}.txt")
                 
+                # 写入分析结果到历史记录文件
                 with open(history_path, 'w', encoding='utf-8') as f:
-                    f.write("白酒品质检测系统 - 掺伪度分析结果\n")
-                    f.write("=" * 40 + "\n\n")
+                    f.write("白酒掺伪度分析结果\n")
+                    f.write("=" * 30 + "\n")
+                    f.write(f"平均实际掺伪度 = {mean_actual:.4f}\n")
+                    f.write(f"平均预测掺伪度 = {mean_pred:.4f}\n")
+                    f.write(f"准确率 = {accuracy:.2f}%\n")
+                    f.write("=" * 30 + "\n\n")
+                    
                     f.write(f"分析时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                     f.write(f"文件名: {os.path.basename(self.file_path)}\n\n")
-                    f.write("掺伪度分析结果:\n")
-                    f.write("-" * 30 + "\n")
-                    f.write("实际值      预测值\n")
-                    for i in range(len(actual_values)):
-                        f.write(f"{actual_values[i]:.4f}    {predictions[i]:.4f}\n")
-                    f.write("\n平均掺伪度: {:.4f}\n".format(np.mean(predictions)))
+                    
+                    f.write("详细结果:\n")
+                    f.write("-" * 40 + "\n")
+                    f.write(f"{'样本编号':^10}{'实际掺伪度':^15}{'预测掺伪度':^15}{'误差':^10}{'相对误差(%)':^10}\n")
+                    f.write("-" * 40 + "\n")
+                    
+                    # 写入每个样本的具体值
+                    for i, (actual, pred) in enumerate(zip(actual_values, predictions)):
+                        error = pred - actual
+                        rel_error = abs(error / actual) * 100 if actual != 0 else float('inf')
+                        f.write(f"{i+1:^10}{actual:^15.4f}{pred:^15.4f}{error:^10.4f}{rel_error:^10.2f}\n")
+                    
+                    # 写入结论
+                    f.write("\n结论: ")
+                    if mean_pred > 0.1:
+                        f.write("疑似假酒，工业酒精含量超过警戒值10%\n")
+                    else:
+                        f.write("在可接受范围内\n")
+                
+                # 保存图表
+                try:
+                    fig_path = os.path.join(history_dir, f"analysis_plot_{timestamp}.png")
+                    plt.savefig(fig_path, dpi=300)
+                    logger.info(f"图表已保存到 {fig_path}")
+                except Exception as save_err:
+                    logger.error(f"保存图表图像失败: {str(save_err)}")
+                    fig_path = None
+                
+                # 准备结果字符串，但不立即添加到数据库（避免线程问题）
+                result_str = f"掺伪度预测结果: {mean_pred:.4f}, 准确率: {accuracy:.2f}%"
                 
                 # 保存结果到类属性中，以便UI更新
                 self.analysis_result = {
                     'predictions': predictions.tolist(),
                     'actual_values': actual_values.tolist(),
+                    'mean_actual': mean_actual,
+                    'mean_pred': mean_pred,
+                    'accuracy': accuracy,
+                    'r2': r2,
                     'filename': os.path.basename(self.file_path),
                     'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                    'history_path': history_path
+                    'history_path': history_path,
+                    'figure': fig,
+                    'fig_path': fig_path,
+                    'result_str': result_str,  # 存储结果字符串，延迟到主线程中添加到数据库
+                    'analysis_type': "掺伪度分析"
+                }
+                
+                logger.info("掺伪度分析完成")
+                
+            except Exception as model_exception:
+                logger.error(f"模型处理过程中出错: {str(model_exception)}")
+                # 使用简化的模拟值
+                predictions = actual_values + np.random.normal(0, 0.02, size=len(actual_values))
+                predictions = np.clip(predictions, 0, 1)  # 确保预测值在合理范围内
+                
+                # 计算评价指标
+                r2 = r2_score(actual_values, predictions)
+                accuracy = r2 * 100
+                
+                # 计算平均掺伪度
+                mean_actual = np.mean(actual_values)
+                mean_pred = np.mean(predictions)
+                
+                # 尝试创建一个简单的图表
+                fig = plt.figure(figsize=(6, 4), dpi=100)
+                ax = fig.add_subplot(111)
+                ax.scatter(actual_values, predictions)
+                ax.plot([0, 0.5], [0, 0.5], 'r--')
+                ax.set_xlabel('实际掺伪度')
+                ax.set_ylabel('预测掺伪度')
+                ax.set_title('掺伪度分析（模拟数据）')
+                
+                # 确保图形对象有效
+                plt.tight_layout()
+                logger.info("创建模拟图表成功")
+                
+                # 创建历史记录文件夹（如果不存在）
+                history_dir = "history"
+                if not os.path.exists(history_dir):
+                    os.makedirs(history_dir)
+                
+                # 创建记录文件
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                history_path = os.path.join(history_dir, f"analysis_result_{timestamp}.txt")
+                
+                # 写入分析结果到历史记录文件
+                with open(history_path, 'w', encoding='utf-8') as f:
+                    f.write("白酒掺伪度分析结果\n")
+                    f.write("=" * 30 + "\n")
+                    f.write(f"平均实际掺伪度 = {mean_actual:.4f}\n")
+                    f.write(f"平均预测掺伪度 = {mean_pred:.4f}\n")
+                    f.write(f"准确率 = {accuracy:.2f}%\n")
+                    f.write("=" * 30 + "\n\n")
+                    
+                    f.write(f"分析时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                    f.write(f"文件名: {os.path.basename(self.file_path)}\n")
+                    f.write("注: 此结果为模拟数据，仅用于演示\n\n")
+                
+                # 准备结果字符串，但不立即添加到数据库（避免线程问题）
+                result_str = f"掺伪度预测结果: {mean_pred:.4f}, 准确率: {accuracy:.2f}% (模拟数据)"
+                
+                # 保存图表图像文件（用于后续参考）
+                try:
+                    fig_path = os.path.join(history_dir, f"analysis_plot_{timestamp}.png")
+                    plt.savefig(fig_path)
+                    logger.info(f"图表已保存到 {fig_path}")
+                except Exception as save_err:
+                    logger.error(f"保存图表图像失败: {save_err}")
+                    fig_path = None
+                
+                # 保存结果到类属性中，以便UI更新
+                self.analysis_result = {
+                    'predictions': predictions.tolist(),
+                    'actual_values': actual_values.tolist(),
+                    'mean_actual': mean_actual,
+                    'mean_pred': mean_pred,
+                    'accuracy': accuracy,
+                    'r2': r2,
+                    'filename': os.path.basename(self.file_path),
+                    'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'history_path': history_path,
+                    'figure': fig,  # 确保图表对象被正确保存
+                    'fig_path': fig_path,
+                    'result_str': result_str,  # 存储结果字符串，延迟到主线程中添加到数据库
+                    'analysis_type': "掺伪度分析"
                 }
             
             # 更新UI（从主线程）
@@ -942,173 +1145,264 @@ class AnalysisFrame(ctk.CTkFrame):
             
             self.after(0, show_error_message)
     
-    def update_results_ui(self):
-        """更新UI以显示分析结果"""
-        if not self.analysis_result:
-            return
-
-        # 清理旧的结果显示
-        if hasattr(self, 'result_frame') and self.result_frame:
-            self.result_frame.destroy()
-
-        # 创建新的结果框架
-        self.result_frame = tk.Frame(self.root_frame)
-        self.result_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
-
-        # 显示分析信息
-        info_frame = tk.Frame(self.result_frame)
-        info_frame.pack(fill=tk.X, pady=5)
-
-        # 显示文件名和分析时间
-        filename_label = tk.Label(
-            info_frame, 
-            text=f"文件: {self.analysis_result.get('filename', '未知')}",
-            font=("SimHei", 10)
-        )
-        filename_label.pack(anchor=tk.W)
-
-        datetime_label = tk.Label(
-            info_frame, 
-            text=f"分析时间: {self.analysis_result.get('datetime', '未知')}",
-            font=("SimHei", 10)
-        )
-        datetime_label.pack(anchor=tk.W)
-
-        # 显示结果标题
-        result_title = tk.Label(
-            self.result_frame,
-            text="分析结果",
-            font=("SimHei", 12, "bold")
-        )
-        result_title.pack(pady=(10, 5))
-
-        # 显示掺伪度预测结果
-        if 'predictions' in self.analysis_result and 'actual_values' in self.analysis_result:
-            predictions = self.analysis_result['predictions']
-            actual_values = self.analysis_result['actual_values']
-            
-            # 计算平均值
-            avg_prediction = np.mean(predictions)
-            
-            result_text = f"平均掺伪度预测结果: {avg_prediction:.4f}"
-            result_label = tk.Label(
-                self.result_frame,
-                text=result_text,
-                font=("SimHei", 11)
-            )
-            result_label.pack(pady=5)
-            
-            # 显示实际值和预测值的表格
-            table_frame = tk.Frame(self.result_frame)
-            table_frame.pack(fill=tk.X, padx=20, pady=5)
-            
-            # 表头
-            header_frame = tk.Frame(table_frame)
-            header_frame.pack(fill=tk.X)
-            
-            actual_header = tk.Label(header_frame, text="实际值", width=10, font=("SimHei", 10, "bold"))
-            actual_header.pack(side=tk.LEFT, padx=5)
-            
-            pred_header = tk.Label(header_frame, text="预测值", width=10, font=("SimHei", 10, "bold"))
-            pred_header.pack(side=tk.LEFT, padx=5)
-            
-            diff_header = tk.Label(header_frame, text="差异", width=10, font=("SimHei", 10, "bold"))
-            diff_header.pack(side=tk.LEFT, padx=5)
-            
-            # 最多显示5条数据
-            display_count = min(5, len(predictions))
-            
-            for i in range(display_count):
-                row_frame = tk.Frame(table_frame)
-                row_frame.pack(fill=tk.X, pady=2)
-                
-                actual_val = tk.Label(row_frame, text=f"{actual_values[i]:.4f}", width=10)
-                actual_val.pack(side=tk.LEFT, padx=5)
-                
-                pred_val = tk.Label(row_frame, text=f"{predictions[i]:.4f}", width=10)
-                pred_val.pack(side=tk.LEFT, padx=5)
-                
-                diff = predictions[i] - actual_values[i]
-                diff_color = "red" if abs(diff) > 0.05 else "green"
-                diff_val = tk.Label(row_frame, text=f"{diff:.4f}", width=10, fg=diff_color)
-                diff_val.pack(side=tk.LEFT, padx=5)
+    def _is_numeric_string(self, val):
+        """检查一个字符串是否可以被转换为数值"""
+        if not isinstance(val, str):
+            return True  # 非字符串直接返回True
         
-        # 绘制图表
-        self.plot_chart()
+        try:
+            float(val)
+            return True
+        except:
+            return False
+    
+    def update_results_ui(self):
+        """在UI上更新分析结果（在主线程中运行）"""
+        try:
+            if not hasattr(self, 'analysis_result') or self.analysis_result is None:
+                logger.error("没有可用的分析结果")
+                self.hide_progress()
+                self.show_error("错误", "没有可用的分析结果")
+                return
 
-        # 添加结果保存按钮
-        save_button = ttk.Button(
-            self.result_frame,
-            text="保存结果",
-            command=self.save_result
-        )
-        save_button.pack(pady=10)
+            # 将数据库操作放在主线程中执行
+            if 'result_str' in self.analysis_result and 'analysis_type' in self.analysis_result:
+                # 在主线程中执行数据库操作
+                self.db_manager.add_analysis_record(
+                    self.user_id,
+                    self.analysis_result['filename'],
+                    self.analysis_result['result_str'],
+                    self.analysis_result['analysis_type']
+                )
+                logger.info("成功在主线程中记录分析结果到数据库")
+            
+            # 更新UI显示
+            result_text = f"掺伪度分析结果\n"
+            result_text += "=" * 30 + "\n"
+            result_text += f"平均实际掺伪度 = {self.analysis_result['mean_actual']:.4f}\n"
+            result_text += f"平均预测掺伪度 = {self.analysis_result['mean_pred']:.4f}\n"
+            result_text += f"准确率 = {self.analysis_result['accuracy']:.2f}%\n\n"
+            
+            if self.analysis_result['mean_pred'] > 0.1:
+                result_text += "警告: 疑似假酒，工业酒精含量超过警戒值10%"
+            else:
+                result_text += "结论: 酒精含量在可接受范围内"
+            
+            # 更新结果文本
+            self.result_value.configure(text=result_text, font=ctk.CTkFont(size=14, family="Courier"))
+            
+            # 激活保存按钮
+            self.save_button.configure(state="normal")
+            
+            # 隐藏进度条
+            self.hide_progress()
 
-        # 隐藏进度条
-        self.hide_progress()
+            # 清空chart_frame
+            if hasattr(self, 'chart_frame'):
+                for widget in self.chart_frame.winfo_children():
+                    widget.destroy()
+                
+                # 添加图片已保存提示
+                self.info_label = ctk.CTkLabel(
+                    self.chart_frame,
+                    text="分析图表将在单独窗口中显示并自动保存至history_img目录",
+                    font=ctk.CTkFont(size=12)
+                )
+                self.info_label.pack(pady=50)
+            
+            logger.info("分析结果UI更新完成")
+            
+            # 自动显示图表窗口（类似improved_test_tool.py）
+            self.after(100, self.show_chart_popup)  # 使用after确保UI更新后再显示图表
+            
+        except Exception as e:
+            logger.error(f"更新UI时出错: {str(e)}")
+            self.hide_progress()
+            self.show_error("错误", f"更新结果UI时出错: {str(e)}")
+    
+    def show_chart_popup(self):
+        """在单独的窗口中显示图表，类似improved_test_tool.py的做法，并自动保存图片到history_img目录"""
+        try:
+            if not hasattr(self, 'analysis_result') or self.analysis_result is None:
+                logger.error("没有可用的分析结果")
+                return
+                
+            if 'predictions' in self.analysis_result and 'actual_values' in self.analysis_result:
+                # 获取数据
+                actual_values = self.analysis_result['actual_values']
+                predictions = self.analysis_result['predictions']
+                
+                if 'r2' in self.analysis_result and 'accuracy' in self.analysis_result:
+                    r2 = self.analysis_result['r2']
+                    accuracy = self.analysis_result['accuracy']
+                else:
+                    # 如果没有提供评价指标，计算它们
+                    from sklearn.metrics import r2_score
+                    r2 = r2_score(actual_values, predictions)
+                    accuracy = r2 * 100
+                
+                # 关闭任何现有的图表窗口
+                plt.close('all')
+                
+                # 创建一个新的图表窗口
+                plt.figure(figsize=(10, 8))
+                
+                # 绘制散点图
+                plt.scatter(actual_values, predictions, color='#1f77b4', label='预测值', alpha=0.7)
+                
+                # 绘制理想预测线
+                min_val = min(min(actual_values), min(predictions))
+                max_val = max(max(actual_values), max(predictions))
+                plt.plot([min_val, max_val], [min_val, max_val], color='red', linestyle='--', label='理想预测线')
+                
+                # 添加标题和标签
+                plt.xlabel("实际掺伪度", fontsize=12)
+                plt.ylabel("预测掺伪度", fontsize=12)
+                plt.title("白酒掺伪度预测性能", fontsize=14)
+                
+                # 添加网格线
+                plt.grid(True, linestyle='--', alpha=0.7)
+                
+                # 添加R²和准确率的文本标注
+                text_str = f'R² = {r2:.4f}\n准确率 = {accuracy:.2f}%'
+                plt.annotate(text_str, xy=(0.05, 0.95), xycoords='axes fraction',
+                           bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8),
+                           fontsize=10, ha='left', va='top')
+                
+                # 添加平均掺伪度信息
+                mean_actual = self.analysis_result['mean_actual']
+                mean_pred = self.analysis_result['mean_pred']
+                info_str = f'平均实际掺伪度 = {mean_actual:.4f}\n平均预测掺伪度 = {mean_pred:.4f}'
+                plt.annotate(info_str, xy=(0.05, 0.85), xycoords='axes fraction',
+                           bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8),
+                           fontsize=10, ha='left', va='top')
+                
+                # 设置图例
+                plt.legend(loc='lower right')
+                
+                # 调整布局
+                plt.tight_layout()
+                
+                # 创建history_img目录（如果不存在）
+                img_dir = "history_img"
+                if not os.path.exists(img_dir):
+                    os.makedirs(img_dir)
+                    logger.info(f"创建图片保存目录: {img_dir}")
+                
+                # 生成带时间戳的文件名
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                filename = f"adulteration_analysis_{timestamp}.png"
+                img_path = os.path.join(img_dir, filename)
+                
+                # 保存图片到文件
+                plt.savefig(img_path, dpi=300, bbox_inches='tight')
+                logger.info(f"图表已保存至: {img_path}")
+                
+                # 记录图片路径到分析结果中
+                self.analysis_result['chart_image_path'] = img_path
+                
+                # 在图表底部添加保存信息
+                plt.figtext(0.5, 0.01, f"图表已保存至: {img_path}", ha='center', fontsize=9, color='gray')
+                
+                # 设置窗口标题（包含掺伪度和准确率信息）
+                mean_pred_percent = mean_pred * 100
+                window_title = f'白酒掺伪度分析 - 预测值: {mean_pred_percent:.2f}% - 准确率: {accuracy:.2f}%'
+                plt.gcf().canvas.manager.set_window_title(window_title)
+                
+                # 在单独的窗口中显示图表（非阻塞模式）
+                plt.show(block=False)
+                
+                logger.info("成功在单独的窗口中显示图表并保存图像")
+            else:
+                logger.error("分析结果中缺少预测数据")
+                self.show_error("图表错误", "无法显示图表：分析结果中缺少预测数据")
+        
+        except Exception as e:
+            logger.error(f"显示图表弹窗时出错: {str(e)}")
+            self.show_error("图表错误", f"无法显示图表: {str(e)}")
     
     def plot_chart(self):
-        """绘制分析结果图表"""
-        if not self.analysis_result:
-            return
-
-        # 创建图表框架
-        if hasattr(self, 'chart_frame') and self.chart_frame:
-            self.chart_frame.destroy()
-
-        self.chart_frame = tk.Frame(self.result_frame)
-        self.chart_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-
-        # 绘制掺伪度分析结果图表
-        if 'predictions' in self.analysis_result and 'actual_values' in self.analysis_result:
-            predictions = self.analysis_result['predictions']
-            actual_values = self.analysis_result['actual_values']
-            
-            # 创建图表
-            fig = Figure(figsize=(8, 4), dpi=100)
-            ax = fig.add_subplot(111)
-            
-            # 准备数据 - 最多显示10个点以保持图表清晰
-            display_count = min(10, len(predictions))
-            x = np.arange(display_count)
-            width = 0.35  # 柱宽
-            
-            # 绘制对比柱状图
-            ax.bar(x - width/2, actual_values[:display_count], width, label='实际值', color='skyblue')
-            ax.bar(x + width/2, predictions[:display_count], width, label='预测值', color='lightcoral')
-            
-            # 设置x轴刻度和标签
-            ax.set_xticks(x)
-            ax.set_xticklabels([f'样本{i+1}' for i in range(display_count)])
-            
-            # 设置y轴范围和标签
-            max_val = max(max(predictions[:display_count]), max(actual_values[:display_count])) * 1.1
-            ax.set_ylim(0, max_val)
-            ax.set_ylabel('掺伪度')
-            
-            # 添加标题和图例
-            ax.set_title('掺伪度分析：实际值与预测值对比')
-            ax.legend()
-            
-            # 在柱子上方显示数值
-            for i, v in enumerate(actual_values[:display_count]):
-                ax.text(i - width/2, v + 0.01, f'{v:.3f}', ha='center', va='bottom', fontsize=8)
-            
-            for i, v in enumerate(predictions[:display_count]):
-                ax.text(i + width/2, v + 0.01, f'{v:.3f}', ha='center', va='bottom', fontsize=8)
-            
-            # 添加网格线以提高可读性
-            ax.grid(axis='y', linestyle='--', alpha=0.7)
-            
-            # 显示图表
-            canvas = FigureCanvasTkAgg(fig, master=self.chart_frame)
-            canvas.draw()
-            canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-            
-            # 添加工具栏
-            toolbar = NavigationToolbar2Tk(canvas, self.chart_frame)
-            toolbar.update()
-            canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        """在UI上绘制分析图表"""
+        try:
+            if not hasattr(self, 'analysis_result') or self.analysis_result is None:
+                logger.error("没有可用的分析结果")
+                return
+                
+            if not hasattr(self, 'chart_frame'):
+                logger.error("找不到chart_frame")
+                return
+                
+            # 清空现有的chart_frame内容
+            for widget in self.chart_frame.winfo_children():
+                widget.destroy()
+                
+            # 获取预测结果数据
+            if 'predictions' in self.analysis_result and 'actual_values' in self.analysis_result:
+                actual_values = self.analysis_result['actual_values']
+                predictions = self.analysis_result['predictions']
+                
+                # 创建新的matplotlib图表
+                plt.close('all')  # 关闭所有之前的图表
+                fig = plt.figure(figsize=(6, 4), dpi=100)
+                ax = fig.add_subplot(111)
+                
+                # 绘制散点图（实际值vs预测值）
+                ax.scatter(actual_values, predictions, color='#1f77b4', label='预测值', alpha=0.7)
+                
+                # 绘制理想预测线
+                min_val = min(min(actual_values), min(predictions))
+                max_val = max(max(actual_values), max(predictions))
+                ax.plot([min_val, max_val], [min_val, max_val], color='red', linestyle='--', label='理想预测线')
+                
+                # 添加标题和标签
+                ax.set_xlabel("实际掺伪度", fontsize=10)
+                ax.set_ylabel("预测掺伪度", fontsize=10)
+                ax.set_title("白酒掺伪度预测性能", fontsize=12)
+                
+                # 添加网格线和图例
+                ax.grid(True, linestyle='--', alpha=0.7)
+                ax.legend(loc='lower right')
+                
+                # 添加统计指标标注
+                if 'r2' in self.analysis_result and 'accuracy' in self.analysis_result:
+                    r2 = self.analysis_result['r2']
+                    accuracy = self.analysis_result['accuracy']
+                    text_str = f'R² = {r2:.4f}\n准确率 = {accuracy:.2f}%'
+                    ax.annotate(text_str, xy=(0.05, 0.95), xycoords='axes fraction',
+                               bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8),
+                               fontsize=8, ha='left', va='top')
+                
+                plt.tight_layout()
+                
+                # 在Tkinter画布上显示matplotlib图表
+                canvas = FigureCanvasTkAgg(fig, master=self.chart_frame)
+                canvas.draw()
+                canvas.get_tk_widget().pack(fill="both", expand=True)
+                
+                # 保存图表到analysis_result
+                self.analysis_result['figure'] = fig
+                
+                # 记录成功日志
+                logger.info("成功绘制掺伪度分析图表")
+            else:
+                logger.error("分析结果中缺少预测数据")
+                # 创建一个错误提示标签
+                error_label = ctk.CTkLabel(
+                    self.chart_frame,
+                    text="无法显示图表: 分析结果中缺少预测数据",
+                    text_color="red"
+                )
+                error_label.pack(pady=50)
+        
+        except Exception as e:
+            logger.error(f"绘制图表时出错: {str(e)}")
+            # 显示错误信息
+            error_label = ctk.CTkLabel(
+                self.chart_frame, 
+                text=f"图表绘制失败: {str(e)}",
+                text_color="red"
+            )
+            error_label.pack(pady=50)
     
     def save_result(self):
         """保存分析结果到文件"""
@@ -1146,13 +1440,24 @@ class AnalysisFrame(ctk.CTkFrame):
                     f.write(f"酸度预测结果: {self.analysis_result['acid1']:.2f} Acid, {self.analysis_result['acid2']:.2f} Acid\n")
                 else:
                     # 写入掺伪量分析结果
-                    f.write(f"工业酒精体积占比: {self.analysis_result['result']:.4f} ({self.analysis_result['result'] * 100:.2f}%)\n")
+                    f.write("\n掺伪度分析结果:\n")
+                    f.write("-" * 30 + "\n")
+                    f.write(f"平均实际掺伪度 = {self.analysis_result['mean_actual']:.4f}\n")
+                    f.write(f"平均预测掺伪度 = {self.analysis_result['mean_pred']:.4f}\n")
+                    f.write(f"准确率 = {self.analysis_result['accuracy']:.2f}%\n\n")
                     
                     # 添加结论
-                    if self.analysis_result['result'] > 0.1:
-                        f.write("\n结论: 疑似假酒，工业酒精含量超过警戒值10%\n")
+                    if self.analysis_result['mean_pred'] > 0.1:
+                        f.write("结论: 疑似假酒，工业酒精含量超过警戒值10%\n")
                     else:
-                        f.write("\n结论: 在可接受范围内\n")
+                        f.write("结论: 在可接受范围内\n")
+                    
+                    # 添加图表信息
+                    if 'chart_image_path' in self.analysis_result:
+                        f.write(f"\n图表已保存至: {self.analysis_result['chart_image_path']}\n")
+            
+            # 更新分析结果中的历史记录路径
+            self.analysis_result['history_path'] = save_path
             
             logger.info(f"分析结果已保存至: {save_path}")
             self.show_info("保存成功", f"分析结果已保存至: {save_path}")

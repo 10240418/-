@@ -68,6 +68,25 @@ class DatabaseManager:
             logger.error(f"查询执行失败: {str(e)}, 查询: {query}, 参数: {params}")
             raise
     
+    def table_exists(self, table_name):
+        """检查表是否存在
+        
+        Args:
+            table_name: 要检查的表名
+            
+        Returns:
+            如果表存在返回True，否则返回False
+        """
+        try:
+            result = self.execute_query(
+                "SELECT count(name) FROM sqlite_master WHERE type='table' AND name=?",
+                (table_name,)
+            )
+            return result[0][0] > 0
+        except Exception as e:
+            logger.error(f"检查表是否存在时出错: {str(e)}")
+            return False
+    
     def create_tables(self):
         """创建数据库表"""
         try:
@@ -388,4 +407,46 @@ class DatabaseManager:
             return users
         except Exception as e:
             logger.error(f"获取全部用户信息失败: {str(e)}")
-            return [] 
+            return []
+            
+    def get_all_users_except(self, exclude_user_id):
+        """获取除指定用户外的所有用户信息
+        
+        Args:
+            exclude_user_id: 要排除的用户ID
+            
+        Returns:
+            用户信息元组列表 [(id, username, role, created_at), ...]
+        """
+        try:
+            result = self.execute_query(
+                "SELECT id, username, role, created_at FROM users WHERE id != ? ORDER BY id",
+                (exclude_user_id,)
+            )
+            
+            logger.info(f"成功获取除用户 {exclude_user_id} 外的所有用户信息")
+            return result
+        except Exception as e:
+            logger.error(f"获取用户列表失败: {str(e)}")
+            return []
+            
+    def update_user_role(self, user_id, new_role):
+        """更新用户角色
+        
+        Args:
+            user_id: 用户ID
+            new_role: 新角色('admin'或'user')
+            
+        Returns:
+            更新是否成功
+        """
+        try:
+            self.execute_query(
+                "UPDATE users SET role = ? WHERE id = ?",
+                (new_role, user_id)
+            )
+            logger.info(f"更新用户角色成功: 用户ID: {user_id}, 新角色: {new_role}")
+            return True
+        except Exception as e:
+            logger.error(f"更新用户角色失败: {str(e)}")
+            return False 
