@@ -47,8 +47,22 @@ def install_requirements():
     print("正在升级pip...")
     subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], check=True)
     
-    with open("requirements.txt", "r") as f:
-        requirements = [line.strip() for line in f if line.strip() and not line.startswith("#")]
+    # 定义需要安装的包
+    requirements = [
+        "numpy>=1.21.0",
+        "pandas>=1.3.0",
+        "matplotlib>=3.4.0",
+        "scikit-learn>=0.24.0",
+        "torch>=1.9.0",
+        "customtkinter>=5.1.2",
+        "joblib>=1.1.0",
+        "openpyxl>=3.0.0",
+        "xlrd>=2.0.1",
+        "pillow>=9.0.0",
+        "traceback2>=1.4.0",
+        "pytz>=2021.1",
+        "python-dateutil>=2.8.2"
+    ]
     
     failed_packages = []
     for req in requirements:
