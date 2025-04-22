@@ -1,16 +1,174 @@
-# 白酒品质检测系统
+# 白酒品质检测与分析系统
 
-本系统是一个基于Python的白酒掺伪量检测应用程序，使用CustomTkinter构建现代化图形界面，并使用SQLite数据库存储用户信息和分析历史记录。
+本系统是一个基于Python的白酒品质检测与分析应用程序，采用现代化图形界面，集成了数据分析、机器学习算法，用于实现白酒真伪分类和掺伪量预测分析等功能。系统使用SQLite数据库存储用户信息和分析历史记录，提供了一个全面的白酒品质检测解决方案。
 
-## 系统特点
+## 系统概述
 
-- **现代化界面**：使用CustomTkinter构建的美观、现代的用户界面
-- **数据库支持**：使用SQLite数据库存储用户信息和分析历史记录
-- **多功能分析**：支持白酒掺伪量分析预测和白酒真伪分类
+白酒作为中国传统酒类，其品质检测对于市场监管和消费者权益保护具有重要意义。传统白酒检测方法通常依赖人工感官评价或复杂的化学分析，效率低下且存在主观性。本系统通过整合光谱分析技术和机器学习算法，实现了白酒品质的快速、客观评估，特别是在真伪鉴别和掺伪量分析方面取得了显著成效。
+
+系统具有以下特点：
+- **现代化界面**：基于CustomTkinter构建的美观、现代的用户界面
+- **数据分析能力**：集成机器学习模型，支持白酒光谱数据的智能分析
+- **真伪鉴别**：能够区分真酒、掺水假酒和掺工业酒精假酒
+- **掺伪量预测**：对白酒掺假程度进行定量分析
 - **可视化展示**：使用Matplotlib绘制分析结果图表
-- **多选项卡界面**：支持分析、历史记录和设置等功能的快速切换
-- **主题切换**：支持深色和浅色模式，以及多种颜色主题
+- **历史记录追踪**：保存分析历史，方便回溯查询
 - **用户管理**：多用户登录系统，支持用户注册和权限控制
+
+## 技术架构
+
+### 系统架构设计
+
+系统采用前后端分离的设计理念，主要分为以下几个部分：
+
+```
++-------------------+
+|    用户界面层     |  <-- CustomTkinter UI 组件
++--------+----------+
+         |
+         v
++-------------------+
+|    业务逻辑层     |  <-- 数据处理、模型加载与预测
++--------+----------+
+         |
+         v
++-------------------+
+|    数据访问层     |  <-- SQLite数据库操作
++--------+----------+
+         |
+         v
++-------------------+
+|    数据存储层     |  <-- SQLite数据库
++-------------------+
+```
+
+### 前端技术
+
+1. **CustomTkinter**：基于Tkinter的现代UI库，提供了美观的界面组件
+   - 选择理由：兼具Tkinter的兼容性和现代UI的美观性，无需额外依赖
+   - 应用：构建所有用户界面，包括登录、分析、分类和历史记录页面
+
+2. **Matplotlib**：强大的数据可视化库
+   - 选择理由：与Python深度集成，支持多种图表类型，适合科学数据展示
+   - 应用：生成光谱分析图表和结果预测图
+
+### 后端技术
+
+1. **SQLite**：轻量级关系型数据库
+   - 选择理由：无需服务器配置，单文件存储，适合桌面应用
+   - 应用：存储用户信息和分析历史记录
+
+2. **机器学习模型**：
+   - **PyTorch**：用于神经网络模型（条件可用时）
+     - 选择理由：强大的深度学习框架，适合复杂分类任务
+     - 应用：白酒真伪分类模型
+   
+   - **Scikit-learn**：传统机器学习算法
+     - 选择理由：提供丰富的传统机器学习算法，易于使用
+     - 应用：作为PyTorch不可用时的备选方案，以及数据预处理（PCA等）
+
+3. **Pandas & NumPy**：数据处理库
+   - 选择理由：高效的数据处理和数值计算能力
+   - 应用：光谱数据的读取、处理和分析
+
+## 系统功能模块
+
+### 1. 用户管理模块
+
+- 用户注册：新用户注册账号
+- 用户登录：已有用户登录系统
+- 密码管理：修改密码和重置密码功能
+
+### 2. 白酒真伪分类模块
+
+- 文件导入：支持Excel和CSV格式的光谱数据导入
+- 自动分类：使用机器学习模型自动分类
+- 结果展示：显示分类结果和各类别的置信度
+- 结果保存：将分析结果保存到历史记录
+
+### 3. 白酒掺伪量分析模块
+
+- 数据导入：支持完整光谱文件和单个样品文件导入
+- 数据预处理：包括标准化、MSC校正等
+- 分析预测：使用机器学习模型预测掺伪量
+- 结果可视化：生成光谱图和预测结果图
+- 结果导出：保存分析结果和图表
+
+### 4. 历史记录模块
+
+- 历史浏览：查看历史分析记录
+- 结果筛选：按时间、类型等筛选历史结果
+- 数据导出：将历史记录导出为TXT或CSV格式
+
+### 5. 系统设置模块
+
+- 外观设置：切换深色/浅色模式和主题颜色
+- 参数配置：调整系统分析参数
+- 数据清理：清理历史数据和缓存
+
+## 实现步骤
+
+### 环境准备
+
+1. 安装Python 3.8+（推荐Python 3.9或3.10）
+2. 安装所需依赖库：
+   ```
+   pip install customtkinter numpy pandas matplotlib pillow scikit-learn
+   pip install torch torchvision # 可选，用于高级模型
+   ```
+
+### 项目结构搭建
+
+创建如下项目结构：
+```
+baijiu_analysis_system/
+├── baijiu_app.py               # 主应用入口
+├── start_baijiu_app.bat        # Windows启动脚本
+├── requirements.txt            # 依赖库列表
+├── README.md                   # 项目文档
+├── database/                   # 数据库相关
+│   ├── db_manager.py           # 数据库管理类
+│   ├── init_db.py              # 数据库初始化脚本
+│   └── baijiu.db               # SQLite数据库文件
+├── components/                 # UI组件
+│   ├── login_frame.py          # 登录界面
+│   ├── analysis_frame.py       # 掺伪量分析界面
+│   ├── classification_frame.py # 真伪分类界面
+│   ├── history_frame.py        # 历史记录界面
+│   └── settings_frame.py       # 设置界面
+├── models/                     # 预训练模型
+│   ├── baijiu_classifier.pth   # 分类模型（PyTorch）
+│   └── rf_model.pkl            # 回归模型（Scikit-learn）
+├── utils/                      # 工具函数
+│   ├── data_processor.py       # 数据处理工具
+│   └── visualization.py        # 可视化工具
+├── logs/                       # 日志文件
+└── history/                    # 分析结果保存目录
+```
+
+### 开发流程
+
+1. **数据库设计与实现**
+   - 设计用户表、设置表和分析历史表
+   - 实现数据库管理类和初始化脚本
+
+2. **核心功能模块开发**
+   - 实现数据处理和分析算法
+   - 开发机器学习模型加载和预测功能
+
+3. **用户界面开发**
+   - 设计并实现登录和注册界面
+   - 开发白酒真伪分类界面
+   - 开发掺伪量分析界面
+   - 实现历史记录和设置界面
+
+4. **系统集成与测试**
+   - 集成各模块，实现功能间的数据流转
+   - 进行系统功能测试和用户体验优化
+
+5. **打包与部署**
+   - 使用PyInstaller打包为独立可执行文件
+   - 准备安装文档和用户手册
 
 ## 工作流程
 
@@ -61,265 +219,107 @@
 +----------------+ +----------------+
 ```
 
-## 系统要求
+## 快速启动指南
 
-- Python 3.8+ (建议使用Python 3.9或3.10)
-- 以下Python库：
-  - customtkinter
-  - numpy
-  - pandas
-  - matplotlib
-  - pillow
+### 方法一：从源码运行
 
-## 快速启动
-
-1. 确保已安装Python和所需依赖：
-   ```
-   pip install customtkinter pandas numpy matplotlib pillow
+1. 克隆仓库并进入项目目录：
+   ```bash
+   git clone https://github.com/username/baijiu-analysis-system.git
+   cd baijiu-analysis-system
    ```
 
-2. 运行启动脚本：
+2. 安装依赖：
+   ```bash
+   pip install -r requirements.txt
    ```
-   start_baijiu_app.bat
+
+3. 初始化数据库：
+   ```bash
+   python database/init_db.py
    ```
-   或直接启动Python应用：
-   ```
+
+4. 启动应用：
+   ```bash
    python baijiu_app.py
    ```
 
-3. 脚本会自动：
-   - 创建必要的目录结构
-   - 初始化SQLite数据库
-   - 启动应用程序
+### 方法二：使用可执行文件
 
-## 登录与注册
+在Windows系统下：
+1. 下载最新的发布版本
+2. 解压缩下载的文件
+3. 双击运行 `start_baijiu_app.bat` 或 `baijiu_app.exe`
 
-### 默认用户
-- 管理员：用户名 `admin`，密码 `admin123`
+### 初始账户
+
+- 管理员账户：用户名 `admin`，密码 `admin123`
 - 测试用户：用户名 `user1`，密码 `123456`
-
-### 用户注册
-系统支持新用户注册：
-1. 在登录界面点击"注册新用户"按钮
-2. 填写用户名、密码和可选的电子邮件
-3. 用户名不能重复，密码长度不少于6个字符
-4. 注册成功后可使用新账户登录系统
 
 ## 使用方法
 
-1. **登录系统**：使用默认账户、已创建的账户登录，或注册新账户
-2. **掺伪量分析预测**：
+1. **登录系统**：
+   - 使用预设账户或注册新账户登录系统
+
+2. **掺伪量分析**：
    - 选择"掺伪量分析预测"选项卡
-   - 点击"浏览"选择CSV或Excel格式的光谱数据文件
-   - 点击"开始分析"进行掺伪量检测
-   - 系统会显示分析结果和图表
-   - 可保存分析结果到文本文件
+   - 上传完整的Excel格式光谱数据文件或单个样品文件
+   - 点击"开始分析"进行处理
+   - 查看分析结果和预测图表
+   - 可选择保存结果和图表
+
 3. **白酒真伪分类**：
    - 选择"白酒真伪分类"选项卡
-   - 点击"浏览"选择CSV或Excel格式的光谱数据文件
-   - 点击"开始分类"进行真伪分类
-   - 系统会显示分类结果和各类别的置信度
-   - 可保存分类结果到文本文件
+   - 上传Excel或CSV格式的光谱数据文件
+   - 点击"开始分类"进行分类
+   - 查看分类结果和各类别的置信度
+
 4. **查看历史记录**：
-   - 选择"历史记录"选项卡查看过去的分析记录
-   - 点击"刷新历史记录"更新列表
+   - 选择"历史记录"选项卡
+   - 浏览或搜索历史分析记录
    - 可导出历史记录为TXT或CSV格式
+
 5. **系统设置**：
-   - 选择"设置"选项卡调整系统外观
-   - 可以切换深色/浅色模式
-   - 可以更改颜色主题
+   - 选择"设置"选项卡
+   - 调整系统外观和参数设置
 
-## 文件结构
+## 系统特性
 
-- `baijiu_app.py` - 主应用程序
-- `start_baijiu_app.bat` - 启动脚本
-- `database/` - 数据库相关文件
-  - `db_manager.py` - 数据库管理类
-  - `init_db.py` - 数据库初始化脚本
-  - `baijiu.db` - SQLite数据库文件
-- `logs/` - 应用日志
-- `history/` - 分析结果保存目录
+1. **多模型支持**：
+   - 优先使用PyTorch深度学习模型
+   - 自动降级到Scikit-learn模型（当PyTorch不可用时）
 
-## 疑难解答
+2. **数据预处理**：
+   - 自动填充缺失值
+   - MSC（多元散射校正）标准化
+   - 主成分分析（PCA）降维
 
-1. **应用程序无法启动**：
-   - 确保已安装所有必要的依赖库
+3. **结果可靠性评估**：
+   - 显示预测结果的置信度
+   - 提供不同类别的概率分布
+
+4. **日志记录**：
+   - 详细记录系统操作和分析过程
+   - 便于问题诊断和系统优化
+
+## 常见问题解答
+
+1. **系统无法启动**
+   - 确保安装了所有必要的依赖库
    - 检查Python版本是否为3.8+
    - 查看日志文件 `logs/app.log` 获取详细错误信息
 
-2. **数据库连接失败**：
-   - 检查数据库文件是否存在
-   - 确保有相应目录的读写权限
-   - 尝试手动初始化数据库: `python database/init_db.py`
+2. **分析结果不准确**
+   - 确保上传的光谱数据格式正确
+   - 检查数据是否包含所有必要的波长信息
+   - 尝试使用系统提供的示例数据进行测试
 
-3. **界面显示问题**：
-   - 尝试切换界面主题
-   - 如果使用远程桌面，确保支持GUI显示
-
-4. **分析失败**：
-   - 确保上传的是有效的光谱数据文件
-   - 检查文件格式是否为CSV或Excel
-   - 查看日志文件 `logs/app.log` 获取详细错误信息
-
-## 版本兼容性
-
-- 建议使用Python 3.9或3.10版本
-- 如果使用Python 3.11+，部分功能可能需要更新依赖库
+3. **界面显示异常**
+   - 尝试切换系统主题
+   - 调整显示分辨率
+   - 重启应用程序
 
 ## 开发者信息
 
 四川农业大学白酒品质检测系统
-© 2024 版权所有
-
-
-
-@analysis_frame.py 我的理解出现了偏差,修改我的代码 1 关于这个页面,上面应该是两个选择本地文件的按钮,一个是完整的xlsx文件,一个是单个样品xlsx文件  2 @test_tool.py  参考代码@improved_test_tool.py 以及这个代码,要求类似画出一个图,和示例代码一样,以及现有代码一样,点击分析结果以后会和现有代码一样能出现一个预测掺伪量图表的图,这个不需要修改,得到上面的四个参数,不需要原来的平均预测掺伪度什么的东西,只需要得到这四个量  3 然后import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestRegressor  # 导入随机森林回归模型
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.impute import SimpleImputer
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-from matplotlib.font_manager import FontProperties
-
-plt.rcParams['font.family'] = 'Microsoft YaHei'  # 设置支持中文的字体
-
-# 1. 读取数据，没有表头
-data = pd.read_excel("C:\\Users\\19176\\Desktop\\酒精预测2.xlsx", header=None)
-
-# 2. 提取特征和目标变量
-X = data.values  # 所有数据作为特征（没有表头，因此直接使用 .values）
-
-# 3. 为每7行分配浓度标签
-n_samples = X.shape[0]
-y = np.repeat(np.linspace(0.0385, 0.5, 25), 7)[:n_samples]  # 3.85%, 7.41%, ..., 50.00%
-
-# 4. 选择光谱数据（即所有列，去掉标签列）
-X = X[:, 1:]  # 从第二列开始取光谱数据
-
-# 5. 填充缺失值
-imputer = SimpleImputer(strategy='mean')
-X = imputer.fit_transform(X)
-
-# 6. MSC 标准化
-def msc_correction(sdata):
-    n = sdata.shape[0]
-    msc_corrected_data = np.zeros_like(sdata)
-
-    for i in range(n):
-        y = sdata[i, :]
-        mean_y = np.mean(y)
-        std_y = np.std(y)
-        msc_corrected_data[i, :] = (y - mean_y) / std_y
-
-    return msc_corrected_data
-
-# 7. 对数据进行 MSC 标准化处理
-X_msc = msc_correction(X)  # MSC 标准化
-
-# 8. PCA 降维，保留5个主成分
-pca = PCA(n_components=5)  # 设置保留前5个主成分
-X_pca = pca.fit_transform(X_msc)  # 将处理后的数据进行PCA降维
-
-# 9. 对数据进行标准化处理
-scaler = StandardScaler()
-X_pca = scaler.fit_transform(X_pca)
-
-# 10. 分割数据为训练集和测试集
-X_train, X_test, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, random_state=42)
-
-# 11. 设置随机森林回归模型的参数搜索空间
-param_grid = {
-    'n_estimators': [100, 200, 300],
-    'max_depth': [None, 10, 20, 30],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4]
-}
-
-# 12. 使用 GridSearchCV 进行超参数搜索
-rf_model = RandomForestRegressor(random_state=42)
-grid_search = GridSearchCV(estimator=rf_model, param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
-grid_search.fit(X_train, y_train)
-
-# 13. 输出最佳超参数
-print(f"最佳超参数: {grid_search.best_params_}")
-
-# 14. 使用最佳参数训练模型
-best_rf_model = grid_search.best_estimator_
-
-# 15. 训练集和测试集的预测
-y_train_pred = best_rf_model.predict(X_train)
-y_test_pred = best_rf_model.predict(X_test)
-
-# 16. 计算训练集和测试集的均方根误差（RMSE）和决定系数（R²）
-train_rmse = np.sqrt(mean_squared_error(y_train, y_train_pred))
-test_rmse = np.sqrt(mean_squared_error(y_test, y_test_pred))
-
-train_r2 = r2_score(y_train, y_train_pred)
-test_r2 = r2_score(y_test, y_test_pred)
-
-print(f"训练集均方根误差（RMSE）：{train_rmse:.4f}")
-print(f"测试集均方根误差（RMSE）：{test_rmse:.4f}")
-print(f"训练集决定系数（R²）：{train_r2:.4f}")
-print(f"测试集决定系数（R²）：{test_r2:.4f}")
-
-# 17. 绘制实际值与预测值的散点图
-plt.figure(figsize=(8, 6))
-plt.scatter(y_test, y_test_pred, color='#1f77b4', label='预测值')
-plt.plot([0.0385, 0.5], [0.0385, 0.5], color='red', linestyle='--', label='理想预测线')
-plt.xlabel("实际掺伪度", fontsize=12)
-plt.ylabel("预测掺伪度", fontsize=12)
-font = FontProperties(fname=r"C:\Windows\Fonts\SimSun.ttc", size=12)
-plt.legend(prop=font)
-plt.show()
-
-# -------------------------新增部分-------------------------
-
-# 18. 预测新样品数据的掺伪度
-def predict_sample(new_data):
-    # 对新的样品数据进行与训练集相同的预处理
-    new_data_imputed = imputer.transform(new_data)  # 填充缺失值
-    new_data_msc = msc_correction(new_data_imputed)  # MSC标准化
-    new_data_pca = pca.transform(new_data_msc)  # PCA降维
-    new_data_scaled = scaler.transform(new_data_pca)  # 标准化
-
-    # 使用训练好的模型进行预测
-    predicted_value = best_rf_model.predict(new_data_scaled)
-    return predicted_value
-
-# -------------------------从文件导入新样品数据-------------------------
-import pandas as pd
-from sklearn.impute import SimpleImputer
-import numpy as np
-
-# 读取数据（确保路径正确）
-new_sample = pd.read_excel('C:\\Users\\19176\\Desktop\\样品数据.xlsx', header=None)
-
-# 只选择数值型数据列，忽略任何非数值数据（例如字符串或分类数据）
-new_sample_numeric = new_sample.select_dtypes(include=[np.number])
-
-# 如果包含非数值列，进行转换或处理：
-# 你可以使用 LabelEncoder 或 OneHotEncoder 来转换非数值特征（如果有的话）
-# 例如，如果你有一个列是字符串类别数据：
-# from sklearn.preprocessing import LabelEncoder
-# le = LabelEncoder()
-# new_sample['column_name'] = le.fit_transform(new_sample['column_name'])
-
-# 填充缺失值，只针对数值型数据
-imputer = SimpleImputer(strategy='mean')
-new_sample_numeric_imputed = imputer.fit_transform(new_sample_numeric)
-
-# 如果你有非数值列并且需要重新合并它们，可以把数值列和处理过的非数值列合并：
-# new_sample_processed = pd.concat([new_sample_numeric_imputed, new_sample_non_numeric], axis=1)
-
-# 将数据转换为二维格式（1行n列）
-new_sample_numeric_imputed = new_sample_numeric_imputed.reshape(1, -1)
-
-# 使用模型进行预测
-predicted_pseudo_degree = predict_sample(new_sample_numeric_imputed)
-print(f"新样品的预测掺伪度为：{predicted_pseudo_degree[0]:.4f}")
-
- 参考上面的示例代码,用来分析单个样品数据,和当前代码生成的光谱图类似,出现一个按钮显示光谱图和文件保存路径,然后得到一个新样品的预测掺伪度为：{predicted_pseudo_degree[0]:.4f}")
-,然后将前面的四个量和这个量作为文字的分析结果显示出来,这样的话页面就可以出现这五个量的分析结果,和两个图的显示按钮以及图片保存路径,务必参考我给的示例算法,中文回答
+© 2024 版权所有 
