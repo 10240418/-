@@ -55,7 +55,7 @@ class AnalysisFrame(ctk.CTkFrame):
         
         self.pred_file_label = ctk.CTkLabel(
             self.pred_file_frame, 
-            text="请选择用于预测分析的Excel文件:",
+            text="预测分析文件(表头可有可无):",
             font=ctk.CTkFont(size=14)
         )
         self.pred_file_label.pack(side="left", padx=10, pady=10)
@@ -80,15 +80,15 @@ class AnalysisFrame(ctk.CTkFrame):
                 "选择预测数据文件"
             )
         )
-        self.pred_browse_button.pack(side="left", padx=10, pady=10)
+        self.pred_browse_button.pack(side="left", padx=20, pady=10)
         
         # === 文件选择区域 2: 光谱数据文件 ===
         self.spectrum_file_frame = ctk.CTkFrame(self)
-        self.spectrum_file_frame.pack(fill="x", padx=30, pady=(5, 20)) # Add padding
+        self.spectrum_file_frame.pack(fill="x", padx=30, pady=(5, 5)) # 减小底部间距从20到5
         
         self.spectrum_file_label = ctk.CTkLabel(
             self.spectrum_file_frame, 
-            text="请选择用于绘制光谱图的Excel文件:",
+            text="样本光谱数据文件(需带表头):",
             font=ctk.CTkFont(size=14)
         )
         self.spectrum_file_label.pack(side="left", padx=10, pady=10)
@@ -113,30 +113,35 @@ class AnalysisFrame(ctk.CTkFrame):
                 "选择光谱数据文件 (样品数据)"
             )
         )
-        self.spectrum_browse_button.pack(side="left", padx=10, pady=10)
+        self.spectrum_browse_button.pack(side="left", padx=20, pady=10)
         
-        # 分析按钮
+        # 添加一个容器用于放置分析按钮，确保靠右对齐
+        self.button_container = ctk.CTkFrame(self, fg_color="transparent")
+        self.button_container.pack(fill="x", padx=30, pady=(0, 5)) # 缩小底部间距从20到5
+        
+        # 分析按钮 - 放在文件选择框下方，结果区域上方，并靠右对齐
         self.analyze_button = ctk.CTkButton(
-            self, 
+            self.button_container, 
             text="开始分析", 
             width=150,
-            height=40,
+            height=30,
             state="disabled",
             command=self.analyze_file
         )
-        self.analyze_button.pack(pady=(0, 20))
+        # 设置按钮自身的内边距为0
+        self.analyze_button.pack(side="right", padx=0, pady=0)
         
         # 分析结果区域
         self.result_frame = ctk.CTkFrame(self)
-        self.result_frame.pack(fill="both", expand=True, padx=30, pady=(0, 30))
+        self.result_frame.pack(fill="both", expand=True, padx=30, pady=(5, 30)) # 缩小顶部间距从0到5
         
         # 结果标签
         self.result_title = ctk.CTkLabel(
             self.result_frame, 
             text="分析结果", 
-            font=ctk.CTkFont(size=18, weight="bold")
+            font=ctk.CTkFont(size=14, weight="bold")
         )
-        self.result_title.pack(pady=(20, 10))
+        self.result_title.pack(pady=(5, 5))
         
         # 结果值
         self.result_value = ctk.CTkLabel(
@@ -149,16 +154,6 @@ class AnalysisFrame(ctk.CTkFrame):
         # 为图表创建一个框架
         self.chart_frame = ctk.CTkFrame(self.result_frame)
         self.chart_frame.pack(fill="both", expand=True, padx=20, pady=(0, 20))
-        
-        # 保存结果按钮
-        self.save_button = ctk.CTkButton(
-            self.result_frame, 
-            text="保存结果", 
-            width=150,
-            state="disabled",
-            command=self.save_result
-        )
-        self.save_button.pack(pady=(0, 20))
     
     def _browse_file_generic(self, path_attr, var_attr, entry_attr, title):
         """通用文件浏览函数"""
@@ -630,28 +625,28 @@ class AnalysisFrame(ctk.CTkFrame):
             self.result_value.pack(pady=10, padx=20, anchor="w")
             
             # === 第三部分：结果描述 ===
-            description_frame = ctk.CTkFrame(self.result_frame, fg_color="transparent")
-            description_frame.pack(fill="x", padx=20, pady=(0, 15))
+            # description_frame = ctk.CTkFrame(self.result_frame, fg_color="transparent")
+            # description_frame.pack(fill="x", padx=20, pady=(0, 15))
             
-            # 根据结果生成文字描述
-            current_r2 = self.analysis_result['r2']
-            if current_r2 > 0.95:
-                quality_text = "分析结果表明，该样品的掺伪度预测模型性能优秀 (R² > 0.95)，预测结果非常准确，可信度高。"
-            elif current_r2 > 0.90:
-                quality_text = "分析结果表明，该样品的掺伪度预测模型性能良好 (R² > 0.90)，预测结果较为准确。"
-            elif current_r2 > 0.70:
-                 quality_text = f"分析结果表明，该样品的掺伪度预测模型性能一般 (R²={current_r2:.2f})，预测结果存在一定误差。"
-            else:
-                quality_text = f"分析结果表明，该样品的掺伪度预测模型性能较差 (R²={current_r2:.2f})，预测结果误差可能较大，建议检查数据或模型。"
+            # # 根据结果生成文字描述
+            # current_r2 = self.analysis_result['r2']
+            # if current_r2 > 0.95:
+            #     quality_text = "分析结果表明，该样品的掺伪度预测模型性能优秀 (R² > 0.95)，预测结果非常准确，可信度高。"
+            # elif current_r2 > 0.90:
+            #     quality_text = "分析结果表明，该样品的掺伪度预测模型性能良好 (R² > 0.90)，预测结果较为准确。"
+            # elif current_r2 > 0.70:
+            #      quality_text = f"分析结果表明，该样品的掺伪度预测模型性能一般 (R²={current_r2:.2f})，预测结果存在一定误差。"
+            # else:
+            #     quality_text = f"分析结果表明，该样品的掺伪度预测模型性能较差 (R²={current_r2:.2f})，预测结果误差可能较大，建议检查数据或模型。"
                 
-            description_label = ctk.CTkLabel(
-                description_frame,
-                text=quality_text,
-                font=ctk.CTkFont(size=14),
-                wraplength=500,
-                justify="left"
-            )
-            description_label.pack(pady=5, anchor="w")
+            # description_label = ctk.CTkLabel(
+            #     description_frame,
+            #     text=quality_text,
+            #     font=ctk.CTkFont(size=14),
+            #     wraplength=500,
+            #     justify="left"
+            # )
+            # description_label.pack(pady=5, anchor="w")
             
             # === 第四部分：图表按钮区 ===
             chart_button_frame = ctk.CTkFrame(self.result_frame, fg_color="transparent")
@@ -668,8 +663,8 @@ class AnalysisFrame(ctk.CTkFrame):
             view_pred_button = ctk.CTkButton(
                 button_left_frame,
                 text="查看预测掺伪度图表",
-                width=200,
-                height=40,
+                width=160,
+                height=30,
                 font=ctk.CTkFont(size=14),
                 command=self.show_prediction_popup
             )
@@ -680,8 +675,8 @@ class AnalysisFrame(ctk.CTkFrame):
                 view_spectrum_button = ctk.CTkButton(
                     button_right_frame,
                     text="查看光谱数据图表",
-                    width=200,
-                    height=40,
+                    width=160,
+                    height=30,
                     font=ctk.CTkFont(size=14),
                     command=self.show_spectrum_popup
                 )
@@ -699,7 +694,7 @@ class AnalysisFrame(ctk.CTkFrame):
                 font=ctk.CTkFont(size=12),
                 justify="left"
             )
-            pred_file_label.pack(pady=(0, 3), anchor="w")
+            pred_file_label.pack(pady=(0, 1), anchor="w")
             
             pred_path_label = ctk.CTkLabel(
                 path_frame,
@@ -708,7 +703,7 @@ class AnalysisFrame(ctk.CTkFrame):
                 text_color="gray",
                 justify="left"
             )
-            pred_path_label.pack(pady=(0, 3), anchor="w")
+            pred_path_label.pack(pady=(0, 1), anchor="w")
             
             # 如果有光谱图，显示光谱图路径
             if 'spectrum_path' in self.analysis_result and self.analysis_result['spectrum_path']:
@@ -719,7 +714,7 @@ class AnalysisFrame(ctk.CTkFrame):
                     font=ctk.CTkFont(size=12),
                     justify="left"
                 )
-                spectrum_file_label.pack(pady=(0, 3), anchor="w")
+                spectrum_file_label.pack(pady=(0, 1), anchor="w")
                 
                 spectrum_path_label = ctk.CTkLabel(
                     path_frame,
@@ -728,17 +723,7 @@ class AnalysisFrame(ctk.CTkFrame):
                     text_color="gray",
                     justify="left"
                 )
-                spectrum_path_label.pack(pady=(0, 3), anchor="w")
-            
-            # === 第六部分：保存结果按钮 ===
-            self.save_button = ctk.CTkButton(
-                self.result_frame, 
-                text="保存结果", 
-                width=150,
-                state="normal",
-                command=self.save_result
-            )
-            self.save_button.pack(pady=(15, 20))
+                spectrum_path_label.pack(pady=(0, 1), anchor="w")
             
             # 隐藏进度条
             self.hide_progress()
@@ -1211,83 +1196,6 @@ class AnalysisFrame(ctk.CTkFrame):
         except Exception as e:
             logger.error(f"保存图表时出错: {str(e)}")
             self.show_error("保存错误", f"无法保存图表: {str(e)}")
-    
-    def save_result(self):
-        """保存分析结果到文件"""
-        if not self.analysis_result:
-            return
-        
-        try:
-            # 选择保存路径
-            save_path = filedialog.asksaveasfilename(
-                title="保存分析结果",
-                defaultextension=".txt",
-                filetypes=[("文本文件", "*.txt"), ("所有文件", "*.*")],
-                initialdir="history"
-            )
-            
-            if not save_path:
-                return
-            
-            # 确保图表路径存在
-            chart_path = self.analysis_result.get('chart_path', '未保存')
-            # 光谱图路径（如果有）
-            spectrum_path = self.analysis_result.get('spectrum_path', None)
-            
-            # 生成文字描述
-            current_r2 = self.analysis_result['r2']
-            if current_r2 > 0.95:
-                quality_text = "分析结果表明，该样品的掺伪度预测模型性能优秀 (R² > 0.95)，预测结果非常准确，可信度高。"
-            elif current_r2 > 0.90:
-                quality_text = "分析结果表明，该样品的掺伪度预测模型性能良好 (R² > 0.90)，预测结果较为准确。"
-            elif current_r2 > 0.70:
-                 quality_text = f"分析结果表明，该样品的掺伪度预测模型性能一般 (R²={current_r2:.2f})，预测结果存在一定误差。"
-            else:
-                quality_text = f"分析结果表明，该样品的掺伪度预测模型性能较差 (R²={current_r2:.2f})，预测结果误差可能较大，建议检查数据或模型。"
-            
-            # 写入结果文件
-            with open(save_path, 'w', encoding='utf-8') as f:
-                f.write("白酒品质检测系统 - 分析结果\n")
-                f.write("=" * 40 + "\n\n")
-                f.write(f"分析时间: {self.analysis_result['datetime']}\n")
-                f.write(f"预测数据文件: {self.analysis_result['prediction_filename']}\n")
-                f.write(f"光谱数据文件: {self.analysis_result['spectrum_filename']}\n\n")
-                
-                # 写入掺伪量分析结果（简化版）
-                f.write("模型性能指标:\n")
-                f.write("-" * 30 + "\n")
-                f.write(f"决定系数 (R²) = {self.analysis_result['r2']:.4f}\n")
-                f.write(f"均方根误差 (RMSE) = {self.analysis_result['rmse']:.4f}\n")
-                f.write(f"平均绝对误差 (MAE) = {self.analysis_result['mae']:.4f}\n")
-                f.write(f"平均相对误差 (MRE) = {self.analysis_result['mre']:.2f}%\n\n")
-                
-                # 写入单一样品预测结果
-                f.write("光谱文件样品预测:\n")
-                f.write("-" * 30 + "\n")
-                single_pred = self.analysis_result.get('single_sample_prediction')
-                if single_pred is not None:
-                    f.write(f"光谱文件样品预测掺伪度 = {single_pred:.4f}\n\n")
-                else:
-                    f.write("光谱文件样品预测掺伪度 = 未能预测\n\n")
-                
-                # 添加结果描述
-                f.write("结果评估:\n")
-                f.write("-" * 30 + "\n")
-                f.write(f"{quality_text}\n\n")
-                
-                # 添加图表路径
-                f.write("图表文件路径:\n")
-                f.write("-" * 30 + "\n")
-                f.write(f"掺伪度预测图表: {chart_path}\n")
-                if spectrum_path:
-                    f.write(f"光谱数据图表: {spectrum_path}\n")
-            
-            logger.info(f"分析结果已保存至: {save_path}")
-            self.show_info("保存成功", f"分析结果已保存至: {save_path}")
-            
-        except Exception as e:
-            logger.error(f"保存结果时出错: {str(e)}")
-            self.show_error("保存错误", f"无法保存结果: {str(e)}")
     
     def show_progress(self, message):
         """显示进度窗口"""
