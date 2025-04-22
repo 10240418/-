@@ -13,6 +13,11 @@ import matplotlib.pyplot as plt
 import joblib
 from PIL import Image, ImageTk
 import matplotlib
+import traceback # Import traceback module for detailed error logging
+# Import necessary metric functions
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+from sklearn.impute import SimpleImputer
+
 matplotlib.use('Agg')  # 使用非交互式后端
 
 # 设置日志
@@ -26,7 +31,8 @@ class AnalysisFrame(ctk.CTkFrame):
         
         self.user_id = user_id
         self.db_manager = db_manager
-        self.file_path = None
+        self.file_path = None # Prediction file path
+        self.spectrum_file_path = None # Spectrum file path
         self.analysis_result = None
         
         # 创建UI组件
@@ -41,35 +47,73 @@ class AnalysisFrame(ctk.CTkFrame):
             text="掺伪度分析预测", 
             font=ctk.CTkFont(size=24, weight="bold")
         )
-        self.title_label.pack(pady=(30, 20), padx=30, anchor="w")
+        self.title_label.pack(pady=(30, 10), padx=30, anchor="w") # Reduced bottom padding
         
-        # 文件选择区域
-        self.file_frame = ctk.CTkFrame(self)
-        self.file_frame.pack(fill="x", padx=30, pady=(0, 20))
+        # === 文件选择区域 1: 预测数据文件 ===
+        self.pred_file_frame = ctk.CTkFrame(self)
+        self.pred_file_frame.pack(fill="x", padx=30, pady=(10, 5)) # Add padding
         
-        self.file_label = ctk.CTkLabel(
-            self.file_frame, 
-            text="请选择Excel格式的光谱数据文件:",
+        self.pred_file_label = ctk.CTkLabel(
+            self.pred_file_frame, 
+            text="请选择用于预测分析的Excel文件:",
             font=ctk.CTkFont(size=14)
         )
-        self.file_label.pack(side="left", padx=10, pady=10)
+        self.pred_file_label.pack(side="left", padx=10, pady=10)
         
         self.file_path_var = tk.StringVar()
         self.file_path_entry = ctk.CTkEntry(
-            self.file_frame, 
+            self.pred_file_frame, 
             width=300,
             textvariable=self.file_path_var,
             state="readonly"
         )
         self.file_path_entry.pack(side="left", padx=10, pady=10)
         
-        self.browse_button = ctk.CTkButton(
-            self.file_frame, 
+        self.pred_browse_button = ctk.CTkButton(
+            self.pred_file_frame, 
             text="浏览", 
             width=80,
-            command=self.browse_file
+            command=lambda: self._browse_file_generic(
+                'file_path', 
+                self.file_path_var, 
+                self.file_path_entry, 
+                "选择预测数据文件"
+            )
         )
-        self.browse_button.pack(side="left", padx=10, pady=10)
+        self.pred_browse_button.pack(side="left", padx=10, pady=10)
+        
+        # === 文件选择区域 2: 光谱数据文件 ===
+        self.spectrum_file_frame = ctk.CTkFrame(self)
+        self.spectrum_file_frame.pack(fill="x", padx=30, pady=(5, 20)) # Add padding
+        
+        self.spectrum_file_label = ctk.CTkLabel(
+            self.spectrum_file_frame, 
+            text="请选择用于绘制光谱图的Excel文件:",
+            font=ctk.CTkFont(size=14)
+        )
+        self.spectrum_file_label.pack(side="left", padx=10, pady=10)
+        
+        self.spectrum_file_path_var = tk.StringVar()
+        self.spectrum_file_path_entry = ctk.CTkEntry(
+            self.spectrum_file_frame, 
+            width=300,
+            textvariable=self.spectrum_file_path_var,
+            state="readonly"
+        )
+        self.spectrum_file_path_entry.pack(side="left", padx=10, pady=10)
+        
+        self.spectrum_browse_button = ctk.CTkButton(
+            self.spectrum_file_frame, 
+            text="浏览", 
+            width=80,
+            command=lambda: self._browse_file_generic(
+                'spectrum_file_path', 
+                self.spectrum_file_path_var, 
+                self.spectrum_file_path_entry, 
+                "选择光谱数据文件 (样品数据)"
+            )
+        )
+        self.spectrum_browse_button.pack(side="left", padx=10, pady=10)
         
         # 分析按钮
         self.analyze_button = ctk.CTkButton(
@@ -116,32 +160,44 @@ class AnalysisFrame(ctk.CTkFrame):
         )
         self.save_button.pack(pady=(0, 20))
     
-    def browse_file(self):
-        """选择文件"""
+    def _browse_file_generic(self, path_attr, var_attr, entry_attr, title):
+        """通用文件浏览函数"""
         file_path = filedialog.askopenfilename(
-            title="选择数据文件",
-            filetypes=[("Excel文件", "*.xlsx"), ("Excel 97-2003", "*.xls"), ("CSV文件", "*.csv"), ("所有文件", "*.*")],
-            initialdir=os.path.expanduser("~") # 默认打开用户主目录
+            title=title,
+            filetypes=[("Excel文件", "*.xlsx *.xls"), ("CSV文件", "*.csv"), ("所有文件", "*.*")],
+            initialdir=os.path.expanduser("~")
         )
         
         if file_path:
-            self.file_path = file_path
-            self.file_path_var.set(file_path)
-            self.analyze_button.configure(state="normal")
-            logger.info(f"用户选择了文件: {file_path}")
-            
-            # 更新UI上的文件名显示
+            setattr(self, path_attr, file_path)
+            # Update display path (shortened)
             filename = os.path.basename(file_path)
-            if len(filename) > 40:  # 如果文件名太长，截断显示
-                filename = filename[:37] + "..."
-            self.file_path_entry.configure(state="normal")
-            self.file_path_entry.delete(0, tk.END)
-            self.file_path_entry.insert(0, filename)
-            self.file_path_entry.configure(state="readonly")
-    
+            display_path = filename
+            if len(filename) > 40:
+                display_path = filename[:37] + "..."
+            
+            # Update StringVar and Entry
+            var_attr.set(file_path) # Store full path in var if needed elsewhere
+            entry_attr.configure(state="normal")
+            entry_attr.delete(0, tk.END)
+            entry_attr.insert(0, display_path)
+            entry_attr.configure(state="readonly")
+            
+            logger.info(f"用户选择了文件 '{title}': {file_path}")
+            self._check_enable_analyze_button()
+
+    def _check_enable_analyze_button(self):
+        """检查是否两个文件都已选择，并更新分析按钮状态"""
+        if self.file_path and self.spectrum_file_path:
+            self.analyze_button.configure(state="normal")
+        else:
+            self.analyze_button.configure(state="disabled")
+            
     def analyze_file(self):
         """分析文件数据"""
-        if not self.file_path:
+        # Check if both files are selected
+        if not self.file_path or not self.spectrum_file_path:
+            self.show_error("文件缺失", "请同时选择用于预测分析和光谱图的文件。")
             return
         
         try:
@@ -174,47 +230,103 @@ class AnalysisFrame(ctk.CTkFrame):
             pca_model = joblib.load(pca_path)
             scaler = joblib.load(scaler_path)
             
-            # 加载数据文件
-            file_ext = os.path.splitext(self.file_path)[1].lower()
-            if file_ext in ['.xlsx', '.xls']:
+            # 确保目录存在
+            os.makedirs('history_img', exist_ok=True)
+            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+            
+            # === 1. 光谱图绘制 (来自第二个文件) ===
+            spectrum_path = None 
+            raw_spectrum_data = None
+            try:
+                logger.info(f"加载光谱数据文件: {self.spectrum_file_path}")
+                file_ext_spectrum = os.path.splitext(self.spectrum_file_path)[1].lower()
+                if file_ext_spectrum in ['.xlsx', '.xls']:
+                    raw_spectrum_data = pd.read_excel(self.spectrum_file_path, header=None)
+                elif file_ext_spectrum == '.csv':
+                    raw_spectrum_data = pd.read_csv(self.spectrum_file_path, header=None)
+                else:
+                    raise ValueError("光谱数据文件格式不支持") # Raise error to be caught below
+
+                if raw_spectrum_data.shape[0] >= 2:
+                    x_values = raw_spectrum_data.iloc[0].values
+                    x_label = "波长/频率"
+                    if isinstance(raw_spectrum_data.iloc[0, 0], str) and not self._is_numeric_string(raw_spectrum_data.iloc[0, 0]):
+                        x_label = raw_spectrum_data.iloc[0, 0]
+                        x_values = x_values[1:]
+                    
+                    y_values = raw_spectrum_data.iloc[1].values
+                    y_label = "光谱值"
+                    if isinstance(raw_spectrum_data.iloc[1, 0], str) and not self._is_numeric_string(raw_spectrum_data.iloc[1, 0]):
+                        y_label = raw_spectrum_data.iloc[1, 0]
+                        y_values = y_values[1:]
+
+                    valid_x, valid_y = [], []
+                    for x, y in zip(x_values, y_values):
+                        try:
+                            valid_x.append(float(x) if isinstance(x, str) else float(x))
+                            valid_y.append(float(y) if isinstance(y, str) else float(y))
+                        except (ValueError, TypeError):
+                            continue
+                    
+                    if len(valid_x) > 1:
+                        plt.figure(figsize=(12, 6))
+                        plt.scatter(valid_x, valid_y, color='#1f77b4', s=30, alpha=0.8, label="数据点")
+                        plt.plot(valid_x, valid_y, color='#1f77b4', linestyle='--', alpha=0.6, label="趋势线")
+                        plt.title("白酒光谱数据可视化", fontsize=14)
+                        plt.xlabel(x_label, fontsize=12)
+                        plt.ylabel(y_label, fontsize=12)
+                        plt.grid(True, linestyle='--', alpha=0.7)
+                        plt.legend(loc='best')
+                        desc_text = f"光谱数据文件: {os.path.basename(self.spectrum_file_path)}\\n" \
+                                    f"数据点数量: {len(valid_x)}\\n" \
+                                    f"X轴范围: [{min(valid_x):.2f}, {max(valid_x):.2f}]\\n" \
+                                    f"Y轴范围: [{min(valid_y):.2f}, {max(valid_y):.2f}]"
+                        plt.annotate(desc_text, xy=(0.02, 0.98), xycoords='axes fraction',
+                                     bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8),
+                                     fontsize=10, ha='left', va='top')
+                        spectrum_path = os.path.join('history_img', f'spectrum_{timestamp}.png')
+                        plt.tight_layout()
+                        plt.savefig(spectrum_path, dpi=600)
+                        plt.close()
+                        logger.info(f"光谱图已保存至: {spectrum_path}")
+                    else:
+                        logger.warning("光谱数据文件中有效数值数据不足，无法绘制光谱图或用于单一样品预测。")
+                else:
+                    logger.warning("光谱数据文件行数不足，无法绘制光谱图或用于单一样品预测。")
+
+            except Exception as spectrum_err:
+                logger.error(f"处理光谱数据文件时出错: {str(spectrum_err)}")
+                logger.error(traceback.format_exc())
+                # Show error but continue if possible to predict on the first file
+                self.after(0, lambda: self.show_error("光谱文件处理错误", f"无法处理光谱数据文件: {str(spectrum_err)}"))
+
+            # === 2. 掺伪度预测 (来自第一个文件) ===
+            logger.info(f"加载预测数据文件: {self.file_path}")
+            file_ext_pred = os.path.splitext(self.file_path)[1].lower()
+            if file_ext_pred in ['.xlsx', '.xls']:
                 data = pd.read_excel(self.file_path, header=None)
-            elif file_ext == '.csv':
+            elif file_ext_pred == '.csv':
                 data = pd.read_csv(self.file_path, header=None)
             else:
-                self.after(0, lambda: self.show_error("文件错误", "不支持的文件格式，请提供.xlsx, .xls或.csv文件"))
+                self.after(0, lambda: self.show_error("预测文件错误", "预测数据文件格式不支持"))
                 self.after(0, self.hide_progress)
                 return
-            
+
             # 预处理数据 - 检测并移除非数值数据
             # 检查第一行是否为标题行
-            first_row_has_text = False
-            for col in data.iloc[0]:
-                if isinstance(col, str) and not self._is_numeric_string(col):
-                    first_row_has_text = True
-                    break
-            
-            # 如果第一行是标题行，则移除
+            first_row_has_text = any(isinstance(col, str) and not self._is_numeric_string(col) for col in data.iloc[0])
             if first_row_has_text:
                 data = data.iloc[1:].reset_index(drop=True)
             
             # 检查第一列是否为标签列
-            first_col_has_text = False
-            for val in data.iloc[:, 0]:
-                if isinstance(val, str) and not self._is_numeric_string(val):
-                    first_col_has_text = True
-                    break
-            
-            # 如果第一列是标签列，则移除
+            first_col_has_text = any(isinstance(val, str) and not self._is_numeric_string(val) for val in data.iloc[:, 0])
             if first_col_has_text:
                 data = data.iloc[:, 1:].reset_index(drop=True)
             
             # 转换所有数据为浮点数，非数值转为NaN
             def to_numeric_with_fallback(val):
-                try:
-                    return pd.to_numeric(val)
-                except:
-                    return np.nan
-            
+                try: return pd.to_numeric(val)
+                except: return np.nan
             data = data.applymap(to_numeric_with_fallback)
             
             # 移除包含太多NaN值的行列（超过50%）
@@ -263,16 +375,16 @@ class AnalysisFrame(ctk.CTkFrame):
             mean_actual = np.mean(y_actual)
             
             # 计算R²和RMSE作为准确率指标
-            from sklearn.metrics import r2_score, mean_squared_error
             r2 = r2_score(y_actual, y_pred)
             rmse = np.sqrt(mean_squared_error(y_actual, y_pred))
             
+            # 计算MAE和MRE
+            mae = mean_absolute_error(y_actual, y_pred)
+            # 处理y_actual为0的情况，避免除以零错误
+            mre = np.mean(np.abs((y_pred - y_actual) / y_actual)[y_actual != 0]) * 100 if np.any(y_actual != 0) else 0
+            
             # 准确率转为百分比
             accuracy = r2 * 100  # R²作为准确率，转为百分比
-            
-            # 确保目录存在
-            os.makedirs('history_img', exist_ok=True)
-            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
             
             # 生成对比图表 - 使用更大的尺寸并增加DPI
             plt.figure(figsize=(12, 9))  # 更大的图表尺寸
@@ -305,38 +417,113 @@ class AnalysisFrame(ctk.CTkFrame):
             plt.savefig(chart_path, dpi=600)  # 增加DPI为600
             plt.close()
             
-            # 另外创建一个直方图显示预测分布
-            plt.figure(figsize=(10, 7))  # 也增大直方图尺寸
-            plt.hist(y_pred, bins=15, color='#1f77b4', alpha=0.7, label='预测值')
-            plt.axvline(mean_pred, color='red', linestyle='--', linewidth=2, label=f'预测平均值: {mean_pred:.4f}')
-            plt.axvline(mean_actual, color='green', linestyle='-.', linewidth=2, label=f'实际平均值: {mean_actual:.4f}')
-            plt.xlabel('掺伪度值', fontsize=14)
-            plt.ylabel('频率', fontsize=14)
-            plt.title('掺伪度预测结果分布', fontsize=16)
-            plt.legend(fontsize=12)
-            plt.grid(True, linestyle='--', alpha=0.7)
-            
-            # 保存直方图
-            hist_path = os.path.join('history_img', f'hist_{timestamp}.png')
-            plt.tight_layout()
-            plt.savefig(hist_path, dpi=600)  # 增加DPI为600
-            plt.close()
-            
-            # 保存结果
+            # === 3. 单一样品预测 (来自第二个文件) ===
+            single_sample_prediction = None
+            if raw_spectrum_data is not None:
+                try:
+                    logger.info("开始对光谱文件数据进行单一样品预测...")
+                    
+                    # 1. 数据清洗 - 从原始数据中移除非数值数据
+                    # 检查第一行是否包含非数值数据（作为列标题）
+                    first_row_is_header = False
+                    if raw_spectrum_data.shape[0] > 0:
+                        first_row_is_header = any(isinstance(x, str) and not self._is_numeric_string(x) 
+                                                for x in raw_spectrum_data.iloc[0])
+                    
+                    # 检查第一列是否包含非数值数据（作为行标题）
+                    first_col_is_header = False
+                    if raw_spectrum_data.shape[1] > 0:
+                        first_col_is_header = any(isinstance(x, str) and not self._is_numeric_string(x) 
+                                                for x in raw_spectrum_data.iloc[:, 0])
+                    
+                    # 根据头部信息剪裁数据
+                    if first_row_is_header:
+                        logger.info("检测到第一行为标题行，将跳过")
+                        spectrum_data = raw_spectrum_data.iloc[1:].reset_index(drop=True)
+                    else:
+                        spectrum_data = raw_spectrum_data
+                    
+                    if first_col_is_header:
+                        logger.info("检测到第一列为标题列，将跳过")
+                        spectrum_data = spectrum_data.iloc[:, 1:].reset_index(drop=True)
+                    
+                    # 2. 将所有数据转换为数值，无法转换的变为NaN
+                    logger.info("将光谱数据转换为数值类型")
+                    spectrum_numeric = spectrum_data.applymap(lambda x: pd.to_numeric(x, errors='coerce'))
+                    
+                    # 3. 检查数据是否为空
+                    if spectrum_numeric.empty:
+                        logger.warning("预处理后的光谱数据为空")
+                        raise ValueError("预处理后的光谱数据为空")
+                    
+                    # 4. 使用第一行作为样本数据
+                    logger.info(f"使用光谱数据的第一行作为样本，数据形状: {spectrum_numeric.shape}")
+                    sample_data = spectrum_numeric.iloc[0].values
+                    
+                    # 5. 处理样本中的NaN值
+                    sample_data = np.nan_to_num(sample_data, nan=np.nanmean(sample_data))
+                    
+                    # 6. 确保样本数据是二维数组
+                    sample_2d = sample_data.reshape(1, -1)
+                    logger.info(f"重塑后的样本形状: {sample_2d.shape}, PCA模型期望特征数: {pca_model.n_features_in_}")
+                    
+                    # 7. 调整样本特征数与模型期望一致
+                    if sample_2d.shape[1] != pca_model.n_features_in_:
+                        if sample_2d.shape[1] > pca_model.n_features_in_:
+                            # 特征数过多，截断
+                            logger.warning(f"样本特征数 ({sample_2d.shape[1]}) 大于PCA期望 ({pca_model.n_features_in_})，进行截断")
+                            sample_2d = sample_2d[:, :pca_model.n_features_in_]
+                        else:
+                            # 特征数不足，填充
+                            logger.warning(f"样本特征数 ({sample_2d.shape[1]}) 小于PCA期望 ({pca_model.n_features_in_})，进行填充")
+                            padding = np.zeros((1, pca_model.n_features_in_ - sample_2d.shape[1]))
+                            sample_2d = np.hstack((sample_2d, padding))
+                    
+                    # 8. 执行与tool_one_test.py相同的预处理流程
+                    # 8.1 填充缺失值
+                    imputer = SimpleImputer(strategy='mean')
+                    sample_imputed = imputer.fit_transform(sample_2d)
+                    logger.info("已完成样本数据的缺失值填充")
+                    
+                    # 8.2 MSC标准化
+                    sample_msc = self.msc_correction(sample_imputed)
+                    logger.info("已完成样本数据的MSC标准化")
+                    
+                    # 8.3 PCA降维
+                    sample_pca = pca_model.transform(sample_msc)
+                    logger.info(f"已完成样本数据的PCA降维，形状变为: {sample_pca.shape}")
+                    
+                    # 8.4 标准化
+                    sample_scaled = scaler.transform(sample_pca)
+                    logger.info("已完成样本数据的标准化")
+                    
+                    # 8.5 预测
+                    single_sample_prediction = rf_model.predict(sample_scaled)[0]
+                    logger.info(f"单一样本预测结果: {single_sample_prediction:.4f}")
+                    
+                except Exception as single_pred_err:
+                    logger.error(f"单样本预测失败: {str(single_pred_err)}")
+                    logger.error(traceback.format_exc())
+                    # 不显示错误弹窗，只在结果中标记预测失败
+                    single_sample_prediction = None
+            else:
+                 logger.warning("没有从光谱数据文件中提取到有效数据进行单一样品预测。")
+
+            # === 4. 保存结果 ===
             self.analysis_result = {
-                'mean_pred': mean_pred,
-                'mean_actual': mean_actual,
-                'accuracy': accuracy,
-                'r2': r2,
-                'rmse': rmse,
-                'filename': os.path.basename(self.file_path),
+                # Overall metrics from prediction file
+                'r2': r2, 'rmse': rmse, 'mae': mae, 'mre': mre,
+                # Single prediction from spectrum file (if available)
+                'single_sample_prediction': single_sample_prediction,
+                # Other info
+                'mean_pred': mean_pred, 'mean_actual': mean_actual, # Keep for popup reference
+                'prediction_filename': os.path.basename(self.file_path),
+                'spectrum_filename': os.path.basename(self.spectrum_file_path),
                 'datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                 'analysis_type': "掺伪度分析",
-                'result_str': f"掺伪度预测结果: {mean_pred:.4f}, 实际掺伪度: {mean_actual:.4f}, 准确率: {accuracy:.2f}%",
-                'chart_path': chart_path,
-                'hist_path': hist_path,
-                'predictions': y_pred.tolist(),
-                'actuals': y_actual.tolist()
+                'result_str': f"R²: {r2:.4f}, RMSE: {rmse:.4f}, MAE: {mae:.4f}, MRE: {mre:.2f}%", # Base result str
+                'chart_path': chart_path, 'spectrum_path': spectrum_path,
+                'predictions': y_pred.tolist(), 'actuals': y_actual.tolist()
             }
             
             # 创建结果表格
@@ -353,6 +540,7 @@ class AnalysisFrame(ctk.CTkFrame):
             
         except Exception as e:
             logger.error(f"分析过程中出错: {str(e)}")
+            logger.error(traceback.format_exc()) # 记录完整堆栈跟踪
             self.after(0, lambda: self.show_error("分析错误", f"分析过程中出错: {str(e)}"))
             self.after(0, self.hide_progress)
     
@@ -399,7 +587,7 @@ class AnalysisFrame(ctk.CTkFrame):
             # 记录分析结果到数据库
             self.db_manager.add_analysis_record(
                 self.user_id,
-                self.analysis_result['filename'],
+                self.analysis_result['prediction_filename'],
                 self.analysis_result['result_str'],
                 self.analysis_result['analysis_type']
             )
@@ -420,10 +608,18 @@ class AnalysisFrame(ctk.CTkFrame):
             text_frame = ctk.CTkFrame(self.result_frame)
             text_frame.pack(fill="x", padx=20, pady=(0, 15))
             
-            # 简化的结果文本，仅包含平均预测、实际掺伪度和准确率
-            result_text = f"平均预测掺伪度 = {self.analysis_result['mean_pred']:.4f}\n"
-            result_text += f"实际掺伪度 = {self.analysis_result['mean_actual']:.4f}\n"
-            result_text += f"准确率 = {self.analysis_result['accuracy']:.2f}%"
+            # Display the four metrics
+            result_text = f"决定系数 (R²) = {self.analysis_result['r2']:.4f}\n"
+            result_text += f"均方根误差 (RMSE) = {self.analysis_result['rmse']:.4f}\n"
+            result_text += f"平均绝对误差 (MAE) = {self.analysis_result['mae']:.4f}\n"
+            result_text += f"平均相对误差 (MRE) = {self.analysis_result['mre']:.2f}%"
+            
+            # Add the single sample prediction if available
+            single_pred = self.analysis_result.get('single_sample_prediction')
+            if single_pred is not None:
+                 result_text += f"\n光谱文件样品预测掺伪度 = {single_pred:.4f}" # Add the new line
+            else:
+                 result_text += f"\n光谱文件样品预测掺伪度 = 未能预测" # Indicate if prediction failed
             
             self.result_value = ctk.CTkLabel(
                 text_frame, 
@@ -438,15 +634,15 @@ class AnalysisFrame(ctk.CTkFrame):
             description_frame.pack(fill="x", padx=20, pady=(0, 15))
             
             # 根据结果生成文字描述
-            error = abs(self.analysis_result['mean_pred'] - self.analysis_result['mean_actual'])
-            rel_error = (error / self.analysis_result['mean_actual']) * 100 if self.analysis_result['mean_actual'] != 0 else 0
-            
-            if self.analysis_result['accuracy'] > 95:
-                quality_text = "分析结果表明，该样品的掺伪度预测非常准确，可信度高。"
-            elif self.analysis_result['accuracy'] > 90:
-                quality_text = "分析结果表明，该样品的掺伪度预测较为准确，可信度良好。"
+            current_r2 = self.analysis_result['r2']
+            if current_r2 > 0.95:
+                quality_text = "分析结果表明，该样品的掺伪度预测模型性能优秀 (R² > 0.95)，预测结果非常准确，可信度高。"
+            elif current_r2 > 0.90:
+                quality_text = "分析结果表明，该样品的掺伪度预测模型性能良好 (R² > 0.90)，预测结果较为准确。"
+            elif current_r2 > 0.70:
+                 quality_text = f"分析结果表明，该样品的掺伪度预测模型性能一般 (R²={current_r2:.2f})，预测结果存在一定误差。"
             else:
-                quality_text = "分析结果表明，该样品的掺伪度预测存在一定误差，建议重新检测。"
+                quality_text = f"分析结果表明，该样品的掺伪度预测模型性能较差 (R²={current_r2:.2f})，预测结果误差可能较大，建议检查数据或模型。"
                 
             description_label = ctk.CTkLabel(
                 description_frame,
@@ -457,30 +653,82 @@ class AnalysisFrame(ctk.CTkFrame):
             )
             description_label.pack(pady=5, anchor="w")
             
-            # === 第四部分：查看图表按钮 ===
+            # === 第四部分：图表按钮区 ===
             chart_button_frame = ctk.CTkFrame(self.result_frame, fg_color="transparent")
             chart_button_frame.pack(fill="x", padx=20, pady=(5, 10))
             
-            view_chart_button = ctk.CTkButton(
-                chart_button_frame,
+            # 创建左右布局
+            button_left_frame = ctk.CTkFrame(chart_button_frame, fg_color="transparent")
+            button_left_frame.pack(side="left", fill="y", padx=(0, 10))
+            
+            button_right_frame = ctk.CTkFrame(chart_button_frame, fg_color="transparent")
+            button_right_frame.pack(side="right", fill="y", padx=(10, 0))
+            
+            # 掺伪度预测图表按钮
+            view_pred_button = ctk.CTkButton(
+                button_left_frame,
                 text="查看预测掺伪度图表",
                 width=200,
                 height=40,
                 font=ctk.CTkFont(size=14),
-                command=self.show_chart_popup
+                command=self.show_prediction_popup
             )
-            view_chart_button.pack(pady=5)
+            view_pred_button.pack(pady=5)
             
-            # === 第五部分：图表保存路径显示（放在按钮下面）===
+            # 光谱图表按钮 - 只有当生成了光谱图时才显示
+            if 'spectrum_path' in self.analysis_result and self.analysis_result['spectrum_path']:
+                view_spectrum_button = ctk.CTkButton(
+                    button_right_frame,
+                    text="查看光谱数据图表",
+                    width=200,
+                    height=40,
+                    font=ctk.CTkFont(size=14),
+                    command=self.show_spectrum_popup
+                )
+                view_spectrum_button.pack(pady=5)
+            
+            # === 第五部分：图表保存路径显示 ===
+            path_frame = ctk.CTkFrame(self.result_frame, fg_color="transparent")
+            path_frame.pack(fill="x", padx=20, pady=(5, 10))
+            
+            # 显示掺伪度图表路径
             chart_path = self.analysis_result['chart_path']
-            path_label = ctk.CTkLabel(
-                chart_button_frame,
-                text=f"图片保存路径: {chart_path}",
+            pred_file_label = ctk.CTkLabel(
+                path_frame,
+                text=f"预测数据文件: {self.analysis_result['prediction_filename']}",
+                font=ctk.CTkFont(size=12),
+                justify="left"
+            )
+            pred_file_label.pack(pady=(0, 3), anchor="w")
+            
+            pred_path_label = ctk.CTkLabel(
+                path_frame,
+                text=f"预测图表路径: {chart_path}",
                 font=ctk.CTkFont(size=12),
                 text_color="gray",
                 justify="left"
             )
-            path_label.pack(pady=(5, 10), anchor="w")
+            pred_path_label.pack(pady=(0, 3), anchor="w")
+            
+            # 如果有光谱图，显示光谱图路径
+            if 'spectrum_path' in self.analysis_result and self.analysis_result['spectrum_path']:
+                spectrum_path = self.analysis_result['spectrum_path']
+                spectrum_file_label = ctk.CTkLabel(
+                    path_frame,
+                    text=f"光谱数据文件: {self.analysis_result['spectrum_filename']}",
+                    font=ctk.CTkFont(size=12),
+                    justify="left"
+                )
+                spectrum_file_label.pack(pady=(0, 3), anchor="w")
+                
+                spectrum_path_label = ctk.CTkLabel(
+                    path_frame,
+                    text=f"光谱图表路径: {spectrum_path}",
+                    font=ctk.CTkFont(size=12),
+                    text_color="gray",
+                    justify="left"
+                )
+                spectrum_path_label.pack(pady=(0, 3), anchor="w")
             
             # === 第六部分：保存结果按钮 ===
             self.save_button = ctk.CTkButton(
@@ -490,7 +738,7 @@ class AnalysisFrame(ctk.CTkFrame):
                 state="normal",
                 command=self.save_result
             )
-            self.save_button.pack(pady=(5, 20))
+            self.save_button.pack(pady=(15, 20))
             
             # 隐藏进度条
             self.hide_progress()
@@ -501,7 +749,7 @@ class AnalysisFrame(ctk.CTkFrame):
             logger.error(f"更新UI时出错: {str(e)}")
             self.hide_progress()
             self.show_error("错误", f"更新结果UI时出错: {str(e)}")
-            
+    
     def _load_chart_image(self, parent_frame, loading_label):
         """延迟加载图表图像"""
         try:
@@ -614,20 +862,20 @@ class AnalysisFrame(ctk.CTkFrame):
             )
             view_button.pack(pady=(15, 0))
     
-    def show_chart_popup(self):
-        """显示图表大图弹窗"""
+    def show_prediction_popup(self):
+        """显示掺伪度预测图表大图弹窗"""
         try:
             if not hasattr(self, 'analysis_result') or 'chart_path' not in self.analysis_result:
-                logger.error("没有可用的图表")
-                self.show_error("错误", "没有可用的图表")
+                logger.error("没有可用的预测图表")
+                self.show_error("错误", "没有可用的预测图表")
                 return
                 
             chart_path = self.analysis_result['chart_path']
                 
             # 确保文件存在
             if not os.path.exists(chart_path):
-                logger.warning(f"图表文件不存在: {chart_path}")
-                self.show_error("错误", f"找不到图表文件: {chart_path}")
+                logger.warning(f"预测图表文件不存在: {chart_path}")
+                self.show_error("错误", f"找不到预测图表文件: {chart_path}")
                 return
             
             # 创建一个新窗口
@@ -659,7 +907,7 @@ class AnalysisFrame(ctk.CTkFrame):
             
             title_label = tk.Label(
                 title_frame, 
-                text="白酒掺伪度分析预测结果", 
+                text="白酒掺伪度预测结果", 
                 font=("Helvetica", 16, "bold")
             )
             title_label.pack(side='left')
@@ -718,10 +966,16 @@ class AnalysisFrame(ctk.CTkFrame):
             
             # 添加R², RMSE等信息
             stats_content = f"""
+            预测数据文件: {self.analysis_result['prediction_filename']}
+            光谱数据文件: {self.analysis_result['spectrum_filename']}
+            ------------------------------
             决定系数 (R²) = {self.analysis_result['r2']:.4f}
             均方根误差 (RMSE) = {self.analysis_result['rmse']:.4f}
+            平均绝对误差 (MAE) = {self.analysis_result['mae']:.4f}
+            平均相对误差 (MRE) = {self.analysis_result['mre']:.2f}%
+            ------------------------------
             平均预测掺伪度 = {self.analysis_result['mean_pred']:.4f}
-            实际掺伪度 = {self.analysis_result['mean_actual']:.4f}
+            平均实际掺伪度 = {self.analysis_result['mean_actual']:.4f}
             样本数量 = {len(self.analysis_result['predictions'])}
             分析时间 = {self.analysis_result['datetime']}
             """
@@ -767,12 +1021,169 @@ class AnalysisFrame(ctk.CTkFrame):
             )
             path_label.pack(side="bottom", pady=(5, 0), anchor='e')
             
-            logger.info("大图弹窗已显示")
+            logger.info("预测图表弹窗已显示")
             
         except Exception as e:
-            logger.error(f"显示图表弹窗时出错: {str(e)}")
-            self.show_error("错误", f"显示图表弹窗时出错: {str(e)}")
+            logger.error(f"显示预测图表弹窗时出错: {str(e)}")
+            self.show_error("错误", f"显示预测图表弹窗时出错: {str(e)}")
             
+    def show_spectrum_popup(self):
+        """显示光谱数据图表大图弹窗"""
+        try:
+            if not hasattr(self, 'analysis_result') or 'spectrum_path' not in self.analysis_result or not self.analysis_result['spectrum_path']:
+                logger.error("没有可用的光谱图表")
+                self.show_error("错误", "没有可用的光谱图表")
+                return
+                
+            spectrum_path = self.analysis_result['spectrum_path']
+                
+            # 确保文件存在
+            if not os.path.exists(spectrum_path):
+                logger.warning(f"光谱图表文件不存在: {spectrum_path}")
+                self.show_error("错误", f"找不到光谱图表文件: {spectrum_path}")
+                return
+            
+            # 创建一个新窗口
+            popup = tk.Toplevel()
+            popup.title("白酒光谱数据可视化")
+            
+            # 设置图标（如果有）
+            try:
+                popup.iconbitmap("assets/icon.ico")
+            except:
+                pass  # 忽略图标设置错误
+                
+            # 计算合适的窗口大小 - 使用屏幕尺寸的90%
+            screen_width = popup.winfo_screenwidth()
+            screen_height = popup.winfo_screenheight()
+            window_width = int(screen_width * 0.9)
+            window_height = int(screen_height * 0.9)
+            
+            # 设置窗口大小和位置
+            popup.geometry(f"{window_width}x{window_height}+{int((screen_width-window_width)/2)}+{int((screen_height-window_height)/2)}")
+            
+            # 创建主框架
+            main_frame = tk.Frame(popup)
+            main_frame.pack(fill='both', expand=True, padx=20, pady=20)
+            
+            # 添加标题
+            title_frame = tk.Frame(main_frame)
+            title_frame.pack(fill='x', pady=(0, 20))
+            
+            title_label = tk.Label(
+                title_frame, 
+                text="白酒光谱数据可视化", 
+                font=("Helvetica", 16, "bold")
+            )
+            title_label.pack(side='left')
+            
+            # 添加一个提示标签
+            loading_frame = tk.Frame(main_frame)
+            loading_frame.pack(fill='x', pady=10)
+            
+            loading_label = tk.Label(loading_frame, text="正在加载高清图表...", font=("Helvetica", 12))
+            loading_label.pack(pady=10)
+            popup.update()  # 刷新窗口以显示加载标签
+            
+            # 尝试加载图像
+            try:
+                # 加载图像
+                img = Image.open(spectrum_path)
+                
+                # 调整图像大小以适应窗口，保持宽高比
+                img_width, img_height = img.size
+                canvas_width = window_width - 40  # 减去padding
+                canvas_height = window_height - 200  # 减去其他元素的高度
+                
+                ratio = min(canvas_width / img_width, canvas_height / img_height)
+                new_width = int(img_width * ratio)
+                new_height = int(img_height * ratio)
+                
+                # 使用高质量的调整方法
+                img = img.resize((new_width, new_height), Image.LANCZOS)
+                img_tk = ImageTk.PhotoImage(img)
+                
+                # 移除加载标签
+                loading_frame.destroy()
+                
+                # 创建画布以显示图像
+                canvas_frame = tk.Frame(main_frame)
+                canvas_frame.pack(fill='both', expand=True)
+                
+                canvas = tk.Canvas(canvas_frame, width=new_width, height=new_height, bg='white', highlightthickness=0)
+                canvas.pack(pady=10)
+                
+                # 在画布中央显示图像
+                canvas.create_image(new_width//2, new_height//2, image=img_tk)
+                canvas.image = img_tk  # 保持引用以防止垃圾回收
+                
+            except Exception as img_err:
+                loading_label.config(text=f"加载图表失败: {str(img_err)}", fg="red")
+                logger.error(f"加载光谱图时出错: {str(img_err)}")
+                return
+            
+            # 添加说明信息面板
+            info_frame = tk.Frame(main_frame, relief=tk.GROOVE, borderwidth=1)
+            info_frame.pack(fill='x', pady=10)
+            
+            info_label = tk.Label(info_frame, text="图表说明", font=("Helvetica", 12, "bold"))
+            info_label.pack(pady=(10, 5))
+            
+            # 添加图表说明
+            info_content = """
+            此图表展示了样品的光谱数据可视化结果。
+            X轴代表波长或频率值，Y轴代表对应的光谱强度值。
+            蓝色点表示实际数据点，虚线表示趋势线。
+            通过观察光谱曲线的特征峰和谷，可以辅助判断样品的纯度和成分。
+            """
+            info_text = tk.Label(
+                info_frame, 
+                text=info_content.strip(), 
+                font=("Helvetica", 11),
+                justify="left",
+                padx=20
+            )
+            info_text.pack(pady=(0, 10))
+            
+            # 添加底部按钮面板
+            button_frame = tk.Frame(main_frame)
+            button_frame.pack(fill='x', pady=10)
+            
+            # 添加保存按钮
+            save_button = tk.Button(
+                button_frame, 
+                text="保存图表", 
+                command=lambda: self._save_chart_image(spectrum_path),
+                font=("Helvetica", 10),
+                padx=15
+            )
+            save_button.pack(side="left", padx=5)
+            
+            # 添加关闭按钮
+            close_button = tk.Button(
+                button_frame, 
+                text="关闭", 
+                command=popup.destroy,
+                font=("Helvetica", 10),
+                padx=15
+            )
+            close_button.pack(side="right", padx=5)
+            
+            # 添加图表路径信息
+            path_label = tk.Label(
+                main_frame, 
+                text=f"图表文件: {os.path.basename(spectrum_path)}",
+                font=("Helvetica", 8),
+                fg="gray"
+            )
+            path_label.pack(side="bottom", pady=(5, 0), anchor='e')
+            
+            logger.info("光谱图表弹窗已显示")
+            
+        except Exception as e:
+            logger.error(f"显示光谱图表弹窗时出错: {str(e)}")
+            self.show_error("错误", f"显示光谱图表弹窗时出错: {str(e)}")
+    
     def _save_chart_image(self, chart_path):
         """保存图表到用户指定位置"""
         try:
@@ -820,34 +1231,56 @@ class AnalysisFrame(ctk.CTkFrame):
             
             # 确保图表路径存在
             chart_path = self.analysis_result.get('chart_path', '未保存')
+            # 光谱图路径（如果有）
+            spectrum_path = self.analysis_result.get('spectrum_path', None)
             
             # 生成文字描述
-            if self.analysis_result['accuracy'] > 95:
-                quality_text = "分析结果表明，该样品的掺伪度预测非常准确，可信度高。"
-            elif self.analysis_result['accuracy'] > 90:
-                quality_text = "分析结果表明，该样品的掺伪度预测较为准确，可信度良好。"
+            current_r2 = self.analysis_result['r2']
+            if current_r2 > 0.95:
+                quality_text = "分析结果表明，该样品的掺伪度预测模型性能优秀 (R² > 0.95)，预测结果非常准确，可信度高。"
+            elif current_r2 > 0.90:
+                quality_text = "分析结果表明，该样品的掺伪度预测模型性能良好 (R² > 0.90)，预测结果较为准确。"
+            elif current_r2 > 0.70:
+                 quality_text = f"分析结果表明，该样品的掺伪度预测模型性能一般 (R²={current_r2:.2f})，预测结果存在一定误差。"
             else:
-                quality_text = "分析结果表明，该样品的掺伪度预测存在一定误差，建议重新检测。"
+                quality_text = f"分析结果表明，该样品的掺伪度预测模型性能较差 (R²={current_r2:.2f})，预测结果误差可能较大，建议检查数据或模型。"
             
             # 写入结果文件
             with open(save_path, 'w', encoding='utf-8') as f:
                 f.write("白酒品质检测系统 - 分析结果\n")
                 f.write("=" * 40 + "\n\n")
                 f.write(f"分析时间: {self.analysis_result['datetime']}\n")
-                f.write(f"文件名: {self.analysis_result['filename']}\n\n")
+                f.write(f"预测数据文件: {self.analysis_result['prediction_filename']}\n")
+                f.write(f"光谱数据文件: {self.analysis_result['spectrum_filename']}\n\n")
                 
                 # 写入掺伪量分析结果（简化版）
-                f.write("掺伪度分析结果:\n")
+                f.write("模型性能指标:\n")
                 f.write("-" * 30 + "\n")
-                f.write(f"平均预测掺伪度 = {self.analysis_result['mean_pred']:.4f}\n")
-                f.write(f"实际掺伪度 = {self.analysis_result['mean_actual']:.4f}\n")
-                f.write(f"准确率 = {self.analysis_result['accuracy']:.2f}%\n\n")
+                f.write(f"决定系数 (R²) = {self.analysis_result['r2']:.4f}\n")
+                f.write(f"均方根误差 (RMSE) = {self.analysis_result['rmse']:.4f}\n")
+                f.write(f"平均绝对误差 (MAE) = {self.analysis_result['mae']:.4f}\n")
+                f.write(f"平均相对误差 (MRE) = {self.analysis_result['mre']:.2f}%\n\n")
+                
+                # 写入单一样品预测结果
+                f.write("光谱文件样品预测:\n")
+                f.write("-" * 30 + "\n")
+                single_pred = self.analysis_result.get('single_sample_prediction')
+                if single_pred is not None:
+                    f.write(f"光谱文件样品预测掺伪度 = {single_pred:.4f}\n\n")
+                else:
+                    f.write("光谱文件样品预测掺伪度 = 未能预测\n\n")
                 
                 # 添加结果描述
+                f.write("结果评估:\n")
+                f.write("-" * 30 + "\n")
                 f.write(f"{quality_text}\n\n")
                 
                 # 添加图表路径
-                f.write(f"图片保存路径: {chart_path}\n")
+                f.write("图表文件路径:\n")
+                f.write("-" * 30 + "\n")
+                f.write(f"掺伪度预测图表: {chart_path}\n")
+                if spectrum_path:
+                    f.write(f"光谱数据图表: {spectrum_path}\n")
             
             logger.info(f"分析结果已保存至: {save_path}")
             self.show_info("保存成功", f"分析结果已保存至: {save_path}")

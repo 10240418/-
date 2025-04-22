@@ -855,3 +855,446 @@ could not convert string to float: 'C1'
 2025-04-22 13:40:26,538 - baijiu_app - INFO - 分析结果UI更新完成
 2025-04-22 13:40:30,888 - baijiu_app - INFO - 大图弹窗已显示
 2025-04-22 16:34:58,700 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-22 17:14:27,582 - db_manager - INFO - 数据库连接成功
+2025-04-22 17:14:27,587 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 17:14:27,704 - db_manager - INFO - 数据库连接成功
+2025-04-22 17:14:27,704 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 17:14:28,872 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 17:14:28,872 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 17:14:29,409 - baijiu_app - INFO - 已加载 32 条历史记录
+2025-04-22 17:14:30,013 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 17:14:30,050 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 17:14:30,050 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 17:14:36,703 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 17:14:39,920 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422171438.png
+2025-04-22 17:14:41,744 - db_manager - INFO - 添加分析记录成功: ID: 33, 用户ID: 1
+2025-04-22 17:14:41,837 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 17:14:44,388 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-22 17:15:10,276 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-22 17:16:57,625 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-22 17:23:46,705 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-22 17:34:39,716 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-22 17:35:09,183 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-22 17:58:57,347 - db_manager - INFO - 数据库连接成功
+2025-04-22 17:58:57,348 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 17:58:57,483 - db_manager - INFO - 数据库连接成功
+2025-04-22 17:58:57,483 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 17:58:58,756 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 17:58:58,756 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 17:58:59,170 - baijiu_app - INFO - 已加载 33 条历史记录
+2025-04-22 17:58:59,777 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 17:58:59,806 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 17:58:59,807 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 17:59:47,904 - baijiu_app - INFO - 用户选择了训练文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 17:59:54,530 - baijiu_app - INFO - 用户选择了样品文件: C:/Users/Stitch/Desktop/样品数据.xlsx
+2025-04-22 18:03:22,350 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:03:22,350 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 18:03:22,473 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:03:22,473 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 18:03:23,847 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 18:03:23,847 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 18:03:24,201 - baijiu_app - INFO - 已加载 33 条历史记录
+2025-04-22 18:03:24,745 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 18:03:24,775 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 18:03:24,775 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 18:03:34,654 - baijiu_app - INFO - 用户选择了训练文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 18:03:39,998 - baijiu_app - INFO - 用户选择了样品文件: C:/Users/Stitch/Desktop/样品数据.xlsx
+2025-04-22 18:03:40,978 - baijiu_app - INFO - 原始训练数据形状: (176, 502)
+2025-04-22 18:03:40,978 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 18:03:40,979 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 18:03:41,154 - baijiu_app - INFO - 预处理后训练数据形状: (175, 501)
+2025-04-22 18:03:41,154 - baijiu_app - INFO - 原始样品数据形状: (1, 502)
+2025-04-22 18:03:41,154 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 18:03:41,217 - baijiu_app - INFO - 预处理后样品数据形状: (0, 502)
+2025-04-22 18:05:04,342 - baijiu_app - INFO - 用户选择了样品文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 18:05:05,593 - baijiu_app - INFO - 原始训练数据形状: (176, 502)
+2025-04-22 18:05:05,594 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 18:05:05,594 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 18:05:05,774 - baijiu_app - INFO - 预处理后训练数据形状: (175, 501)
+2025-04-22 18:05:05,774 - baijiu_app - INFO - 原始样品数据形状: (2, 502)
+2025-04-22 18:05:05,774 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 18:05:05,774 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 18:05:05,852 - baijiu_app - INFO - 预处理后样品数据形状: (1, 501)
+2025-04-22 18:05:06,016 - baijiu_app - INFO - 使用 10 个组件训练PLSR模型
+2025-04-22 18:05:06,459 - baijiu_app - INFO - 预测结果图表已保存至: D:\Work_2024\apple_test\-\history\prediction_chart_20250422180506.png
+2025-04-22 18:12:31,391 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:12:31,392 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 18:12:31,513 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:12:31,513 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 18:12:32,512 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 18:12:32,512 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 18:12:32,876 - baijiu_app - INFO - 已加载 33 条历史记录
+2025-04-22 18:12:33,407 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 18:12:33,437 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 18:12:33,437 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 18:12:41,186 - baijiu_app - INFO - 用户选择了训练文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 18:12:47,810 - baijiu_app - INFO - 用户选择了样品文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 18:12:48,938 - baijiu_app - INFO - 原始训练数据形状: (176, 502)
+2025-04-22 18:12:48,938 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 18:12:48,938 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 18:12:49,134 - baijiu_app - INFO - 预处理后训练数据形状: (175, 501)
+2025-04-22 18:12:49,134 - baijiu_app - INFO - 原始样品数据形状: (2, 502)
+2025-04-22 18:12:49,134 - baijiu_app - INFO - 检测到标题行，将移除第一行
+2025-04-22 18:12:49,135 - baijiu_app - INFO - 检测到标签列，将移除第一列
+2025-04-22 18:12:49,230 - baijiu_app - INFO - 预处理后样品数据形状: (1, 501)
+2025-04-22 18:12:49,395 - baijiu_app - INFO - 使用 10 个组件训练PLSR模型
+2025-04-22 18:12:49,817 - baijiu_app - INFO - 预测结果图表已保存至: D:\Work_2024\apple_test\-\history\prediction_chart_20250422181249.png
+2025-04-22 18:12:50,395 - baijiu_app - INFO - 光谱可视化图表已保存至: D:\Work_2024\apple_test\-\history\spectrum_visualization_20250422181249.png
+2025-04-22 18:13:03,886 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 18:13:05,580 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 18:13:05,580 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 18:13:43,193 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:13:43,194 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 18:13:43,313 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:13:43,313 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 18:13:44,223 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 18:13:44,223 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 18:13:44,575 - baijiu_app - INFO - 已加载 33 条历史记录
+2025-04-22 18:13:45,112 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 18:13:45,142 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 18:13:45,142 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 18:14:18,375 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 18:14:21,497 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422181419.png
+2025-04-22 18:14:23,373 - db_manager - INFO - 添加分析记录成功: ID: 34, 用户ID: 1
+2025-04-22 18:14:23,428 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 18:36:45,463 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:36:45,464 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 18:36:45,582 - db_manager - INFO - 数据库连接成功
+2025-04-22 18:36:45,582 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 18:36:47,830 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 18:36:47,830 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 18:36:48,185 - baijiu_app - INFO - 已加载 34 条历史记录
+2025-04-22 18:36:48,751 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 18:36:48,782 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 18:36:48,782 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 18:36:56,871 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 18:36:58,231 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 18:36:58,231 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 19:01:28,039 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:01:28,040 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 19:01:28,159 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:01:28,159 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 19:01:29,108 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 19:01:29,108 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 19:01:29,466 - baijiu_app - INFO - 已加载 34 条历史记录
+2025-04-22 19:01:30,128 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 19:01:30,160 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 19:01:30,160 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 19:01:55,500 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:01:57,804 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422190156.png
+2025-04-22 19:01:57,806 - baijiu_app - ERROR - 分析过程中出错: Cannot use mean strategy with non-numeric data:
+could not convert string to float: 'group'
+Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\analysis_frame.py", line 270, in _perform_analysis
+    X = imputer.fit_transform(X)
+  File "D:\Program Files\Python\Lib\site-packages\sklearn\utils\_set_output.py", line 319, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "D:\Program Files\Python\Lib\site-packages\sklearn\base.py", line 918, in fit_transform
+    return self.fit(X, **fit_params).transform(X)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Lib\site-packages\sklearn\base.py", line 1389, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "D:\Program Files\Python\Lib\site-packages\sklearn\impute\_base.py", line 434, in fit
+    X = self._validate_input(X, in_fit=True)
+  File "D:\Program Files\Python\Lib\site-packages\sklearn\impute\_base.py", line 361, in _validate_input
+    raise new_ve from None
+ValueError: Cannot use mean strategy with non-numeric data:
+could not convert string to float: 'group'
+2025-04-22 19:03:32,431 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:03:32,432 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 19:03:32,548 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:03:32,548 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 19:03:33,409 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 19:03:33,409 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 19:03:33,765 - baijiu_app - INFO - 已加载 34 条历史记录
+2025-04-22 19:03:34,302 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 19:03:34,334 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 19:03:34,334 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 19:03:40,906 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:03:43,793 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422190342.png
+2025-04-22 19:03:45,687 - db_manager - INFO - 添加分析记录成功: ID: 35, 用户ID: 1
+2025-04-22 19:03:45,725 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 19:06:29,738 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:06:29,739 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 19:06:29,864 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:06:29,865 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 19:06:30,643 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 19:06:30,643 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 19:06:31,002 - baijiu_app - INFO - 已加载 35 条历史记录
+2025-04-22 19:06:31,679 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 19:06:31,723 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 19:06:31,723 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 19:06:39,109 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:06:42,160 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422190640.png
+2025-04-22 19:06:44,014 - db_manager - INFO - 添加分析记录成功: ID: 36, 用户ID: 1
+2025-04-22 19:06:44,109 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 19:47:08,882 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:47:08,883 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 19:47:08,999 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:47:08,999 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 19:47:10,203 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 19:47:10,203 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 19:47:10,586 - baijiu_app - INFO - 已加载 36 条历史记录
+2025-04-22 19:47:11,185 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 19:47:11,216 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 19:47:11,216 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 19:47:23,577 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 19:47:28,890 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:47:34,791 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 19:47:36,027 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422194734.png
+2025-04-22 19:47:36,027 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:47:36,601 - baijiu_app - ERROR - 分析过程中出错: name 'r2_score' is not defined
+2025-04-22 19:49:49,276 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:49:49,277 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 19:49:49,400 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:49:49,400 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 19:50:01,282 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 19:50:01,282 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 19:50:01,645 - baijiu_app - INFO - 已加载 36 条历史记录
+2025-04-22 19:50:02,232 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 19:50:02,263 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 19:50:02,263 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 19:50:09,828 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:50:14,389 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 19:50:15,276 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 19:50:16,576 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422195015.png
+2025-04-22 19:50:16,576 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:50:18,641 - db_manager - INFO - 添加分析记录成功: ID: 37, 用户ID: 1
+2025-04-22 19:50:18,702 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 19:50:24,274 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-22 19:55:57,721 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:55:57,722 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 19:55:57,850 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:55:57,851 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 19:55:58,919 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 19:55:58,919 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 19:55:59,412 - baijiu_app - INFO - 已加载 37 条历史记录
+2025-04-22 19:56:00,076 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 19:56:00,106 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 19:56:00,106 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 19:56:10,576 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:56:15,890 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 19:56:16,959 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 19:56:18,201 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422195616.png
+2025-04-22 19:56:18,201 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 19:56:19,993 - baijiu_app - INFO - 对光谱文件数据进行单一样品预测...
+2025-04-22 19:56:19,993 - baijiu_app - ERROR - 单样品预测失败: 光谱数据特征数量 (500) 与PCA模型期望 (501) 不符
+2025-04-22 19:56:20,016 - db_manager - INFO - 添加分析记录成功: ID: 38, 用户ID: 1
+2025-04-22 19:56:20,075 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 19:59:52,992 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:59:52,993 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 19:59:53,116 - db_manager - INFO - 数据库连接成功
+2025-04-22 19:59:53,116 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 19:59:55,521 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 19:59:55,521 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 19:59:55,950 - baijiu_app - INFO - 已加载 38 条历史记录
+2025-04-22 19:59:56,536 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 19:59:56,566 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 19:59:56,566 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:00:10,264 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:00:15,390 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:00:16,068 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:00:17,354 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422200016.png
+2025-04-22 20:00:17,354 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:00:19,187 - baijiu_app - INFO - 对光谱文件数据进行单一样品预测...
+2025-04-22 20:00:19,187 - baijiu_app - INFO - 样本数据维度: (1, 500)，PCA模型期望维度: 501
+2025-04-22 20:00:19,188 - baijiu_app - WARNING - 样本特征数(500)小于PCA期望(501)，无法进行预测
+2025-04-22 20:00:19,188 - baijiu_app - ERROR - 单样品预测失败: 样本特征数量不足: 500 < 501
+2025-04-22 20:00:19,189 - baijiu_app - ERROR - Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\analysis_frame.py", line 441, in _perform_analysis
+    raise ValueError(f"样本特征数量不足: {spectrum_sample.shape[1]} < {pca_model.n_features_in_}")
+ValueError: 样本特征数量不足: 500 < 501
+
+2025-04-22 20:00:19,206 - db_manager - INFO - 添加分析记录成功: ID: 39, 用户ID: 1
+2025-04-22 20:00:19,245 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 20:06:03,059 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:06:03,060 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:06:03,190 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:06:03,190 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:06:04,560 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:06:04,560 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:06:04,998 - baijiu_app - INFO - 已加载 39 条历史记录
+2025-04-22 20:06:05,691 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:06:05,731 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:06:05,732 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:06:14,233 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:06:19,186 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:06:20,343 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:06:21,593 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422200620.png
+2025-04-22 20:06:21,593 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:06:23,424 - baijiu_app - INFO - 对光谱文件数据进行单一样品预测...
+2025-04-22 20:06:23,424 - baijiu_app - INFO - 原始光谱数据维度: (500,)
+2025-04-22 20:06:23,437 - baijiu_app - INFO - 填充后数据形状: (1, 500)
+2025-04-22 20:06:23,437 - baijiu_app - INFO - 光谱样本特征数: 500, PCA模型期望维度: 501
+2025-04-22 20:06:23,437 - baijiu_app - WARNING - 特征数量不足，从 500 填充到 501
+2025-04-22 20:06:23,438 - baijiu_app - INFO - 应用MSC标准化...
+2025-04-22 20:06:23,438 - baijiu_app - INFO - 应用PCA降维...
+2025-04-22 20:06:23,438 - baijiu_app - INFO - 应用数据标准化...
+2025-04-22 20:06:23,438 - baijiu_app - INFO - 执行预测...
+2025-04-22 20:06:23,450 - baijiu_app - INFO - 单一样品预测掺伪度: 0.0474
+2025-04-22 20:06:23,456 - db_manager - INFO - 添加分析记录成功: ID: 40, 用户ID: 1
+2025-04-22 20:06:23,498 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 20:13:57,284 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:13:57,285 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:13:57,412 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:13:57,412 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:13:58,209 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:13:58,209 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:13:58,732 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:13:59,368 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:13:59,398 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:13:59,398 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:18:19,232 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:18:19,233 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:18:19,362 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:18:19,362 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:18:20,610 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:18:20,610 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:18:21,115 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:18:21,738 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:18:21,768 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:18:21,769 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:20:53,642 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:20:53,643 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:20:53,773 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:20:53,773 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:20:55,169 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:20:55,169 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:20:55,636 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:20:56,341 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:20:56,374 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:20:56,374 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:23:09,011 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:23:09,011 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:23:09,143 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:23:09,143 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:23:10,627 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:23:10,627 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:23:11,081 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:23:11,754 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:23:11,786 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:23:11,786 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:27:34,038 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:27:34,039 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:27:34,188 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:27:34,188 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:27:35,521 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:27:35,522 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:27:36,661 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:27:37,556 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:27:37,590 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:27:37,591 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:28:13,663 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:28:13,664 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:28:13,790 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:28:13,790 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:28:15,071 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:28:15,071 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:28:15,522 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:28:16,248 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:28:16,279 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:28:16,279 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:28:31,257 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:28:31,258 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:28:31,386 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:28:31,386 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:28:32,107 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:28:32,108 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:28:32,501 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:28:33,136 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:28:33,168 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:28:33,168 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:28:46,069 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:28:46,070 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:28:46,195 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:28:46,195 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:28:46,942 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:28:46,942 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:28:47,411 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:28:48,104 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:28:48,135 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:28:48,136 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:29:29,838 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:29:29,839 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:29:29,967 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:29:29,967 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:29:30,693 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:29:30,693 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:29:31,148 - baijiu_app - INFO - 已加载 40 条历史记录
+2025-04-22 20:29:31,788 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:29:31,822 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:29:31,822 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:29:41,670 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:29:46,340 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:29:46,971 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:29:48,228 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422202946.png
+2025-04-22 20:29:48,228 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:29:50,044 - baijiu_app - INFO - 对光谱文件数据进行单一样品预测...
+2025-04-22 20:29:50,044 - baijiu_app - INFO - 原始光谱数据维度: (500,)
+2025-04-22 20:29:50,054 - baijiu_app - INFO - 填充后数据形状: (1, 500)
+2025-04-22 20:29:50,054 - baijiu_app - INFO - 光谱样本特征数: 500, PCA模型期望维度: 501
+2025-04-22 20:29:50,055 - baijiu_app - WARNING - 特征数量不足，从 500 填充到 501
+2025-04-22 20:29:50,055 - baijiu_app - INFO - 应用MSC标准化...
+2025-04-22 20:29:50,055 - baijiu_app - INFO - 应用PCA降维...
+2025-04-22 20:29:50,055 - baijiu_app - INFO - 应用数据标准化...
+2025-04-22 20:29:50,055 - baijiu_app - INFO - 执行预测...
+2025-04-22 20:29:50,066 - baijiu_app - INFO - 单一样品预测掺伪度: 0.0474
+2025-04-22 20:29:50,083 - db_manager - INFO - 添加分析记录成功: ID: 41, 用户ID: 1
+2025-04-22 20:29:50,299 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 20:29:58,292 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-22 20:31:17,319 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 20:31:23,130 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:31:23,131 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:31:23,268 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:31:23,268 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:31:24,055 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:31:24,055 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:31:24,648 - baijiu_app - INFO - 已加载 41 条历史记录
+2025-04-22 20:31:25,385 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:31:25,416 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:31:25,416 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:31:43,265 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:31:49,514 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:31:51,503 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:31:52,740 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422203151.png
+2025-04-22 20:31:52,740 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:31:54,572 - baijiu_app - INFO - 对光谱文件数据进行单一样品预测...
+2025-04-22 20:31:54,572 - baijiu_app - INFO - 原始光谱数据维度: (500,)
+2025-04-22 20:31:54,583 - baijiu_app - INFO - 填充后数据形状: (1, 500)
+2025-04-22 20:31:54,583 - baijiu_app - INFO - 光谱样本特征数: 500, PCA模型期望维度: 501
+2025-04-22 20:31:54,583 - baijiu_app - WARNING - 特征数量不足，从 500 填充到 501
+2025-04-22 20:31:54,583 - baijiu_app - INFO - 应用MSC标准化...
+2025-04-22 20:31:54,583 - baijiu_app - INFO - 应用PCA降维...
+2025-04-22 20:31:54,583 - baijiu_app - INFO - 应用数据标准化...
+2025-04-22 20:31:54,583 - baijiu_app - INFO - 执行预测...
+2025-04-22 20:31:54,596 - baijiu_app - INFO - 单一样品预测掺伪度: 0.0474
+2025-04-22 20:31:54,612 - db_manager - INFO - 添加分析记录成功: ID: 42, 用户ID: 1
+2025-04-22 20:31:54,732 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-22 20:42:07,137 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:42:07,138 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 20:42:07,261 - db_manager - INFO - 数据库连接成功
+2025-04-22 20:42:07,261 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 20:42:08,065 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 20:42:08,065 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 20:42:08,517 - baijiu_app - INFO - 已加载 42 条历史记录
+2025-04-22 20:42:09,173 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 20:42:09,203 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 20:42:09,203 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 20:42:17,483 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:42:22,062 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:42:22,707 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-22 20:42:23,977 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250422204222.png
+2025-04-22 20:42:23,977 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-22 20:42:25,813 - baijiu_app - INFO - 开始对光谱文件数据进行单一样品预测...
+2025-04-22 20:42:25,814 - baijiu_app - INFO - 检测到第一行为标题行，将跳过
+2025-04-22 20:42:25,814 - baijiu_app - INFO - 检测到第一列为标题列，将跳过
+2025-04-22 20:42:25,817 - baijiu_app - INFO - 将光谱数据转换为数值类型
+2025-04-22 20:42:25,831 - baijiu_app - INFO - 使用光谱数据的第一行作为样本，数据形状: (1, 501)
+2025-04-22 20:42:25,832 - baijiu_app - INFO - 重塑后的样本形状: (1, 501), PCA模型期望特征数: 501
+2025-04-22 20:42:25,833 - baijiu_app - INFO - 已完成样本数据的缺失值填充
+2025-04-22 20:42:25,833 - baijiu_app - INFO - 已完成样本数据的MSC标准化
+2025-04-22 20:42:25,833 - baijiu_app - INFO - 已完成样本数据的PCA降维，形状变为: (1, 5)
+2025-04-22 20:42:25,833 - baijiu_app - INFO - 已完成样本数据的标准化
+2025-04-22 20:42:25,846 - baijiu_app - INFO - 单一样本预测结果: 0.0471
+2025-04-22 20:42:25,862 - db_manager - INFO - 添加分析记录成功: ID: 43, 用户ID: 1
+2025-04-22 20:42:26,004 - baijiu_app - INFO - 分析结果UI更新完成
