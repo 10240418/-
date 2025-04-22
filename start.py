@@ -65,7 +65,7 @@ def train_models():
 def main():
     # 确保必要的目录存在
     os.makedirs('logs', exist_ok=True)
-
+    os.makedirs('history', exist_ok=True)
     os.makedirs('history_img', exist_ok=True)
     os.makedirs('database', exist_ok=True)
     
