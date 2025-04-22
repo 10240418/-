@@ -117,7 +117,7 @@ class AnalysisFrame(ctk.CTkFrame):
         
         # 添加一个容器用于放置分析按钮，确保靠右对齐
         self.button_container = ctk.CTkFrame(self, fg_color="transparent")
-        self.button_container.pack(fill="x", padx=30, pady=(0, 5)) # 缩小底部间距从20到5
+        self.button_container.pack(fill="x", padx=30, pady=(5, 5)) # 缩小底部间距从20到5
         
         # 分析按钮 - 放在文件选择框下方，结果区域上方，并靠右对齐
         self.analyze_button = ctk.CTkButton(
@@ -129,7 +129,7 @@ class AnalysisFrame(ctk.CTkFrame):
             command=self.analyze_file
         )
         # 设置按钮自身的内边距为0
-        self.analyze_button.pack(side="right", padx=0, pady=0)
+        self.analyze_button.pack(side="right", padx=10, pady=0)
         
         # 分析结果区域
         self.result_frame = ctk.CTkFrame(self)
@@ -624,30 +624,6 @@ class AnalysisFrame(ctk.CTkFrame):
             )
             self.result_value.pack(pady=10, padx=20, anchor="w")
             
-            # === 第三部分：结果描述 ===
-            # description_frame = ctk.CTkFrame(self.result_frame, fg_color="transparent")
-            # description_frame.pack(fill="x", padx=20, pady=(0, 15))
-            
-            # # 根据结果生成文字描述
-            # current_r2 = self.analysis_result['r2']
-            # if current_r2 > 0.95:
-            #     quality_text = "分析结果表明，该样品的掺伪度预测模型性能优秀 (R² > 0.95)，预测结果非常准确，可信度高。"
-            # elif current_r2 > 0.90:
-            #     quality_text = "分析结果表明，该样品的掺伪度预测模型性能良好 (R² > 0.90)，预测结果较为准确。"
-            # elif current_r2 > 0.70:
-            #      quality_text = f"分析结果表明，该样品的掺伪度预测模型性能一般 (R²={current_r2:.2f})，预测结果存在一定误差。"
-            # else:
-            #     quality_text = f"分析结果表明，该样品的掺伪度预测模型性能较差 (R²={current_r2:.2f})，预测结果误差可能较大，建议检查数据或模型。"
-                
-            # description_label = ctk.CTkLabel(
-            #     description_frame,
-            #     text=quality_text,
-            #     font=ctk.CTkFont(size=14),
-            #     wraplength=500,
-            #     justify="left"
-            # )
-            # description_label.pack(pady=5, anchor="w")
-            
             # === 第四部分：图表按钮区 ===
             chart_button_frame = ctk.CTkFrame(self.result_frame, fg_color="transparent")
             chart_button_frame.pack(fill="x", padx=20, pady=(5, 10))
@@ -663,7 +639,7 @@ class AnalysisFrame(ctk.CTkFrame):
             view_pred_button = ctk.CTkButton(
                 button_left_frame,
                 text="查看预测掺伪度图表",
-                width=160,
+                width=150,
                 height=30,
                 font=ctk.CTkFont(size=14),
                 command=self.show_prediction_popup
@@ -675,7 +651,7 @@ class AnalysisFrame(ctk.CTkFrame):
                 view_spectrum_button = ctk.CTkButton(
                     button_right_frame,
                     text="查看光谱数据图表",
-                    width=160,
+                    width=150,
                     height=30,
                     font=ctk.CTkFont(size=14),
                     command=self.show_spectrum_popup

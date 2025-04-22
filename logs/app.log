@@ -1407,3 +1407,395 @@ ValueError: 样本特征数量不足: 500 < 501
 2025-04-22 21:06:13,185 - baijiu_app - INFO - 分析结果UI更新完成
 2025-04-22 21:06:18,366 - baijiu_app - INFO - 预测图表弹窗已显示
 2025-04-22 21:06:20,293 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-22 21:10:48,287 - baijiu_app - INFO - 已加载 46 条历史记录
+2025-04-22 21:11:14,063 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 21:11:14,096 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 21:21:55,058 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:21:55,059 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:21:55,211 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:21:55,211 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 21:21:56,251 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 21:21:56,251 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 21:21:56,741 - baijiu_app - INFO - 已加载 46 条历史记录
+2025-04-22 21:21:57,541 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 21:21:57,574 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 21:21:57,574 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 21:22:08,970 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:22:09,584 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:22:09,900 - baijiu_app - INFO - 预处理数据...
+2025-04-22 21:22:09,908 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 21:22:09,908 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 21:22:09,908 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 21:22:09,909 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 21:22:09,914 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.36)
+2025-04-22 21:22:09,914 - db_manager - ERROR - 添加分析记录失败: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6472 and this is thread id 32716.
+2025-04-22 21:22:09,914 - baijiu_app - ERROR - 数据处理或预测过程中出错: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6472 and this is thread id 32716.
+2025-04-22 21:22:09,917 - baijiu_app - ERROR - Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\database\db_manager.py", line 60, in execute_query
+    self.cursor.execute(query, params)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6472 and this is thread id 32716.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\classification_frame.py", line 242, in _perform_classification
+    self.db_manager.add_analysis_record(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.user_id,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        "白酒真伪分类"
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Work_2024\apple_test\-\database\db_manager.py", line 226, in add_analysis_record
+    self.execute_query(
+    ~~~~~~~~~~~~~~~~~~^
+        "INSERT INTO analysis_history (user_id, filename, result, analysis_type, created_at) VALUES (?, ?, ?, ?, ?)",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        (user_id, filename, result, analysis_type, created_at)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Work_2024\apple_test\-\database\db_manager.py", line 67, in execute_query
+    self.connection.rollback()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6472 and this is thread id 32716.
+
+2025-04-22 21:22:09,918 - baijiu_app - ERROR - 分类过程中出错: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6472 and this is thread id 32716.
+2025-04-22 21:22:09,918 - baijiu_app - ERROR - Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\database\db_manager.py", line 60, in execute_query
+    self.cursor.execute(query, params)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6472 and this is thread id 32716.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\classification_frame.py", line 242, in _perform_classification
+    self.db_manager.add_analysis_record(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.user_id,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        "白酒真伪分类"
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Work_2024\apple_test\-\database\db_manager.py", line 226, in add_analysis_record
+    self.execute_query(
+    ~~~~~~~~~~~~~~~~~~^
+        "INSERT INTO analysis_history (user_id, filename, result, analysis_type, created_at) VALUES (?, ?, ?, ?, ?)",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        (user_id, filename, result, analysis_type, created_at)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Work_2024\apple_test\-\database\db_manager.py", line 67, in execute_query
+    self.connection.rollback()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 6472 and this is thread id 32716.
+
+2025-04-22 21:25:15,085 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-22 21:25:15,091 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:25:15,092 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:25:15,219 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:25:15,219 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 21:25:16,371 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 21:25:16,371 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 21:25:16,822 - baijiu_app - INFO - 已加载 46 条历史记录
+2025-04-22 21:25:17,601 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 21:25:17,631 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 21:25:17,631 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 21:25:26,969 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:25:27,803 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:25:28,091 - baijiu_app - INFO - 预处理数据...
+2025-04-22 21:25:28,093 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 21:25:28,093 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 21:25:28,093 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 21:25:28,094 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 21:25:28,098 - baijiu_app - INFO - 分类完成: 分类结果: 掺工业酒精假酒 (置信度: 0.36)
+2025-04-22 21:25:28,098 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:25:28,128 - db_manager - INFO - 添加分析记录成功: ID: 47, 用户ID: 1
+2025-04-22 21:25:28,128 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:25:28,354 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 21:29:00,385 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-22 21:29:00,392 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:29:00,393 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:29:00,469 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:29:00,469 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 21:29:01,732 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 21:29:01,732 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 21:29:02,182 - baijiu_app - INFO - 已加载 47 条历史记录
+2025-04-22 21:29:02,954 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 21:29:02,990 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 21:29:02,990 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 21:29:16,266 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:29:18,791 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:29:19,065 - baijiu_app - INFO - 预处理数据...
+2025-04-22 21:29:19,067 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 21:29:19,067 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 21:29:19,067 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 21:29:19,068 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 21:29:19,073 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:29:19,073 - baijiu_app - ERROR - 数据处理或预测过程中出错: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+2025-04-22 21:29:19,074 - baijiu_app - ERROR - Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\classification_frame.py", line 292, in _perform_classification
+    db_copy.add_analysis_record(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.user_id,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        "白酒真伪分类"
+        ^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+
+2025-04-22 21:29:19,074 - baijiu_app - ERROR - 分类过程中出错: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+2025-04-22 21:29:19,074 - baijiu_app - ERROR - Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\classification_frame.py", line 292, in _perform_classification
+    db_copy.add_analysis_record(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.user_id,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        "白酒真伪分类"
+        ^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+
+2025-04-22 21:29:39,618 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:29:39,646 - baijiu_app - INFO - 预处理数据...
+2025-04-22 21:29:39,647 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 21:29:39,647 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 21:29:39,647 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 21:29:39,648 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 21:29:39,649 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:29:39,650 - baijiu_app - ERROR - 数据处理或预测过程中出错: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+2025-04-22 21:29:39,650 - baijiu_app - ERROR - Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\classification_frame.py", line 292, in _perform_classification
+    db_copy.add_analysis_record(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.user_id,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        "白酒真伪分类"
+        ^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+
+2025-04-22 21:29:39,650 - baijiu_app - ERROR - 分类过程中出错: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+2025-04-22 21:29:39,651 - baijiu_app - ERROR - Traceback (most recent call last):
+  File "D:\Work_2024\apple_test\-\components\classification_frame.py", line 292, in _perform_classification
+    db_copy.add_analysis_record(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.user_id,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        "白酒真伪分类"
+        ^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: DatabaseManager.add_analysis_record() missing 1 required positional argument: 'analysis_type'
+
+2025-04-22 21:32:29,663 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-22 21:32:29,670 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:32:29,670 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:32:29,752 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:32:29,752 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 21:32:30,773 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 21:32:30,773 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 21:32:31,230 - baijiu_app - INFO - 已加载 47 条历史记录
+2025-04-22 21:32:31,960 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 21:32:31,994 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 21:32:31,994 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 21:44:33,058 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 21:44:34,411 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 21:44:34,412 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-22 21:55:18,018 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-22 21:55:18,032 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:55:18,036 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:55:18,202 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:55:18,202 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 21:55:19,275 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 21:55:19,276 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 21:55:19,834 - baijiu_app - INFO - 已加载 47 条历史记录
+2025-04-22 21:55:20,605 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 21:55:20,638 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 21:55:20,638 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 21:55:28,374 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:55:29,196 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:55:29,531 - baijiu_app - INFO - 预处理数据...
+2025-04-22 21:55:29,554 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 21:55:29,555 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 21:55:29,555 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 21:55:29,563 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 21:55:29,592 - baijiu_app - INFO - 分类完成: 分类结果: 掺工业酒精假酒 (置信度: 0.41)
+2025-04-22 21:55:29,593 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:55:29,599 - db_manager - INFO - 添加分析记录成功: ID: 48, 用户ID: 1
+2025-04-22 21:55:29,599 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:55:29,780 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 21:59:30,847 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-22 21:59:30,854 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:59:30,854 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:59:30,980 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:59:30,980 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 21:59:32,730 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 21:59:32,730 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 21:59:33,180 - baijiu_app - INFO - 已加载 48 条历史记录
+2025-04-22 21:59:33,964 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 21:59:33,997 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 21:59:33,997 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 21:59:45,469 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:59:46,179 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 21:59:46,480 - baijiu_app - INFO - 预处理数据...
+2025-04-22 21:59:46,481 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 21:59:46,482 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 21:59:46,482 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 21:59:46,483 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 21:59:46,487 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.34)
+2025-04-22 21:59:46,488 - db_manager - INFO - 数据库连接成功
+2025-04-22 21:59:46,503 - db_manager - INFO - 添加分析记录成功: ID: 49, 用户ID: 1
+2025-04-22 21:59:46,503 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 21:59:46,576 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:37,299 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:37,332 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:37,333 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:37,333 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:37,334 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:37,334 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:37,335 - baijiu_app - INFO - 分类完成: 分类结果: 掺水假酒 (置信度: 0.38)
+2025-04-22 22:00:37,336 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:37,351 - db_manager - INFO - 添加分析记录成功: ID: 50, 用户ID: 1
+2025-04-22 22:00:37,351 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:37,460 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:39,152 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:39,173 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:39,174 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:39,174 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:39,174 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:39,175 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:39,176 - baijiu_app - INFO - 分类完成: 分类结果: 掺工业酒精假酒 (置信度: 0.37)
+2025-04-22 22:00:39,176 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:39,191 - db_manager - INFO - 添加分析记录成功: ID: 51, 用户ID: 1
+2025-04-22 22:00:39,191 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:39,269 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:41,821 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:41,846 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:41,847 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:41,847 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:41,847 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:41,848 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:41,848 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.39)
+2025-04-22 22:00:41,849 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:41,864 - db_manager - INFO - 添加分析记录成功: ID: 52, 用户ID: 1
+2025-04-22 22:00:41,864 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:41,944 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:42,509 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:42,530 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:42,531 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:42,531 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:42,532 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:42,532 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:42,533 - baijiu_app - INFO - 分类完成: 分类结果: 掺工业酒精假酒 (置信度: 0.38)
+2025-04-22 22:00:42,534 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:42,548 - db_manager - INFO - 添加分析记录成功: ID: 53, 用户ID: 1
+2025-04-22 22:00:42,548 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:42,624 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:43,012 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:43,033 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:43,034 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:43,034 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:43,034 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:43,035 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:43,036 - baijiu_app - INFO - 分类完成: 分类结果: 掺工业酒精假酒 (置信度: 0.35)
+2025-04-22 22:00:43,037 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:43,052 - db_manager - INFO - 添加分析记录成功: ID: 54, 用户ID: 1
+2025-04-22 22:00:43,052 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:43,134 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:43,501 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:43,523 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:43,524 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:43,524 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:43,524 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:43,525 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:43,525 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.34)
+2025-04-22 22:00:43,526 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:43,541 - db_manager - INFO - 添加分析记录成功: ID: 55, 用户ID: 1
+2025-04-22 22:00:43,542 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:43,632 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:44,089 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:44,131 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:44,132 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:44,132 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:44,132 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:44,133 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:44,134 - baijiu_app - INFO - 分类完成: 分类结果: 掺工业酒精假酒 (置信度: 0.38)
+2025-04-22 22:00:44,134 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:44,149 - db_manager - INFO - 添加分析记录成功: ID: 56, 用户ID: 1
+2025-04-22 22:00:44,149 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:44,231 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:44,516 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:44,539 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:44,540 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:44,540 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:44,540 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:44,541 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:44,541 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.36)
+2025-04-22 22:00:44,542 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:44,557 - db_manager - INFO - 添加分析记录成功: ID: 57, 用户ID: 1
+2025-04-22 22:00:44,557 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:44,629 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:44,902 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:44,925 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:44,926 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:44,926 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:44,926 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:44,926 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:44,927 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.37)
+2025-04-22 22:00:44,928 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:44,942 - db_manager - INFO - 添加分析记录成功: ID: 58, 用户ID: 1
+2025-04-22 22:00:44,942 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:45,034 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:00:45,382 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:00:45,408 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:00:45,409 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:00:45,409 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:00:45,409 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:00:45,410 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:00:45,411 - baijiu_app - INFO - 分类完成: 分类结果: 掺水假酒 (置信度: 0.37)
+2025-04-22 22:00:45,412 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:00:45,429 - db_manager - INFO - 添加分析记录成功: ID: 59, 用户ID: 1
+2025-04-22 22:00:45,429 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:00:45,518 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:01:57,967 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-22 22:01:57,973 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:01:57,974 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:01:58,098 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:01:58,098 - baijiu_app - INFO - 数据库连接成功
+2025-04-22 22:01:59,396 - db_manager - INFO - 用户验证成功: admin
+2025-04-22 22:01:59,396 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-22 22:01:59,928 - baijiu_app - INFO - 已加载 59 条历史记录
+2025-04-22 22:02:00,956 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-22 22:02:00,985 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-22 22:02:00,986 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-22 22:02:07,531 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:02:08,475 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-22 22:02:08,753 - baijiu_app - INFO - 预处理数据...
+2025-04-22 22:02:08,754 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-22 22:02:08,754 - baijiu_app - INFO - 加载分类模型...
+2025-04-22 22:02:08,754 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-22 22:02:08,755 - baijiu_app - INFO - 执行分类预测...
+2025-04-22 22:02:08,759 - baijiu_app - INFO - 分类完成: 分类结果: 真酒 (置信度: 0.37)
+2025-04-22 22:02:08,760 - db_manager - INFO - 数据库连接成功
+2025-04-22 22:02:08,775 - db_manager - INFO - 添加分析记录成功: ID: 60, 用户ID: 1
+2025-04-22 22:02:08,775 - db_manager - INFO - 数据库连接已关闭
+2025-04-22 22:02:08,813 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-22 22:02:46,684 - baijiu_app - INFO - 已加载 60 条历史记录
+2025-04-22 22:05:07,250 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-22 22:05:21,611 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-22 22:05:21,611 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
