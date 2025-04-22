@@ -1,0 +1,14 @@
+numpy>=1.21.0
+pandas>=1.3.0
+matplotlib>=3.4.0
+scikit-learn>=0.24.0
+torch>=1.9.0
+customtkinter>=5.1.2
+joblib>=1.1.0
+openpyxl>=3.0.0  # For Excel file support
+xlrd>=2.0.1      # For older Excel file formats
+pillow>=9.0.0    # Required for customtkinter
+sqlite3          # Usually comes with Python
+traceback2>=1.4.0  # For better error tracking
+pytz>=2021.1     # For timezone support in logging
+python-dateutil>=2.8.2  # For date handling 
