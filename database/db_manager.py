@@ -449,4 +449,41 @@ class DatabaseManager:
             return True
         except Exception as e:
             logger.error(f"更新用户角色失败: {str(e)}")
-            return False 
+            return False
+    
+    def delete_recent_history(self, user_id, count=50):
+        """删除用户最近的N条历史记录
+        
+        Args:
+            user_id: 用户ID
+            count: 要删除的记录数量(默认为50)
+            
+        Returns:
+            成功删除的记录数量
+        """
+        try:
+            # 首先获取该用户最近的N条记录的ID
+            record_ids = self.execute_query(
+                "SELECT id FROM analysis_history WHERE user_id = ? ORDER BY created_at DESC LIMIT ?",
+                (user_id, count)
+            )
+            
+            if not record_ids:
+                logger.info(f"用户 {user_id} 没有历史记录可删除")
+                return 0
+                
+            # 将ID列表转换为元组中的字符串形式，例如 (1,2,3)
+            id_list = ','.join(str(record[0]) for record in record_ids)
+            
+            # 执行删除操作
+            self.execute_query(
+                f"DELETE FROM analysis_history WHERE id IN ({id_list})"
+            )
+            
+            deleted_count = len(record_ids)
+            logger.info(f"成功删除用户 {user_id} 的 {deleted_count} 条最近历史记录")
+            return deleted_count
+            
+        except Exception as e:
+            logger.error(f"删除用户历史记录失败: {str(e)}")
+            return 0 

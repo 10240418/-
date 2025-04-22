@@ -17,8 +17,55 @@ import traceback # Import traceback module for detailed error logging
 # Import necessary metric functions
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from sklearn.impute import SimpleImputer
+from matplotlib.font_manager import FontProperties
 
 matplotlib.use('Agg')  # 使用非交互式后端
+
+# 配置中文字体支持
+# 尝试设置支持中文的字体
+try:
+    # 尝试多种可能的字体，从系统字体目录查找
+    font_paths = [
+        # Windows
+        'C:/Windows/Fonts/simhei.ttf',  # 黑体
+        'C:/Windows/Fonts/simsun.ttc',  # 宋体
+        'C:/Windows/Fonts/msyh.ttc',    # 微软雅黑
+        # macOS
+        '/System/Library/Fonts/PingFang.ttc',  # 苹方
+        # Linux
+        '/usr/share/fonts/truetype/wqy/wqy-microhei.ttc'  # 文泉驿微米黑
+    ]
+    
+    # 查找第一个存在的字体
+    font_found = False
+    for font_path in font_paths:
+        if os.path.exists(font_path):
+            chinese_font = FontProperties(fname=font_path)
+            plt.rcParams['font.family'] = ['sans-serif']
+            if 'simhei' in font_path or 'SimHei' in font_path:
+                plt.rcParams['font.sans-serif'] = ['SimHei'] + plt.rcParams['font.sans-serif']
+            elif 'simsun' in font_path or 'SimSun' in font_path:
+                plt.rcParams['font.sans-serif'] = ['SimSun'] + plt.rcParams['font.sans-serif']
+            elif 'msyh' in font_path or 'Microsoft YaHei' in font_path:
+                plt.rcParams['font.sans-serif'] = ['Microsoft YaHei'] + plt.rcParams['font.sans-serif']
+            elif 'pingfang' in font_path.lower() or 'PingFang' in font_path:
+                plt.rcParams['font.sans-serif'] = ['PingFang SC'] + plt.rcParams['font.sans-serif']
+            elif 'wqy' in font_path:
+                plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei'] + plt.rcParams['font.sans-serif']
+            plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
+            font_found = True
+            break
+    
+    # 如果没有找到字体文件，尝试使用matplotlib内置的字体
+    if not font_found:
+        plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'PingFang SC', 
+                                           'WenQuanYi Micro Hei', 'DejaVu Sans'] + plt.rcParams['font.sans-serif']
+        plt.rcParams['axes.unicode_minus'] = False
+except Exception as e:
+    print(f"配置中文字体时出错: {e}")
+    # 使用一个后备方案
+    plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS', 'DejaVu Sans'] + plt.rcParams.get('font.sans-serif', [])
+    plt.rcParams['axes.unicode_minus'] = False
 
 # 设置日志
 logger = logging.getLogger('baijiu_app')
@@ -244,15 +291,15 @@ class AnalysisFrame(ctk.CTkFrame):
 
                 if raw_spectrum_data.shape[0] >= 2:
                     x_values = raw_spectrum_data.iloc[0].values
-                    x_label = "波长/频率"
+                    x_label = "波长"  # 默认X轴标签设为"波长"
                     if isinstance(raw_spectrum_data.iloc[0, 0], str) and not self._is_numeric_string(raw_spectrum_data.iloc[0, 0]):
-                        x_label = raw_spectrum_data.iloc[0, 0]
+                        x_label = raw_spectrum_data.iloc[0, 0] if raw_spectrum_data.iloc[0, 0] else "波长"
                         x_values = x_values[1:]
                     
                     y_values = raw_spectrum_data.iloc[1].values
-                    y_label = "光谱值"
+                    y_label = "荧光强度"  # 默认Y轴标签设为"荧光强度"
                     if isinstance(raw_spectrum_data.iloc[1, 0], str) and not self._is_numeric_string(raw_spectrum_data.iloc[1, 0]):
-                        y_label = raw_spectrum_data.iloc[1, 0]
+                        y_label = raw_spectrum_data.iloc[1, 0] if raw_spectrum_data.iloc[1, 0] else "荧光强度"
                         y_values = y_values[1:]
 
                     valid_x, valid_y = [], []
@@ -267,15 +314,17 @@ class AnalysisFrame(ctk.CTkFrame):
                         plt.figure(figsize=(12, 6))
                         plt.scatter(valid_x, valid_y, color='#1f77b4', s=30, alpha=0.8, label="数据点")
                         plt.plot(valid_x, valid_y, color='#1f77b4', linestyle='--', alpha=0.6, label="趋势线")
-                        plt.title("白酒光谱数据可视化", fontsize=14)
+                        plt.title("样品荧光光谱图", fontsize=14)
                         plt.xlabel(x_label, fontsize=12)
                         plt.ylabel(y_label, fontsize=12)
                         plt.grid(True, linestyle='--', alpha=0.7)
                         plt.legend(loc='best')
-                        desc_text = f"光谱数据文件: {os.path.basename(self.spectrum_file_path)}\\n" \
-                                    f"数据点数量: {len(valid_x)}\\n" \
-                                    f"X轴范围: [{min(valid_x):.2f}, {max(valid_x):.2f}]\\n" \
-                                    f"Y轴范围: [{min(valid_y):.2f}, {max(valid_y):.2f}]"
+                        
+                        # 调整注释文本，避免使用\n转义，改为明确的换行符
+                        desc_text = f"光谱数据文件: {os.path.basename(self.spectrum_file_path)}\n" \
+                                    f"数据点数量: {len(valid_x)}\n" \
+                                    f"X波长范围: [{min(valid_x):.2f}, {max(valid_x):.2f}]\n" \
+                                    f"Y荧光强度范围: [{min(valid_y):.2f}, {max(valid_y):.2f}]"
                         plt.annotate(desc_text, xy=(0.02, 0.98), xycoords='axes fraction',
                                      bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8),
                                      fontsize=10, ha='left', va='top')
@@ -395,7 +444,7 @@ class AnalysisFrame(ctk.CTkFrame):
             # 添加坐标轴标签和标题
             plt.xlabel("实际掺伪度", fontsize=14)
             plt.ylabel("预测掺伪度", fontsize=14)
-            plt.title("白酒掺伪度预测结果", fontsize=16)
+            plt.title("白酒掺伪度预测结果图", fontsize=16)
             
             # 添加R²和RMSE的文本标注 - 增大字体
             text_str = f'R² = {r2:.4f}\nRMSE = {rmse:.4f}'
@@ -868,7 +917,7 @@ class AnalysisFrame(ctk.CTkFrame):
             
             title_label = tk.Label(
                 title_frame, 
-                text="白酒掺伪度预测结果", 
+                text="白酒掺伪度预测结果图", 
                 font=("Helvetica", 16, "bold")
             )
             title_label.pack(side='left')
@@ -918,36 +967,7 @@ class AnalysisFrame(ctk.CTkFrame):
                 logger.error(f"加载大图时出错: {str(img_err)}")
                 return
             
-            # 添加统计信息面板
-            info_frame = tk.Frame(main_frame, relief=tk.GROOVE, borderwidth=1)
-            info_frame.pack(fill='x', pady=10)
-            
-            stats_label = tk.Label(info_frame, text="统计信息", font=("Helvetica", 12, "bold"))
-            stats_label.pack(pady=(10, 5))
-            
-            # 添加R², RMSE等信息
-            stats_content = f"""
-            预测数据文件: {self.analysis_result['prediction_filename']}
-            光谱数据文件: {self.analysis_result['spectrum_filename']}
-            ------------------------------
-            决定系数 (R²) = {self.analysis_result['r2']:.4f}
-            均方根误差 (RMSE) = {self.analysis_result['rmse']:.4f}
-            平均绝对误差 (MAE) = {self.analysis_result['mae']:.4f}
-            平均相对误差 (MRE) = {self.analysis_result['mre']:.2f}%
-            ------------------------------
-            平均预测掺伪度 = {self.analysis_result['mean_pred']:.4f}
-            平均实际掺伪度 = {self.analysis_result['mean_actual']:.4f}
-            样本数量 = {len(self.analysis_result['predictions'])}
-            分析时间 = {self.analysis_result['datetime']}
-            """
-            stats_text = tk.Label(
-                info_frame, 
-                text=stats_content.strip(), 
-                font=("Courier", 11),
-                justify="left",
-                padx=20
-            )
-            stats_text.pack(pady=(0, 10))
+            # 删除统计信息面板
             
             # 添加底部按钮面板
             button_frame = tk.Frame(main_frame)
@@ -1006,7 +1026,7 @@ class AnalysisFrame(ctk.CTkFrame):
             
             # 创建一个新窗口
             popup = tk.Toplevel()
-            popup.title("白酒光谱数据可视化")
+            popup.title("样品荧光光谱图")
             
             # 设置图标（如果有）
             try:
@@ -1033,7 +1053,7 @@ class AnalysisFrame(ctk.CTkFrame):
             
             title_label = tk.Label(
                 title_frame, 
-                text="白酒光谱数据可视化", 
+                text="样品荧光光谱图", 
                 font=("Helvetica", 16, "bold")
             )
             title_label.pack(side='left')
@@ -1083,28 +1103,7 @@ class AnalysisFrame(ctk.CTkFrame):
                 logger.error(f"加载光谱图时出错: {str(img_err)}")
                 return
             
-            # 添加说明信息面板
-            info_frame = tk.Frame(main_frame, relief=tk.GROOVE, borderwidth=1)
-            info_frame.pack(fill='x', pady=10)
-            
-            info_label = tk.Label(info_frame, text="图表说明", font=("Helvetica", 12, "bold"))
-            info_label.pack(pady=(10, 5))
-            
-            # 添加图表说明
-            info_content = """
-            此图表展示了样品的光谱数据可视化结果。
-            X轴代表波长或频率值，Y轴代表对应的光谱强度值。
-            蓝色点表示实际数据点，虚线表示趋势线。
-            通过观察光谱曲线的特征峰和谷，可以辅助判断样品的纯度和成分。
-            """
-            info_text = tk.Label(
-                info_frame, 
-                text=info_content.strip(), 
-                font=("Helvetica", 11),
-                justify="left",
-                padx=20
-            )
-            info_text.pack(pady=(0, 10))
+            # 删除图表说明信息面板
             
             # 添加底部按钮面板
             button_frame = tk.Frame(main_frame)

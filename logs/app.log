@@ -2161,3 +2161,87 @@ RuntimeError: a Tensor with 3 elements cannot be converted to Scalar
 2025-04-23 01:58:57,078 - baijiu_app - INFO - 用户 admin 已退出登录
 2025-04-23 01:58:58,765 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
 2025-04-23 01:58:58,765 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-23 02:16:58,551 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-23 02:16:58,564 - db_manager - INFO - 数据库连接成功
+2025-04-23 02:16:58,569 - db_manager - INFO - 数据库连接已关闭
+2025-04-23 02:16:58,726 - db_manager - INFO - 数据库连接成功
+2025-04-23 02:16:58,726 - baijiu_app - INFO - 数据库连接成功
+2025-04-23 02:16:59,892 - db_manager - INFO - 用户验证成功: admin
+2025-04-23 02:16:59,893 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-23 02:17:00,484 - baijiu_app - INFO - 已加载 63 条历史记录
+2025-04-23 02:17:01,607 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-23 02:17:01,637 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-23 02:17:01,637 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-23 02:17:11,389 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-23 02:17:16,797 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-23 02:17:17,722 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-23 02:17:19,028 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250423021717.png
+2025-04-23 02:17:19,028 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-23 02:17:21,046 - baijiu_app - INFO - 开始对光谱文件数据进行单一样品预测...
+2025-04-23 02:17:21,046 - baijiu_app - INFO - 检测到第一行为标题行，将跳过
+2025-04-23 02:17:21,047 - baijiu_app - INFO - 检测到第一列为标题列，将跳过
+2025-04-23 02:17:21,048 - baijiu_app - INFO - 将光谱数据转换为数值类型
+2025-04-23 02:17:21,062 - baijiu_app - INFO - 使用光谱数据的第一行作为样本，数据形状: (1, 501)
+2025-04-23 02:17:21,063 - baijiu_app - INFO - 重塑后的样本形状: (1, 501), PCA模型期望特征数: 501
+2025-04-23 02:17:21,064 - baijiu_app - INFO - 已完成样本数据的缺失值填充
+2025-04-23 02:17:21,064 - baijiu_app - INFO - 已完成样本数据的MSC标准化
+2025-04-23 02:17:21,064 - baijiu_app - INFO - 已完成样本数据的PCA降维，形状变为: (1, 5)
+2025-04-23 02:17:21,064 - baijiu_app - INFO - 已完成样本数据的标准化
+2025-04-23 02:17:21,076 - baijiu_app - INFO - 单一样本预测结果: 0.0471
+2025-04-23 02:17:21,083 - db_manager - INFO - 添加分析记录成功: ID: 64, 用户ID: 1
+2025-04-23 02:17:21,276 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-23 02:17:23,211 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-23 02:18:35,454 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-23 02:19:38,106 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-23 02:19:46,653 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-23 02:21:20,891 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-23 02:21:55,831 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-23 02:25:28,807 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-23 02:25:28,814 - db_manager - INFO - 数据库连接成功
+2025-04-23 02:25:28,815 - db_manager - INFO - 数据库连接已关闭
+2025-04-23 02:25:28,952 - db_manager - INFO - 数据库连接成功
+2025-04-23 02:25:28,952 - baijiu_app - INFO - 数据库连接成功
+2025-04-23 02:25:29,900 - db_manager - INFO - 用户验证成功: admin
+2025-04-23 02:25:29,900 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-23 02:25:30,542 - baijiu_app - INFO - 已加载 64 条历史记录
+2025-04-23 02:25:31,641 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-23 02:25:31,671 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-23 02:25:31,671 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-23 02:25:40,905 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-23 02:25:46,218 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-23 02:25:47,250 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-23 02:25:48,492 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250423022547.png
+2025-04-23 02:25:48,492 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-23 02:25:50,461 - baijiu_app - INFO - 开始对光谱文件数据进行单一样品预测...
+2025-04-23 02:25:50,461 - baijiu_app - INFO - 检测到第一行为标题行，将跳过
+2025-04-23 02:25:50,461 - baijiu_app - INFO - 检测到第一列为标题列，将跳过
+2025-04-23 02:25:50,462 - baijiu_app - INFO - 将光谱数据转换为数值类型
+2025-04-23 02:25:50,475 - baijiu_app - INFO - 使用光谱数据的第一行作为样本，数据形状: (1, 501)
+2025-04-23 02:25:50,475 - baijiu_app - INFO - 重塑后的样本形状: (1, 501), PCA模型期望特征数: 501
+2025-04-23 02:25:50,476 - baijiu_app - INFO - 已完成样本数据的缺失值填充
+2025-04-23 02:25:50,476 - baijiu_app - INFO - 已完成样本数据的MSC标准化
+2025-04-23 02:25:50,476 - baijiu_app - INFO - 已完成样本数据的PCA降维，形状变为: (1, 5)
+2025-04-23 02:25:50,477 - baijiu_app - INFO - 已完成样本数据的标准化
+2025-04-23 02:25:50,488 - baijiu_app - INFO - 单一样本预测结果: 0.0471
+2025-04-23 02:25:50,503 - db_manager - INFO - 添加分析记录成功: ID: 65, 用户ID: 1
+2025-04-23 02:25:50,558 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-23 02:25:52,546 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-23 02:26:00,394 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-23 02:26:19,963 - baijiu_app - INFO - 已加载 65 条历史记录
+2025-04-23 02:29:42,202 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-23 02:29:42,217 - db_manager - INFO - 数据库连接成功
+2025-04-23 02:29:42,218 - db_manager - INFO - 数据库连接已关闭
+2025-04-23 02:29:42,358 - db_manager - INFO - 数据库连接成功
+2025-04-23 02:29:42,358 - baijiu_app - INFO - 数据库连接成功
+2025-04-23 02:29:43,307 - db_manager - INFO - 用户验证成功: admin
+2025-04-23 02:29:43,307 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-23 02:29:43,988 - baijiu_app - INFO - 已加载 65 条历史记录
+2025-04-23 02:29:45,073 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-23 02:29:45,104 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-23 02:29:45,104 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-23 02:29:47,346 - baijiu_app - INFO - 已加载 65 条历史记录
+2025-04-23 02:29:52,347 - db_manager - INFO - 成功删除用户 1 的 50 条最近历史记录
+2025-04-23 02:29:53,251 - baijiu_app - INFO - 已加载 15 条历史记录
+2025-04-23 02:29:53,803 - baijiu_app - INFO - 用户 1 删除了 50 条最近的历史记录
+2025-04-23 02:29:59,781 - db_manager - INFO - 成功删除用户 1 的 15 条最近历史记录
+2025-04-23 02:30:00,021 - baijiu_app - INFO - 用户 1 删除了 15 条最近的历史记录

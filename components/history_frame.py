@@ -43,6 +43,17 @@ class HistoryFrame(ctk.CTkFrame):
         )
         self.refresh_button.pack(side="left", padx=10, pady=10)
         
+        # 删除最近50条记录按钮
+        self.delete_recent_button = ctk.CTkButton(
+            self.action_frame, 
+            text="删除最近50条记录", 
+            width=150,
+            fg_color="#E74C3C",  # 使用红色警示用户这是删除操作
+            hover_color="#C0392B",
+            command=self.delete_recent_history
+        )
+        self.delete_recent_button.pack(side="left", padx=10, pady=10)
+        
         # 导出按钮
         self.export_button = ctk.CTkButton(
             self.action_frame, 
@@ -252,6 +263,97 @@ class HistoryFrame(ctk.CTkFrame):
         except Exception as e:
             logger.error(f"导出历史记录时出错: {str(e)}")
             self.show_error("导出错误", f"无法导出历史记录: {str(e)}")
+    
+    def delete_recent_history(self):
+        """删除最近50条历史记录"""
+        try:
+            # 首先检查是否有记录
+            if not self.history_records:
+                self.show_info("删除提示", "没有历史记录可删除")
+                return
+                
+            # 显示确认对话框
+            self.show_confirmation(
+                "确认删除", 
+                "您确定要删除最近50条历史记录吗？\n此操作不可恢复！", 
+                self._perform_delete
+            )
+                
+        except Exception as e:
+            logger.error(f"删除历史记录时出错: {str(e)}")
+            self.show_error("删除错误", f"无法删除历史记录: {str(e)}")
+    
+    def _perform_delete(self):
+        """执行删除操作"""
+        try:
+            # 获取要删除的记录数量（最多50条）
+            count_to_delete = min(50, len(self.history_records))
+            
+            # 调用数据库管理器删除记录
+            deleted_count = self.db_manager.delete_recent_history(self.user_id, count_to_delete)
+            
+            # 刷新历史记录
+            self.refresh_history()
+            
+            # 显示成功消息
+            self.show_info("删除成功", f"已成功删除 {deleted_count} 条最近的历史记录。")
+            
+            logger.info(f"用户 {self.user_id} 删除了 {deleted_count} 条最近的历史记录")
+            
+        except Exception as e:
+            logger.error(f"执行删除历史记录时出错: {str(e)}")
+            self.show_error("删除错误", f"执行删除操作时出错: {str(e)}")
+    
+    def show_confirmation(self, title, message, confirm_callback):
+        """显示确认对话框"""
+        confirm_window = ctk.CTkToplevel(self)
+        confirm_window.title(title)
+        confirm_window.geometry("350x200")
+        confirm_window.resizable(False, False)
+        confirm_window.transient(self)
+        confirm_window.grab_set()
+        
+        # 警告图标和消息
+        warning_label = ctk.CTkLabel(
+            confirm_window, 
+            text="警告", 
+            font=ctk.CTkFont(size=18, weight="bold"),
+            text_color="#E74C3C"  # 红色文字
+        )
+        warning_label.pack(pady=(20, 10))
+        
+        message_label = ctk.CTkLabel(
+            confirm_window, 
+            text=message,
+            wraplength=300
+        )
+        message_label.pack(pady=10, padx=20)
+        
+        # 按钮框架
+        button_frame = ctk.CTkFrame(confirm_window, fg_color="transparent")
+        button_frame.pack(pady=(10, 20))
+        
+        # 取消按钮
+        cancel_button = ctk.CTkButton(
+            button_frame, 
+            text="取消", 
+            width=100,
+            fg_color="#95a5a6",  # 灰色按钮
+            hover_color="#7f8c8d",
+            command=confirm_window.destroy
+        )
+        cancel_button.pack(side="left", padx=10)
+        
+        # 确认按钮
+        confirm_button = ctk.CTkButton(
+            button_frame, 
+            text="确认删除", 
+            width=100,
+            fg_color="#E74C3C",  # 红色按钮
+            hover_color="#C0392B",
+            command=lambda: [confirm_window.destroy(), confirm_callback()]
+        )
+        confirm_button.pack(side="left", padx=10)
     
     def show_error(self, title, message):
         """显示错误对话框"""
