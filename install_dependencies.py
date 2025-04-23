@@ -36,11 +36,7 @@ def install_package(package):
         return False
 
 def install_requirements():
-    """从requirements.txt安装所有依赖"""
-    if not os.path.exists("requirements.txt"):
-        print("错误: 未找到requirements.txt文件")
-        return False
-    
+    """安装所有依赖"""
     print("开始安装依赖...")
     
     # 首先升级pip

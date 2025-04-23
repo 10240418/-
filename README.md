@@ -223,33 +223,53 @@ baijiu_analysis_system/
 
 ### 方法一：从源码运行
 
-1. 克隆仓库并进入项目目录：
+1. 确保您已安装Python 3.7或更高版本
+
+2. 下载或克隆项目代码：
    ```bash
    git clone https://github.com/username/baijiu-analysis-system.git
    cd baijiu-analysis-system
    ```
 
-2. 安装依赖：
+3. 安装依赖（推荐方式）：
    ```bash
-   pip install -r requirements.txt
+   python install_dependencies.py
+   ```
+   该脚本会自动安装所有必要的依赖库，并处理可能的错误。
+
+   或者手动安装依赖：
+   ```bash
+   pip install numpy pandas matplotlib scikit-learn torch customtkinter joblib openpyxl xlrd pillow
    ```
 
-3. 初始化数据库：
-   ```bash
-   python database/init_db.py
-   ```
 
-4. 启动应用：
+4. 检查数据库（可选）：
    ```bash
-   python baijiu_app.py
+   python inspect_database.py
+   ```
+   这将显示数据库的结构和内容，确认是否正确初始化。
+
+5. 启动应用：
+   ```bash
+   python start.py
    ```
 
 ### 方法二：使用可执行文件
 
 在Windows系统下：
-1. 下载最新的发布版本
+1. 下载最新的发布版本（.exe文件）
 2. 解压缩下载的文件
-3. 双击运行 `start_baijiu_app.bat` 或 `baijiu_app.exe`
+3. 双击运行 `baijiu_app.exe`
+4. 
+```
+.\start_app.bat
+```
+或
+```
+python start.py
+```
+
+**注意**：首次运行可能需要一些时间来加载模型和初始化数据库。
 
 ### 初始账户
 

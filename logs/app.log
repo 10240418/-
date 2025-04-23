@@ -2245,3 +2245,52 @@ RuntimeError: a Tensor with 3 elements cannot be converted to Scalar
 2025-04-23 02:29:53,803 - baijiu_app - INFO - 用户 1 删除了 50 条最近的历史记录
 2025-04-23 02:29:59,781 - db_manager - INFO - 成功删除用户 1 的 15 条最近历史记录
 2025-04-23 02:30:00,021 - baijiu_app - INFO - 用户 1 删除了 15 条最近的历史记录
+2025-04-23 02:31:08,049 - db_manager - INFO - 更新用户设置成功: 用户ID: 1
+2025-04-23 02:42:49,045 - baijiu_app - INFO - 用户选择了文件 '选择预测数据文件': C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-23 02:42:53,952 - baijiu_app - INFO - 用户选择了文件 '选择光谱数据文件 (样品数据)': C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-23 02:42:54,649 - baijiu_app - INFO - 加载光谱数据文件: C:/Users/Stitch/Desktop/样品数据1.xlsx
+2025-04-23 02:42:55,969 - baijiu_app - INFO - 光谱图已保存至: history_img\spectrum_20250423024254.png
+2025-04-23 02:42:55,969 - baijiu_app - INFO - 加载预测数据文件: C:/Users/Stitch/Desktop/酒精预测完整.xlsx
+2025-04-23 02:42:57,982 - baijiu_app - INFO - 开始对光谱文件数据进行单一样品预测...
+2025-04-23 02:42:57,983 - baijiu_app - INFO - 检测到第一行为标题行，将跳过
+2025-04-23 02:42:57,983 - baijiu_app - INFO - 检测到第一列为标题列，将跳过
+2025-04-23 02:42:57,984 - baijiu_app - INFO - 将光谱数据转换为数值类型
+2025-04-23 02:42:57,997 - baijiu_app - INFO - 使用光谱数据的第一行作为样本，数据形状: (1, 501)
+2025-04-23 02:42:57,998 - baijiu_app - INFO - 重塑后的样本形状: (1, 501), PCA模型期望特征数: 501
+2025-04-23 02:42:57,999 - baijiu_app - INFO - 已完成样本数据的缺失值填充
+2025-04-23 02:42:58,000 - baijiu_app - INFO - 已完成样本数据的MSC标准化
+2025-04-23 02:42:58,000 - baijiu_app - INFO - 已完成样本数据的PCA降维，形状变为: (1, 5)
+2025-04-23 02:42:58,000 - baijiu_app - INFO - 已完成样本数据的标准化
+2025-04-23 02:42:58,011 - baijiu_app - INFO - 单一样本预测结果: 0.0471
+2025-04-23 02:42:58,018 - db_manager - INFO - 添加分析记录成功: ID: 66, 用户ID: 1
+2025-04-23 02:42:58,077 - baijiu_app - INFO - 分析结果UI更新完成
+2025-04-23 02:43:00,165 - baijiu_app - INFO - 预测图表弹窗已显示
+2025-04-23 02:43:02,658 - baijiu_app - INFO - 光谱图表弹窗已显示
+2025-04-23 02:43:13,469 - baijiu_app - INFO - 用户选择了文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-23 02:43:14,426 - baijiu_app - INFO - 开始处理文件: C:/Users/Stitch/Desktop/MSC-PCA(三维).xlsx
+2025-04-23 02:43:14,451 - baijiu_app - INFO - 预处理数据...
+2025-04-23 02:43:14,491 - baijiu_app - INFO - 数据加载完成，特征形状: torch.Size([450, 3])
+2025-04-23 02:43:14,491 - baijiu_app - INFO - 加载分类模型...
+2025-04-23 02:43:14,491 - baijiu_app - WARNING - 未找到模型文件: D:\Work_2024\apple_test\-\models\baijiu_classifier.pth，创建新模型
+2025-04-23 02:43:14,510 - baijiu_app - INFO - 执行分类预测...
+2025-04-23 02:43:14,537 - baijiu_app - INFO - 分类完成: 分类结果: 掺工业酒精假酒 (置信度: 0.37)
+2025-04-23 02:43:14,538 - db_manager - INFO - 数据库连接成功
+2025-04-23 02:43:14,543 - db_manager - INFO - 添加分析记录成功: ID: 67, 用户ID: 1
+2025-04-23 02:43:14,543 - db_manager - INFO - 数据库连接已关闭
+2025-04-23 02:43:14,627 - baijiu_app - INFO - 分类结果UI更新完成
+2025-04-23 02:43:17,079 - baijiu_app - INFO - 已加载 2 条历史记录
+2025-04-23 02:43:21,283 - baijiu_app - INFO - 用户 admin 已退出登录
+2025-04-23 02:43:22,820 - baijiu_app - ERROR - 登录过程中出错: can't invoke "winfo" command: application has been destroyed
+2025-04-23 02:43:22,820 - baijiu_app - ERROR - 创建错误窗口失败: can't invoke "winfo" command: application has been destroyed
+2025-04-23 09:24:41,429 - baijiu_app - INFO - PyTorch is available, using neural network model for classification
+2025-04-23 09:24:41,437 - db_manager - INFO - 数据库连接成功
+2025-04-23 09:24:41,439 - db_manager - INFO - 数据库连接已关闭
+2025-04-23 09:24:41,621 - db_manager - INFO - 数据库连接成功
+2025-04-23 09:24:41,621 - baijiu_app - INFO - 数据库连接成功
+2025-04-23 09:24:42,843 - db_manager - INFO - 用户验证成功: admin
+2025-04-23 09:24:42,843 - baijiu_app - INFO - 用户 admin 登录成功
+2025-04-23 09:24:43,241 - baijiu_app - INFO - 已加载 2 条历史记录
+2025-04-23 09:24:43,353 - db_manager - INFO - 成功获取除用户 1 外的所有用户信息
+2025-04-23 09:24:43,387 - baijiu_app - INFO - 已加载 4 个用户记录
+2025-04-23 09:24:43,387 - baijiu_app - INFO - 主应用程序窗口已为用户 admin 创建
+2025-04-23 09:24:46,089 - baijiu_app - INFO - 已加载 2 条历史记录
